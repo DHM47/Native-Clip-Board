@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Native Clip Board</string>
+    <string name="dialog_color_picker">カラーピッカー</string>
+    <string name="press_color_to_apply">色をタップすると適用します。</string>
+    <string name="clear_all">全て消去</string>
+    <string name="bgcolor">背景色</string>
+    <string name="clpcolor">クリップ色</string>
+    <string name="clpcolor_summary">文字の背景です</string>
+    <string name="txtcolor">文字色</string>
+    <string name="history_summary">履歴に残すアイテム数を選んでください</string>
+    <string name="history_title">履歴サイズ</string>
+    <string name="txtsize">文字サイズ</string>
+    <string name="notification_title">通知の表示</string>
+    <string name="notification_summary">空きメモリが少ない端末でこのオプションを無効にすると、サービスが動作しないことがあります</string>
+    <string name="test">テスト</string>
+    
+    <!-- Hard coded strings, names are original strings -->
+    <string name="copied">コピーしました</string>
+    <string name="clear_all_conf">全ての履歴を消去しますか?</string>
+    <string name="deleted">削除:</string>
+    <string name="undo">元に戻す</string>
+</resources>

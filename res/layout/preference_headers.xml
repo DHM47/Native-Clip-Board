@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/app_name" >
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="bgcolor"
+        android:title="@string/bgcolor"
+    	android:defaultValue="0xFFE6E6E6"    
+    	alphaSlider="true"/>
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="clpcolor"
+        android:title="@string/clpcolor"
+        android:summary="@string/clpcolor_summary"
+    	android:defaultValue="0xFFFFBB22"    
+    	alphaSlider="true" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="pincolor"
+        android:title="@string/pinnedcolor"
+        android:defaultValue="0xFFCF5300"    
+    	alphaSlider="true" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="txtcolor"
+        android:title="@string/txtcolor" 
+    	android:defaultValue="0xFF664B0E"    
+    	alphaSlider="true" />
+   <com.dhm47.nativeclipboard.WidgetNumberPicker
+                defaultValue="25"
+                maximum="50"
+                minimum="1"
+                android:key="history"
+                android:summary="@string/history_summary"
+                android:title="@string/history_title" />
+   <com.dhm47.nativeclipboard.WidgetNumberPicker
+                defaultValue="20"
+                maximum="40"
+                minimum="1"
+                android:key="txtsize"
+               	android:title="@string/txtsize" />
+   <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification"
+            android:title="@string/notification_title"
+            android:summary="@string/notification_summary"/>
+   <Preference
+            android:key="test"
+            android:title="@string/test" />
+</PreferenceScreen>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+            <!-- App -->
+        <string name="app_name">Native Clip Board</string>
+     
+       
+        <!-- Color Picker -->
+        <string name="dialog_color_picker">Выбор цвета</string>
+        <string name="press_color_to_apply">Нажмите на цвет чтобы применить</string>    
+       
+        <!-- Preferences -->
+        <string name="bgcolor">Цвет фона</string>
+        <string name="clpcolor">Цвет клипа</string>
+        <string name="clpcolor_summary">Фон текста</string>
+        <string name="txtcolor">Цвет текста</string>
+        <string name="history_summary">Задайте число элементов в предыстории</string>
+        <string name="history_title">Размер предыстории</string>
+        <string name="txtsize">Размер текста</string>
+        <string name="notification_title">Показать уведомление</string>
+        <string name="notification_summary">Может быть необходимо для предотвращения выгрузки (особенно на устройствах с малым размером оперативы)</string>
+        <string name="test">Проверка</string>
+       
+         <!-- Clip Board -->
+        <string name="clear_all">Очистить всё</string>
+        <string name="clear_all_conf">Удалить все клипы ?</string>
+       
+         <!-- Toast Messages -->
+        <string name="undo">Отменить</string>
+        <string name="deleted">Удалено :</string>
+        <string name="copied">Скопировано</string>
+    </resources>
+

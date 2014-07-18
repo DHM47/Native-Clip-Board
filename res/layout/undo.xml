@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="45dp"
+    android:background="@android:drawable/toast_frame"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    tools:context=".ClipBoard$1" >
+
+    <TextView
+        android:id="@+id/undotxt"
+        android:layout_width="wrap_content"
+        android:textColor="#FFFFFF"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:maxLength="25"
+        android:textSize="15dp"/>
+
+   <ImageView 
+       android:layout_width="1.0dip" 
+       android:layout_height="match_parent"  
+       android:layout_marginLeft="6dp" 
+       android:src="#ffaaaaaa" />
+        
+    <TextView
+        android:id="@+id/undobutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_revert"
+        android:gravity="center_vertical"
+        android:text="@string/undo"
+        android:textSize="17dp"
+        android:textColor="#FFFFFF" />
+
+    
+
+</LinearLayout>

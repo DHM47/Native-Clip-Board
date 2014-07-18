@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/clipboard"
+    android:orientation="vertical" >
+
+<GridView
+    android:id="@+id/grid_view1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="#FFE6E6E6"
+    android:columnWidth="145dp"
+    android:gravity="center"
+    android:horizontalSpacing="14dp"
+    android:verticalSpacing="14dp"
+    android:numColumns="auto_fit"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingBottom="7dp"
+    android:paddingTop="40dp"
+    android:stretchMode="columnWidth" >
+</GridView>
+
+<Button
+    android:id="@+id/clear"
+    android:layout_width="wrap_content"
+    android:layout_height="35dp"
+    android:textSize="17dp"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:padding="7dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginRight="3dp"
+    android:text="@string/clear_all" />
+
+<ImageView
+    android:id="@+id/close"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="2dp"
+    android:src="@drawable/ic_close_light" />
+
+</RelativeLayout>

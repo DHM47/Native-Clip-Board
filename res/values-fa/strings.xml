@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">انتخاب رنگ</string>
+    <string name="press_color_to_apply">برای تائید,رنگ را لمس کنید</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">رنگ زمینه</string>
+    <string name="clpcolor">رنگ برگه</string>
+    <string name="clpcolor_summary">زمینه متن</string>
+    <string name="txtcolor">رنگ متن</string>
+    <string name="history_summary">تعداد موارد قابل نگه داری در تاریخچه را تعیین کنید</string>
+    <string name="history_title">اندازه تاریخچه</string>
+    <string name="txtsize">سایز متن</string>
+    <string name="notification_title">نمایش در نوار اعلانات</string>
+    <string name="notification_summary">ممکن است این مقوله برای حفظ برنامه در حافظه موقت مخصوصا در موارد کمبود حافظه ضروری باشد</string>
+    <string name="test">تست</string>
+    
+     <!-- Clip Board -->
+    <string name="clear_all">حذف همه موارد</string>
+    <string name="clear_all_conf">حذف تمامی موارد؟</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">بازگردانی</string>
+    <string name="deleted">پاک شد:</string>
+    <string name="copied">کپی شد</string>
+</resources>

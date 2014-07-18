@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="select_action_menu_select_all">false</item>
+    <item type="id" name="select_action_menu_cut">false</item>
+    <item type="id" name="select_action_menu_copy">false</item>
+    <item type="id" name="select_action_menu_paste">false</item>
+    <item type="id" name="select_action_menu_share">false</item>
+    <item type="id" name="select_action_menu_web_search">false</item>
+    
+</resources>

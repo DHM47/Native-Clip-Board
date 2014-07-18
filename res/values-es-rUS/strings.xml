@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Selector de Color</string>
+    <string name="press_color_to_apply">Presione el Color para aplicarlo</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Color de Fondo</string>
+    <string name="clpcolor">Color del Sujetapapeles</string>
+    <string name="clpcolor_summary">Del fondo del texto</string>
+    <string name="txtcolor">Color del Texto</string>
+    <string name="history_summary">Escoje el limite de copias que se almacenarán en el historial</string>
+    <string name="history_title">Tamaño del Historial</string>
+    <string name="txtsize">Tamaño del Texto</string>
+    <string name="notification_title">Mostrar Notificación</string>
+    <string name="notification_summary">Esto tal vez sea necesario para que la aplicación siga funcionando (especialmente en equipos con poca memoria)</string>
+    <string name="test">Probar</string>
+    
+     <!-- Clip Board -->
+    <string name="clear_all">Eliminar Todos</string>
+    <string name="clear_all_conf">¿Desea eliminar todo lo almacenado en el sujetapapeles?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Deshacer</string>
+    <string name="deleted">Eliminado :</string>
+    <string name="copied">Copiado</string>
+</resources>

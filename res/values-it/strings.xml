@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Scelta Colore</string>
+    <string name="press_color_to_apply">Premi sul Colore per applicare</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Colore Sfondo</string>
+    <string name="clpcolor">Colore Appunti</string>
+    <string name="clpcolor_summary">Lo sfondo degli appunti</string>
+    <string name="pinnedcolor">Colore Appunti Bloccati</string>
+    <string name="txtcolor">Colore Testo</string>
+    <string name="history_summary">Scegli il numero degli elementi da mantenere nella cronologia</string>
+    <string name="history_title">Dimensione Cronologia</string>
+    <string name="txtsize">Dimensione Testo</string>
+    <string name="notification_title">Mostra Notifica</string>
+    <string name="notification_summary">Necessaria a mantenere il servizio attivo (specialmente nei dispositivi con poca RAM)</string>
+    <string name="test">Testa</string>
+    
+     <!-- Clip Board -->
+    <string name="clear_all">Elimina Tutto</string>
+    <string name="clear_all_conf">Eliminare tutti gli appunti?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Annulla</string>
+    <string name="deleted">Rimosso: </string>
+    <string name="copied">Copiato</string>
+</resources>

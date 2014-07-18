@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  	<!-- App -->
+  	<string name="app_name">Native Clip Board</string>
+  
+  
+ 	<!-- Color Picker -->
+  	<string name="dialog_color_picker">أداة اختيار الألوان</string>
+  	<string name="press_color_to_apply">اضغط على اللون لاختياره</string>
+  	
+  	<!-- Preferences -->
+  	<string name="bgcolor">لون الخلفية</string>
+  	<string name="clpcolor">لون القصاصة</string>
+  	<string name="clpcolor_summary">خلفية النص</string>
+  	<string name="pinnedcolor">لون القصاصه المحفوظه</string>
+  	<string name="txtcolor">لون الخط</string>
+  	<string name="history_summary">اختر عدد القصاصات ( النصوص التي يتم نسخها ) التي تريد ابقاءها في السجل .</string>
+  	<string name="history_title">حجم السجل</string>
+  	<string name="txtsize">حجم الخط</string>
+  	<string name="notification_title">إظهار تنبيه للبرنامج</string>
+  	<string name="notification_summary">قد تحتاج هذا لابقاء البرنامج قيد التشغيل ( خاصة في الأجهزة ذات الRAM المنخفض )</string>
+  	<string name="test">تجربة اختياراتك</string>
+  	
+  	<!-- Clip Board -->
+  	<string name="clear_all">مسح الكل</string>
+  	<string name="clear_all_conf">هل تريد مسح جميع القصاصات ؟</string>
+  	
+  	<!-- Toast Messages -->
+  	<string name="undo">تراجع</string>
+  	<string name="deleted">تم مسح :</string>
+  	<string name="copied">تم النسخ</string>
+</resources>

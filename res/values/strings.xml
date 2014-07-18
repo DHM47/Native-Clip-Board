@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on Color to apply</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Background Color</string>
+    <string name="clpcolor">Clip Color</string>
+    <string name="clpcolor_summary">The text background</string>
+    <string name="pinnedcolor">Pinned Clip Color</string>
+    <string name="txtcolor">Text Color</string>
+    <string name="history_summary">Choose the number of items to keep in the history</string>
+    <string name="history_title">History Size</string>
+    <string name="txtsize">Text Size</string>
+    <string name="notification_title">Show Notification</string>
+    <string name="notification_summary">This might be needed to keep the service running (especially on low RAM devices)</string>
+    <string name="test">Test</string>
+    
+     <!-- Clip Board -->
+    <string name="clear_all">Clear All</string>
+    <string name="clear_all_conf">Clear All clips ?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Undo</string>
+    <string name="deleted">Deleted :</string>
+    <string name="copied">Copied</string>
+</resources>
