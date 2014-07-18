@@ -12,6 +12,7 @@
     <string name="bgcolor">رنگ زمینه</string>
     <string name="clpcolor">رنگ برگه</string>
     <string name="clpcolor_summary">زمینه متن</string>
+    <string name="pinnedcolor">رنگ برگه سنجاق شده</string>
     <string name="txtcolor">رنگ متن</string>
     <string name="history_summary">تعداد موارد قابل نگه داری در تاریخچه را تعیین کنید</string>
     <string name="history_title">اندازه تاریخچه</string>

@@ -18,7 +18,8 @@ import com.dhm47.nativeclipboard.R;
 
 
 
-import com.dhm47.nativeclipboard.SwipeDismissGridViewTouchListener.DismissCallbacks;
+
+
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -29,6 +30,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.CountDownTimer;
@@ -42,7 +44,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -62,8 +63,9 @@ public class ClipBoard extends Service{
 	private ImageView close;
 	private ClipAdapter clipAdapter;
 	private SharedPreferences setting ;
-	private static String backupS;
-	private static int backupP;
+	public static String backupS;
+	public static int backupP;
+	private int size;
 	private View Undo;
 	public static  List<String> pinned=new ArrayList<String>();
 	private boolean clearall=false;
@@ -96,6 +98,7 @@ public class ClipBoard extends Service{
 			FileInputStream fisc = ctx.openFileInput("Clips");
 			ObjectInputStream isc = new ObjectInputStream(fisc);
 			ClipAdapter.mClips =  (List<String>) isc.readObject();
+			size=ClipAdapter.mClips.size();
 			isc.close();
 			FileInputStream fisp = ctx.openFileInput("Pinned");
 			ObjectInputStream isp = new ObjectInputStream(fisp);
@@ -115,7 +118,7 @@ public class ClipBoard extends Service{
 				params.gravity = Gravity.BOTTOM | Gravity.CENTER;
 				params.windowAnimations=android.R.style.Animation_InputMethod;
 				
-		final DismissCallbacks mCallbacks=new SwipeDismissGridViewTouchListener.DismissCallbacks() {
+		/*final DismissCallbacks mCallbacks=new SwipeDismissGridViewTouchListener.DismissCallbacks() {
                     @Override
                     public boolean canDismiss(int position) {
                         if(pinned.contains(ClipAdapter.mClips.get(position)))return false;
@@ -169,7 +172,7 @@ public class ClipBoard extends Service{
         				clearall=false;
         		      }
                     }
-                };
+                };*/
         		
 		mainLayout=(RelativeLayout) inflater.inflate(R.layout.clipboard,null);
 		mainLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -185,7 +188,6 @@ public class ClipBoard extends Service{
 			});
 		gridView =(GridView) mainLayout.findViewById(R.id.grid_view1);
 		gridView.setAdapter(clipAdapter);
-		final SwipeDismissGridViewTouchListener touchListener =new SwipeDismissGridViewTouchListener(gridView,  mCallbacks);
 		clear= (Button) mainLayout.findViewById(R.id.clear);
 		clear.setOnClickListener(new OnClickListener() {
 			
@@ -199,20 +201,12 @@ public class ClipBoard extends Service{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						clearall=true;
-						int[] dismissPositions = new int[ClipAdapter.mClips.size()-pinned.size()];
-						int count=0;
-						for(int x=ClipAdapter.mClips.size()-1;x>=0;x--){
-							if(pinned.contains(ClipAdapter.mClips.get(x)));
-							else{
-								//touchListener.performDismiss(gridView.getChildAt(x), x);
-								dismissPositions[count]=x;
-								count++;
-							}
-						}
+						
 						//touchListener.performDismiss(dismissView, dismissPosition);
-						mCallbacks.onDismiss(gridView, dismissPositions);
-						//ClipAdapter.mClips.clear();
-						//clipAdapter.notifyDataSetChanged();
+						//mCallbacks.onDismiss(gridView, dismissPositions);
+						ClipAdapter.mClips.clear();
+						ClipAdapter.mClips.addAll(pinned);
+						clipAdapter.notifyDataSetChanged();
 						//windowManager.updateViewLayout(mainLayout, params);
 						
 					}
@@ -239,7 +233,9 @@ public class ClipBoard extends Service{
 			public void onClick(View v) {
 				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
 				ClipBoard.this.stopSelf();
-				
+				//for(int x=gridView.getChildCount()-1;x>0;x--){
+				//gridView.getChildAt(x).animate().x(gridView.getChildAt(x-1).getX()).y(gridView.getChildAt(x-1).getY()).setDuration(3000).start();//}
+
 			}
 		});
 		
@@ -247,7 +243,7 @@ public class ClipBoard extends Service{
 		
 		if(isColorDark(setting.getInt("bgcolor",0x80E6E6E6)))close.setImageResource(R.drawable.ic_close_dark);
 		
-		gridView.setOnItemClickListener(new OnItemClickListener() {
+		/*gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
@@ -255,7 +251,7 @@ public class ClipBoard extends Service{
 				ClipBoard.this.stopSelf();
 				
 			}
-		});
+		});*/
 		gridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -353,13 +349,57 @@ public class ClipBoard extends Service{
 			}
 		});
 		
-        gridView.setOnTouchListener(touchListener);
+        //gridView.setOnTouchListener(touchListener);
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.
-        gridView.setOnScrollListener(touchListener.makeScrollListener());
+        //gridView.setOnScrollListener(touchListener.makeScrollListener());
 		windowManager.addView(mainLayout, params);
 		
-		
+		clipAdapter.registerDataSetObserver(new DataSetObserver() {
+			public void onChanged() {
+				try {windowManager.removeView(Undo);} catch (Exception e) {}
+				if(ClipAdapter.mClips.size()<size && !clearall){//ClipAdapter.mClips.size()<size &&  && (ClipAdapter.mClips.size()!=0 || size==1)
+					Undo = inflater.inflate(R.layout.undo,null);
+					final CountDownTimer timeout=new CountDownTimer(3000, 3000) {
+			        	public void onTick(long millisUntilFinished) {}
+			            public void onFinish() {
+			            	try {windowManager.removeView(Undo);} catch (Exception e) {}
+			            	size=ClipAdapter.mClips.size();
+			            }
+			        };
+			         
+				WindowManager.LayoutParams undoparams = new WindowManager.LayoutParams(
+						WindowManager.LayoutParams.WRAP_CONTENT,
+						WindowManager.LayoutParams.WRAP_CONTENT,
+						WindowManager.LayoutParams.TYPE_PHONE,
+						WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+						PixelFormat.TRANSLUCENT);
+						undoparams.gravity = Gravity.BOTTOM | Gravity.CENTER;
+						undoparams.y=Util.px(60, ctx);
+						undoparams.windowAnimations=android.R.style.Animation_Toast;
+				
+				TextView button =(TextView) Undo.findViewById(R.id.undobutton);
+				button.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						ClipAdapter.mClips.add(backupP, backupS);
+						timeout.cancel();
+						windowManager.removeView(Undo);
+						size=ClipAdapter.mClips.size();
+						clipAdapter.notifyDataSetChanged();
+						
+					}
+				});
+				TextView text =(TextView) Undo.findViewById(R.id.undotxt);
+				text.setText(getResources().getString(R.string.deleted)+backupS+" ");
+				windowManager.addView(Undo, undoparams);
+				timeout.start();
+				clearall=false;
+		      }
+				
+		    }
+		});
 		return START_STICKY;
 	}
 	@Override
@@ -389,4 +429,12 @@ public class ClipBoard extends Service{
 	        return true; // It's a dark color
 	    }
 	}
+	
 }
+
+
+
+//Animation
+//Remove
+//for(int x=gridView.getChildCount()-1;x>0;x--){
+//gridView.getChildAt(x).animate().x(gridView.getChildAt(x-1).getX()).y(gridView.getChildAt(x-1).getY()).setDuration(3000).start();}
