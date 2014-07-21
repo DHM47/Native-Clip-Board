@@ -13,6 +13,7 @@ public class BootReceiver extends BroadcastReceiver{
 
 	@Override
 	public void onReceive(Context ctx, Intent arg1) {
+		//TODO hook this to see if enabled
 		ctx.startService(new Intent(ctx, ClipMonitor.class));
 		((ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Text", ""));
 		return;

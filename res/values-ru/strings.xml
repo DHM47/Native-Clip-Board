@@ -26,7 +26,7 @@
        
          <!-- Toast Messages -->
         <string name="undo">Отменить</string>
-        <string name="deleted">Удалено :</string>
+        <string name="deleted">Удалено: </string>
         <string name="copied">Скопировано</string>
     </resources>
 

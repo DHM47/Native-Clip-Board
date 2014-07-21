@@ -26,6 +26,6 @@
     
      <!-- Toast Messages -->
     <string name="undo">Deshacer</string>
-    <string name="deleted">Eliminado :</string>
+    <string name="deleted">Eliminado: </string>
     <string name="copied">Copiado</string>
 </resources>

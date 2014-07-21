@@ -17,6 +17,7 @@
     <string name="history_summary">Choose the number of items to keep in the history</string>
     <string name="history_title">History Size</string>
     <string name="txtsize">Text Size</string>
+    <string name="uisize">ClipBoard Size</string>
     <string name="notification_title">Show Notification</string>
     <string name="notification_summary">This might be needed to keep the service running (especially on low RAM devices)</string>
     <string name="test">Test</string>
@@ -27,6 +28,6 @@
     
      <!-- Toast Messages -->
     <string name="undo">Undo</string>
-    <string name="deleted">Deleted :</string>
+    <string name="deleted">Deleted: </string>
     <string name="copied">Copied</string>
 </resources>

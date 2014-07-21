@@ -27,6 +27,6 @@
   	
   	<!-- Toast Messages -->
   	<string name="undo">تراجع</string>
-  	<string name="deleted">تم مسح :</string>
+  	<string name="deleted">تم مسح: </string>
   	<string name="copied">تم النسخ</string>
 </resources>

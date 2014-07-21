@@ -35,6 +35,12 @@
                 minimum="1"
                 android:key="txtsize"
                	android:title="@string/txtsize" />
+   <com.dhm47.nativeclipboard.WidgetNumberPicker
+                defaultValue="280"
+                maximum="600"
+                minimum="100"
+                android:key="windowsize"
+               	android:title="@string/uisize" />
    <CheckBoxPreference
             android:defaultValue="true"
             android:key="notification"

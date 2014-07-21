@@ -18,6 +18,6 @@
     <!-- Hard coded strings, names are original strings -->
     <string name="copied">コピーしました</string>
     <string name="clear_all_conf">全ての履歴を消去しますか?</string>
-    <string name="deleted">削除:</string>
+    <string name="deleted">削除: </string>
     <string name="undo">元に戻す</string>
 </resources>
