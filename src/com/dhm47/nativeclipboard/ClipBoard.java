@@ -376,11 +376,13 @@ public class ClipBoard extends Service{
 					
 					@Override
 					public void onClick(View v) {
-						// TODO add addition animation here
+						// TODO add addition animation for last item
 						timeout.cancel();
 	        			windowManager.removeView(Undo);
 	        			
-	        				for(int x=(backupP-ClipBoard.gridView.getFirstVisiblePosition());x<ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x++){
+        				if(((gridView.getLastVisiblePosition())-gridView.getFirstVisiblePosition())>(backupP-gridView.getFirstVisiblePosition())){//Not last item or before last
+        					
+	        			for(int x=(backupP-ClipBoard.gridView.getFirstVisiblePosition());x<ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x++){
 	        					if(x<ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()-1){
 	        					ClipBoard.gridView.getChildAt(x).animate()
 	        					.x(ClipBoard.gridView.getChildAt(x+1).getX())
@@ -404,7 +406,11 @@ public class ClipBoard extends Service{
 	                                }).start();
 	        					}}
 	        			
-												
+        				}else{
+        					ClipAdapter.mClips.add(backupP, backupS);
+                        	clipAdapter.notifyDataSetChanged();
+                        	size=ClipAdapter.mClips.size();
+        				}
 					}
 				});
 				TextView text =(TextView) Undo.findViewById(R.id.undotxt);

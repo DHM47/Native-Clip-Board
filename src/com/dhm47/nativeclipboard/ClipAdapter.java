@@ -74,8 +74,7 @@ public class ClipAdapter extends BaseAdapter {
                     public void onDismiss(View view, Object token,float xx,float yy) {
                     	ClipBoard.backupS=ClipAdapter.mClips.get(position);
         				ClipBoard.backupP=position;
-						//this is not always called
-        				
+						        				
         				if(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()!=(position-ClipBoard.gridView.getFirstVisiblePosition())){
         				for(x=ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x>(position-ClipBoard.gridView.getFirstVisiblePosition());x--){
         					//String vis=" "+ClipBoard.gridView.getChildAt(x).getVisibility();
