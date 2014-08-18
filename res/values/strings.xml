@@ -21,7 +21,11 @@
     <string name="notification_title">Show Notification</string>
     <string name="notification_summary">This might be needed to keep the service running (especially on low RAM devices)</string>
     <string name="test">Test</string>
-    
+    <string name="blacklist">Blacklist</string>
+    <string name="blacklist_help">Choose which apps should not be copied from (ex. Password managers).</string>
+    <string name="add">Add</string>
+    <string name="unknown">Unknown</string>
+    <string name="help">Help</string>
      <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>

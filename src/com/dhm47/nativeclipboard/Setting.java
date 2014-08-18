@@ -16,7 +16,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 
 
 
-public class FirstTime extends PreferenceActivity {
+public class Setting extends PreferenceActivity {
     Context ctx;
 	
 	@SuppressWarnings("deprecation")
@@ -33,6 +33,15 @@ public class FirstTime extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				Intent intent = new Intent(ctx, ClipBoard.class);
 				ctx.startService(intent);
+				return true;
+			}
+		});
+		findPreference("blacklist").setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent intent = new Intent(ctx, Blacklist.class);
+				ctx.startActivity(intent);
 				return true;
 			}
 		});

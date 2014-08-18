@@ -3,12 +3,14 @@ package com.dhm47.nativeclipboard.xposed;
 
 import com.dhm47.nativeclipboard.mActionBar;
 
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-
+import android.os.Handler;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage,IXposedHookInitPackageResources {
 	public static Context ctx;
+	private Context CBMctx;
+	private String pkg;
 	static mActionBar actionBar;
 	//static String MODULE_PATH;
 	static Menu menu;
@@ -51,6 +55,27 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage,I
 				if(isEditText){
 				actionBar = new mActionBar(textView,ctx);
 				actionBar.add();}
+			}
+		});
+		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
+			@Override
+            protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
+				CBMctx=(Context) param.args[0];
+				//Log.d("NativeClipBoard", "got context");
+				pkg=CBMctx.getPackageName();
+				//Log.d("NativeClipBoard", pkg);
+			}
+		});
+		XposedHelpers.findAndHookMethod(ClipboardManager.class, "setPrimaryClip", ClipData.class, new XC_MethodHook(){
+			@Override
+            protected void beforeHookedMethod(final MethodHookParam param) throws Throwable {
+				ClipData clip=(ClipData) param.args[0];
+				Log.d("NativeClipBoard", pkg+" copied"+clip.getItemAt(0).coerceToText(CBMctx));
+				Intent intent = new Intent();
+				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
+				intent.putExtra("Package", pkg);
+				intent.putExtra("Clip",clip.getItemAt(0).coerceToText(CBMctx));
+				ctx.sendBroadcast(intent);
 			}
 		});
 		

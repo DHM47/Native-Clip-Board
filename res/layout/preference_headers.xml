@@ -41,11 +41,9 @@
                 minimum="100"
                 android:key="windowsize"
                	android:title="@string/uisize" />
-   <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="notification"
-            android:title="@string/notification_title"
-            android:summary="@string/notification_summary"/>
+   <Preference
+            android:key="blacklist"
+            android:title="@string/blacklist" />
    <Preference
             android:key="test"
             android:title="@string/test" />

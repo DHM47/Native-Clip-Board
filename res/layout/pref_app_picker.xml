@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+ 	   	<EditText
+ 	   	    android:id="@+id/search"
+ 	   	    android:layout_width="match_parent"
+ 	   	    android:layout_height="wrap_content"
+ 	   	    android:layout_centerInParent="false"
+ 	   	    android:layout_centerVertical="true"
+ 	   	    android:layout_toLeftOf="@+id/searchButton"
+ 	   	    android:ems="10"
+ 	   	    android:hint="@android:string/search_go"
+ 	   	    android:inputType="textNoSuggestions"
+ 	   	    android:minLines="1" >
+
+        	<requestFocus />
+    	</EditText>
+
+ 	   	<Button
+ 	   	    android:id="@+id/searchButton"
+ 	   	    android:layout_width="wrap_content"
+ 	   	    android:layout_height="wrap_content"
+ 	   	    android:layout_alignParentRight="true"
+ 	   	    android:layout_alignParentTop="true"
+ 	   	    android:layout_centerHorizontal="false"
+ 	   	    android:layout_centerInParent="false"
+ 	   	    android:layout_centerVertical="true"
+ 	   	    android:text="@android:string/search_go" />
+ 	   	
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:fastScrollEnabled="true"
+            android:requiresFadingEdge="vertical"
+            android:textFilterEnabled="true" >
+
+        </ListView>
+
+    </RelativeLayout>
+
+</LinearLayout>
