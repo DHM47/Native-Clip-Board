@@ -47,4 +47,7 @@
    <Preference
             android:key="test"
             android:title="@string/test" />
+   <Preference
+            android:key="xda"
+            android:title="@string/xda" />
 </PreferenceScreen>

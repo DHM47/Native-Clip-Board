@@ -451,10 +451,7 @@ public class ClipBoard extends Service{
 	        return true; // It's a dark color
 	    }
 	}
-	public static void animatedel (int position){
 		
-	}
-	
 }
 
 

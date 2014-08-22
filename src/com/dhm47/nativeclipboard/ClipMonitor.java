@@ -15,7 +15,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 public class ClipMonitor extends BroadcastReceiver{
 
@@ -70,11 +69,11 @@ public class ClipMonitor extends BroadcastReceiver{
 			for(int i = 0; i < size; i++){
 				String pkg = prefs.getString("items" + "_" + i, "");
 				if(pkg.equals(currentPkg)){
-					Toast.makeText(context, "Black listed", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(context, "Black listed", Toast.LENGTH_SHORT).show();
 					return true;}
 			}
 		}
-		Toast.makeText(context, "Not Black listed", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(context, "Not Black listed", Toast.LENGTH_SHORT).show();
 		return false;
 	}
 }
