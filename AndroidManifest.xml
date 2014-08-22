@@ -1,0 +1,82 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dhm47.nativeclipboard"
+    android:versionCode="26"
+    android:versionName="2.6.1" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="19" />
+	
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" 
+        android:supportsRtl="true">
+        
+        <activity
+            android:name="com.dhm47.nativeclipboard.Setting"
+            android:label="@string/app_name"
+            android:process=":setting"
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.dhm47.nativeclipboard.Blacklist"
+            android:label="@string/blacklist"
+            android:process=":setting">
+        </activity>
+        
+        <service 
+            android:name="com.dhm47.nativeclipboard.ClipBoard"
+            android:enabled="true"
+            android:process=":clipboard"/>
+        
+        <receiver 
+        	android:name="com.dhm47.nativeclipboard.BroadCast"
+        	android:enabled="true"
+        	android:exported="true">
+        	<intent-filter>
+        		<action android:name="DHM47.Xposed.ClipBoard">
+        		</action>
+        	</intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.dhm47.nativeclipboard.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver 
+        	android:name="com.dhm47.nativeclipboard.ClipMonitor"
+        	android:enabled="true"
+        	android:exported="true">
+        	<intent-filter>
+        		<action android:name="DHM47.Xposed.ClipBoardMonitor">
+        		</action>
+        	</intent-filter>
+        </receiver>
+        
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="30+" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Adds system wide clip manager" />
+        
+    </application>
+
+</manifest>
