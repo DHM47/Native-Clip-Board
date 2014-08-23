@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.text.Selection;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,14 +29,14 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 	//public static Context ctx;
-	private Context CBMctx;
-	private String pkg;
+	private static Context CBMctx;
+	private static String pkg;
 	
-	private Context Ectx;
-	private TextView Etextview;
+	private static Context Ectx;
+	private static TextView Etextview;
 	
-	private Context CSctx;
-	private Context CPctx;
+	private static Context CSctx;
+	private static Context CPctx;
 	//static mActionBar actionBar;
 	//static String MODULE_PATH;
 	static Menu menu;
@@ -52,20 +53,20 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 			@Override
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
 				CBMctx=(Context) param.args[0];
-				//Log.d("NativeClipBoard", "got context");
+				Log.d("NativeClipBoard", "got context");
 				pkg=CBMctx.getPackageName();
-				//Log.d("NativeClipBoard", pkg);
+				Log.d("NativeClipBoard", "got context from "+pkg);
 			}
 		});
 		XposedHelpers.findAndHookMethod(ClipboardManager.class, "setPrimaryClip", ClipData.class, new XC_MethodHook(){
 			@Override
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
 				ClipData clip=(ClipData) param.args[0];
-				//Log.d("NativeClipBoard", pkg+" copied"+clip.getItemAt(0).coerceToText(CBMctx));
+				Log.d("NativeClipBoard", pkg+" copied");
 				Intent intent = new Intent();
 				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
 				intent.putExtra("Package", pkg);
-				intent.putExtra("Clip",clip.getItemAt(0).coerceToText(CBMctx));
+				intent.putExtra("Clip",clip.getItemAt(0).coerceToText(CBMctx).toString());
 				CBMctx.sendBroadcast(intent);
 			}
 		});

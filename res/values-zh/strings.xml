@@ -1,0 +1,37 @@
+<resources>
+<!-- App -->
+    <string name="app_name">原生剪贴板</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">取色器</string>
+    <string name="press_color_to_apply">点击任意颜色来应用</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">背景色</string>
+    <string name="clpcolor">便签色</string>
+    <string name="clpcolor_summary">文字背景色</string>
+    <string name="pinnedcolor">置顶便签色</string>
+    <string name="txtcolor">文本颜色</string>
+    <string name="history_summary">选择保留在历史中的项目数</string>
+    <string name="history_title">历史数量</string>
+    <string name="txtsize">文本大小</string>
+    <string name="uisize">剪贴板大小</string>
+    <string name="notification_title">显示通知</string>
+    <string name="notification_summary">该选项有助于使服务保持运行（尤其在低内存机型上）</string>
+    <string name="test">测试</string>
+    <string name="blacklist">黑名单</string>
+    <string name="blacklist_help">选择不能从中复制的程序（例如密码管理器）</string>
+    <string name="add">添加</string>
+    <string name="unknown">未知</string>
+    <string name="help">帮助</string>
+    <string name="xda">XDA 帖子</string>
+     <!-- Clip Board -->
+    <string name="clear_all">全清</string>
+    <string name="clear_all_conf">清除所有项目？</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">撤销</string>
+    <string name="deleted">已删除: </string>
+    <string name="copied">已复制</string>
+</resources>

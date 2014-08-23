@@ -1,0 +1,37 @@
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Sélectionner une couleur</string>
+    <string name="press_color_to_apply">Appuyer sur la couleur pour appliquer</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Couleur de fond</string>
+    <string name="clpcolor">Couleur du texte</string>
+    <string name="clpcolor_summary">Couleur du fond du texte</string>
+    <string name="pinnedcolor">Couleur du presse papier épinglé</string>
+    <string name="txtcolor">Couleur du texte</string>
+    <string name="history_summary">Choisir le nombre de presses papiers que vous souhaitez conserver dans l\'historique</string>
+    <string name="history_title">Taille de l\'historique</string>
+    <string name="txtsize">Taille du texte</string>
+    <string name="uisize">Taille du cadre des presses papiers</string>
+    <string name="notification_title">Montrer notification</string>
+    <string name="notification_summary">Ceci peut être nécessaire pour maintenir le service (spécialement sur des appareils avec une mémoire faible)</string>
+    <string name="test">Tester</string>
+    <string name="blacklist">Liste noire</string>
+    <string name="blacklist_help">Choisir quelles applications ne seront pas prise en compte concernant la copie (ex: Gestionnaires de mots de passes).</string>
+    <string name="add">Ajouter</string>
+    <string name="unknown">Inconnues</string>
+    <string name="help">Aide</string>
+    <string name="xda">Sujet XDA</string>
+     <!-- Clip Board -->
+    <string name="clear_all">Tout effacer</string>
+    <string name="clear_all_conf">Effacer tout les presses papiers ?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Annuler</string>
+    <string name="deleted">Effacer: </string>
+    <string name="copied">Copié</string>
+</resources>
