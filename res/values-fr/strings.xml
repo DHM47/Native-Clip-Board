@@ -21,7 +21,8 @@
     <string name="notification_summary">Ceci peut être nécessaire pour maintenir le service (spécialement sur des appareils avec une mémoire faible)</string>
     <string name="test">Tester</string>
     <string name="blacklist">Liste noire</string>
-    <string name="blacklist_help">Choisir quelles applications ne seront pas prise en compte concernant la copie (ex: Gestionnaires de mots de passes).</string>
+    <string name="blacklist_help">Choisir quelles applications ne seront pas prise en compte concernant la copie
+	(ex: Gestionnaires de mots de passes).</string>
     <string name="add">Ajouter</string>
     <string name="unknown">Inconnues</string>
     <string name="help">Aide</string>

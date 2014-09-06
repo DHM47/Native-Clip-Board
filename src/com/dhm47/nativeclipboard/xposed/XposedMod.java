@@ -5,38 +5,46 @@ package com.dhm47.nativeclipboard.xposed;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.text.Selection;
 import android.text.Spannable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam;
+import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 
-public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
+public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,IXposedHookInitPackageResources{
 	//public static Context ctx;
-	private static Context CBMctx;
-	private static String pkg;
+	private  Context CBMctx;
+	private  String pkg;
 	
-	private static Context Ectx;
-	private static TextView Etextview;
+	private  Context Ectx;
+	private  TextView Etextview;
 	
-	private static Context CSctx;
-	private static Context CPctx;
+	private  Context CSctx;
+	private  Context CPctx;
 	//static mActionBar actionBar;
 	//static String MODULE_PATH;
 	static Menu menu;
@@ -73,7 +81,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 		
 				
 	}
-	/*public void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable {
+	public void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable {
 	    resparam.res.hookLayout("android", "layout", "text_edit_action_popup_text", new XC_LayoutInflated() {
 	        @Override
 	        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -83,9 +91,33 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 					public boolean onLongClick(View v) {
 						if(Resources.getSystem().getString(android.R.string.paste).equals(text.getText().toString())){
 							Open(text.getContext());
+							final int start=Etextview.getSelectionStart();
+			    			final int end=Etextview.getSelectionEnd();
+			    			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
+			    			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
+			    	            @Override
+			    	            public void onPrimaryClipChanged() {
+			    	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}
+			    	            	try {
+			    	            		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals(""));
+			    	            		else{   		   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+			    	            						  +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+			    	            						  +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+			    	            		Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());}
+			    					} catch (Throwable e) {
+			    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+			    						e.printStackTrace();
+			    					}
+			    	        }};
+			    	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 							return true;}
 						else {
-							Toast.makeText(text.getContext(), "Clicked "+text.getText().toString(), Toast.LENGTH_SHORT).show();
+							Toast.makeText(text.getContext(), "Long Clicked "+text.getText().toString(), Toast.LENGTH_SHORT).show();
 							return false;			
 						}
 						
@@ -94,19 +126,27 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 	            
 	        }
 	    });
-	}*/
+	}
 	
 	
 	public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
 		
-		XposedHelpers.findAndHookConstructor("android.widget.Editor", lpparam.classLoader, TextView.class, new XC_MethodHook(){
-			@Override
-            protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
-				Etextview=(TextView) param.args[0];
-				Ectx=Etextview.getContext();
-				//actionBar = new mActionBar(mtextview,ctx);
-			}
-		});
+		XposedHelpers.findAndHookMethod(TextView.class, "onFocusChanged", boolean.class, int.class,	Rect.class, new XC_MethodHook() {
+				@Override
+				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+				TextView textView = (TextView) param.thisObject;
+				boolean isEditText = textView instanceof EditText;
+				if (!isEditText)
+				return;
+				boolean focused = (Boolean) param.args[0];
+				if (focused) {
+					Etextview=textView;
+					Ectx=Etextview.getContext();
+					Log.d("NativeClipBoard", "Got focesed textview"); 
+				}
+				}
+				});
+		
     	XposedHelpers.findAndHookMethod("android.widget.Editor.SelectionActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
             @Override	
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -114,6 +154,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
             	CBButton(menu);
             }
         });
+    	
     	XposedHelpers.findAndHookMethod("android.widget.Editor.SelectionActionModeCallback", lpparam.classLoader, "onActionItemClicked",ActionMode.class,MenuItem.class,  new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
@@ -121,13 +162,13 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
             	switch(item.getItemId()) {
             		case id:
             			Open(Ectx);
-            			
             			final int start=Etextview.getSelectionStart();
             			final int end=Etextview.getSelectionEnd();
             			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
             			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
             	            @Override
             	            public void onPrimaryClipChanged() {
+            	            	
             	            	try {
             						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
             					} catch (Exception e1) {
@@ -136,7 +177,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
             					}
             	            	try {
             	            		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals(""));
-            	            		else{   		   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+            	            		else{          	  Etextview.setText(Etextview.getText().subSequence(0, start).toString()
             	            						  +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
             	            						  +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
             	            		Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());}
@@ -146,14 +187,13 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
             					}
             	        }};
             	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-            			//actionBar.open();
-        				param.setResult(true);
+            	        param.setResult(true);
         				return;
         				}
 		        
             }
         });
-    	XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", lpparam.classLoader, "onClick",View.class,  new XC_MethodHook() {
+    	/*XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", lpparam.classLoader, "onClick",View.class,  new XC_MethodHook() {
             @Override	
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             	TextView text =(TextView) param.args[0];
@@ -186,7 +226,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 	            param.setResult(null);
 				return ;}
             }
-        });
+        });*/
     	//---------------------------------------------------------------------------------------------------//
     	//-------------------------------------------BROWESR-------------------------------------------------//
     	//---------------------------------------------------------------------------------------------------//
@@ -322,14 +362,13 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage {
 	
 	private void Open(Context mctx) {
 		Intent intent = new Intent();
-		intent.setAction("DHM47.Xposed.ClipBoard");
-		mctx.sendBroadcast(intent);
+		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
+		mctx.startActivity(intent);
 	}
 	
 	
 	
-		/*
 		
 		
-	}*/
+	
 }

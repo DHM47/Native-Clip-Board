@@ -7,6 +7,7 @@
     android:maxLines="3"
     android:minLines="3"
     android:padding="9dp"
+    android:gravity="top"
     android:textColor="#FF664B0E">
 </TextView>
 

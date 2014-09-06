@@ -32,7 +32,7 @@ public class Setting extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent intent = new Intent(ctx, ClipBoard.class);
-				ctx.startService(intent);
+				ctx.startActivity(intent);
 				return true;
 			}
 		});
@@ -60,7 +60,7 @@ public class Setting extends PreferenceActivity {
 			setting.edit().putBoolean("firstrun", false).commit();
 			AlertDialog.Builder firsttime =new AlertDialog.Builder(this, 16973947);
 			firsttime.setMessage("This is an Alpha build so please provide feedback on the XDA thread.\n\n\n*Add: Blacklisting(ex password managers).\n\n*Change: Use Xposed to get copied text.\n\n"
-					+ "*Change: Single press paste(for testing) Also porved more compatiable(ex ES Explorer)");
+					+ "*Change: Single press paste(for testing) Also proved more compatiable(ex ES Explorer)");
 			firsttime.setNeutralButton("OK", null);
 			AlertDialog alert1 = firsttime.create();
 			alert1.requestWindowFeature(Window.FEATURE_NO_TITLE);

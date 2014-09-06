@@ -14,19 +14,18 @@ import com.dhm47.nativeclipboard.R;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.IBinder;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,16 +35,17 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
+import android.widget.ViewFlipper;
 
 
 @SuppressLint({ "InflateParams", "ClickableViewAccessibility" })
-public class ClipBoard extends Service{
+public class ClipBoard extends Activity{
 	private WindowManager windowManager;
 	private ClipboardManager mClipboardManager;
 	private LayoutInflater inflater;
@@ -62,29 +62,19 @@ public class ClipBoard extends Service{
 	private View Undo;
 	public static  List<String> pinned=new ArrayList<String>();
 	private boolean clearall=false;
+	private ViewFlipper viewFlipper;
 	
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
 
-	@Override
-    public void onCreate() {
-        super.onCreate();
-        }
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		try {
-			windowManager.removeView(mainLayout);
-		} catch (Exception e) {
-			
-		}
-		ctx=getApplication().getApplicationContext();
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		ctx=this;
 		mClipboardManager =(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 		setting = ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4);
 		clipAdapter = new ClipAdapter(ctx);
 		try {
@@ -102,14 +92,17 @@ public class ClipBoard extends Service{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+		setContentView(R.layout.flipper_layout);
+		viewFlipper=(ViewFlipper)findViewById(R.id.view_flipper);
+	}
+		/*final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 				WindowManager.LayoutParams.MATCH_PARENT,
 				Util.px(setting.getInt("windowsize",280), ctx),
 				WindowManager.LayoutParams.TYPE_PHONE,
 				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
 				PixelFormat.TRANSLUCENT);
 				params.gravity = Gravity.BOTTOM | Gravity.CENTER;
-				params.windowAnimations=android.R.style.Animation_InputMethod;
+				params.windowAnimations=android.R.style.Animation_InputMethod;*/
 				
 		/*final DismissCallbacks mCallbacks=new SwipeDismissGridViewTouchListener.DismissCallbacks() {
                     @Override
@@ -166,21 +159,23 @@ public class ClipBoard extends Service{
         		      }
                     }
                 };*/
-        		
-		mainLayout=(RelativeLayout) inflater.inflate(R.layout.clipboard,null);
-		mainLayout.setOnTouchListener(new View.OnTouchListener() {
-			@Override public boolean onTouch(View v, MotionEvent event) {
-			switch (event.getAction()) {
-			case MotionEvent.ACTION_OUTSIDE:
-			mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
-			ClipBoard.this.stopSelf();
-			return true;
+	@Override
+    protected void onStart() {
+        super.onStart();
+        // The activity is about to become visible.
+        mainLayout=(RelativeLayout) viewFlipper.findViewById(R.id.clipboard);
+		mainLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
+				ClipBoard.this.finish();
+				
 			}
-			return false;
-			}
-			});
+		});
 		gridView =(GridView) mainLayout.findViewById(R.id.grid_view1);
 		gridView.setAdapter(clipAdapter);
+		gridView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.px(setting.getInt("windowsize",280), ctx)));
 		clear= (Button) mainLayout.findViewById(R.id.clear);
 		clear.setOnClickListener(new OnClickListener() {
 			
@@ -212,7 +207,6 @@ public class ClipBoard extends Service{
 					}
 				});
 				dialog = confirm.create();
-				dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
 				dialog.show();
 							
 			}
@@ -224,7 +218,7 @@ public class ClipBoard extends Service{
 			@Override
 			public void onClick(View v) {
 				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
-				ClipBoard.this.stopSelf();
+				ClipBoard.this.finish();
 				
 				//for(int x=gridView.getChildCount()-1;x>0;x--){
 				//gridView.getChildAt(x).animate().x(gridView.getChildAt(x-1).getX()).y(gridView.getChildAt(x-1).getY()).setDuration(3000).start();//}
@@ -245,22 +239,24 @@ public class ClipBoard extends Service{
 				
 			}
 		});*/
+		
 		gridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
-				final View mview = inflater.inflate(R.layout.bigtextview,null);
+				View pview = (RelativeLayout) viewFlipper.findViewById(R.id.bigtextview);
+				pview.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
+						ClipBoard.this.finish();
+						
+					}
+				});
+				final View mview  = (RelativeLayout) pview.findViewById(R.id.bigtextviewF);
 				mview.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
-				mview.setOnTouchListener(new View.OnTouchListener() {
-					@Override public boolean onTouch(View v, MotionEvent event) {
-					switch (event.getAction()) {
-					case MotionEvent.ACTION_OUTSIDE:
-					windowManager.removeView(mview);
-					return true;
-					}
-					return false;
-					}
-					});
+				mview.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.px(setting.getInt("windowsize",280), ctx)));
 				
 				final TextView textView =(TextView) mview.findViewById(R.id.textViewB);
 				textView.setText(ClipAdapter.mClips.get(position));
@@ -275,9 +271,8 @@ public class ClipBoard extends Service{
 					@Override
 				    public boolean onTouch(View v, MotionEvent event) {
 				        if(event.getAction() == MotionEvent.ACTION_UP && NotFar(event)){
-				        	windowManager.removeView(mview);
-							mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));		
-				            ClipBoard.this.stopSelf();
+				        	mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));		
+				            ClipBoard.this.finish();
 				            return true;
 				        }else if (event.getAction() == MotionEvent.ACTION_DOWN){
 				        	startx=event.getRawX();
@@ -304,8 +299,7 @@ public class ClipBoard extends Service{
 					public void onClick(View v) {
 						ClipAdapter.mClips.remove(position);
 						clipAdapter.notifyDataSetChanged();
-						windowManager.removeView(mview);
-						windowManager.updateViewLayout(mainLayout, params);
+						viewFlipper.showPrevious();
 						
 					}
 				});
@@ -315,7 +309,7 @@ public class ClipBoard extends Service{
 					
 					@Override
 					public void onClick(View v) {
-						windowManager.removeView(mview);
+						viewFlipper.showPrevious();
 					}
 				});
 				ImageView pin=(ImageView) mview.findViewById(R.id.imageViewBS);
@@ -337,7 +331,7 @@ public class ClipBoard extends Service{
 					}
 				});
 				if(pinned.contains(ClipAdapter.mClips.get(position)))delete.setVisibility(View.INVISIBLE);
-				windowManager.addView(mview, params);
+				viewFlipper.showNext();
 				return true;
 			}
 		});
@@ -346,7 +340,7 @@ public class ClipBoard extends Service{
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.
         //gridView.setOnScrollListener(touchListener.makeScrollListener());
-		windowManager.addView(mainLayout, params);
+		//windowManager.addView(mainLayout, params);
 		
 		clipAdapter.registerDataSetObserver(new DataSetObserver() {
 			public void onChanged() {
@@ -422,7 +416,7 @@ public class ClipBoard extends Service{
 	
 		    }
 		});
-		return START_STICKY;
+		
 	}
 	@Override
 	  public void onDestroy() {
@@ -439,8 +433,7 @@ public class ClipBoard extends Service{
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(mainLayout!=null)	windowManager.removeView(mainLayout);
-		
+			
 	}
 
 	public boolean isColorDark(int color){

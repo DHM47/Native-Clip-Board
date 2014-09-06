@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhm47.nativeclipboard"
-    android:versionCode="26"
-    android:versionName="2.6.2" >
+    android:versionCode="27"
+    android:versionName="2.7" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -36,10 +36,13 @@
             android:process=":setting">
         </activity>
         
-        <service 
+        <activity
             android:name="com.dhm47.nativeclipboard.ClipBoard"
-            android:enabled="true"
-            android:process=":clipboard"/>
+            android:label="ClipBoard"
+            android:exported="true"
+            android:theme="@style/TransparentBackground"
+            android:process=":clipboard">
+        </activity>
         
         <receiver 
         	android:name="com.dhm47.nativeclipboard.BroadCast"

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/view_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+           
+        <!--  The child Views/Layout to flip -->
+       
+        <!--  Layout 1 for 1st Screen -->
+           <RelativeLayout 
+    				android:layout_width="match_parent"
+    				android:layout_height="match_parent"
+    				android:id="@+id/clipboard"
+    				android:orientation="vertical"
+    				android:layoutDirection="ltr" >
+
+			<GridView
+   					android:id="@+id/grid_view1"
+    				android:layout_width="match_parent"
+    				android:layout_height="280dp"
+					android:layout_alignParentBottom="true"
+    				android:background="#FFE6E6E6"
+    				android:columnWidth="145dp"
+    				android:gravity="center"
+    				android:horizontalSpacing="14dp"
+    				android:verticalSpacing="14dp"
+    				android:numColumns="auto_fit"
+    				android:paddingLeft="14dp"
+    				android:paddingRight="14dp"
+    				android:paddingBottom="7dp"
+    				android:paddingTop="40dp"
+    				android:stretchMode="columnWidth" >
+			</GridView>
+
+			<ImageView
+    				android:id="@+id/close"
+    				android:layout_width="wrap_content"
+    				android:layout_height="wrap_content"
+    				android:layout_centerHorizontal="true"
+    				android:layout_alignTop="@+id/grid_view1"
+   					android:layout_marginTop="2dp"
+    				android:src="@drawable/ic_close_light" />
+
+			<Button
+    				android:id="@+id/clear"
+    				android:layout_width="wrap_content"
+    				android:layout_height="35dp"
+    				android:layout_alignParentRight="true"
+    				android:layout_alignTop="@+id/grid_view1"
+    				android:padding="7dp"
+    				android:text="@string/clear_all"
+    				android:textSize="17dp" />
+
+			</RelativeLayout>
+           
+             <!--  Layout 2 for 2nd Screen -->
+           
+            <RelativeLayout 
+                android:id="@+id/bigtextview"
+    			android:layout_width="match_parent"
+    			android:layout_height="match_parent" >
+    
+            	<RelativeLayout 
+            	    android:id="@+id/bigtextviewF"
+        			android:layout_height="280dp"
+        			android:layout_width="match_parent"
+        			android:background="#FFE6E6E6"
+        			android:layout_alignParentBottom="true">
+    			<TextView
+        			android:id="@+id/textViewB"
+        			style="@android:style/TextAppearance.Medium"
+        			android:layout_width="match_parent"
+        			android:layout_height="match_parent"
+        			android:layout_margin="15dp"
+        			android:padding="9dp"
+        			android:gravity="top"
+        			android:scrollbars="vertical"/>
+
+				<ImageView
+    				android:id="@+id/imageViewBC"
+    				android:layout_width="wrap_content"
+    				android:layout_height="wrap_content"
+    				android:layout_alignParentLeft="true"
+    				android:layout_alignParentTop="true"
+    				android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+				<ImageView
+	    			android:id="@+id/imageViewBD"
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+	    			android:layout_alignParentRight="true"
+	    			android:layout_alignParentTop="true"
+	    			android:src="@android:drawable/ic_menu_delete" />
+
+				<ImageView
+					android:id="@+id/imageViewBS"
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+	    			android:layout_alignParentTop="true"
+	    			android:layout_centerHorizontal="true"
+	    			android:src="@android:drawable/ic_menu_save" />
+            	</RelativeLayout>
+    			
+			</RelativeLayout>
+
+</ViewFlipper>
