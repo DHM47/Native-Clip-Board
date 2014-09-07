@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,6 +60,7 @@ public class ClipBoard extends Activity{
 	public static String backupS;
 	public static int backupP;
 	private int size;
+	private ClipData prevClip;
 	private View Undo;
 	public static  List<String> pinned=new ArrayList<String>();
 	private boolean clearall=false;
@@ -94,6 +96,7 @@ public class ClipBoard extends Activity{
 		}
 		setContentView(R.layout.flipper_layout);
 		viewFlipper=(ViewFlipper)findViewById(R.id.view_flipper);
+		prevClip=mClipboardManager.getPrimaryClip();
 	}
 		/*final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 				WindowManager.LayoutParams.MATCH_PARENT,
@@ -418,9 +421,20 @@ public class ClipBoard extends Activity{
 		});
 		
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+	    if (keyCode == KeyEvent.KEYCODE_BACK ) {
+	    	mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
+	    }
+
+	    return super.onKeyDown(keyCode, event);
+	}
+	
 	@Override
 	  public void onDestroy() {
 		super.onDestroy();
+		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(this).toString().equals(""))mClipboardManager.setPrimaryClip(prevClip);
 		try {
 			FileOutputStream fosc = ctx.openFileOutput("Clips", Context.MODE_PRIVATE);
 			ObjectOutputStream osc = new ObjectOutputStream(fosc);

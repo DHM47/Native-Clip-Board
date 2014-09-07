@@ -13,7 +13,6 @@ import android.graphics.Rect;
 import android.os.Handler;
 import android.text.Selection;
 import android.text.Spannable;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
