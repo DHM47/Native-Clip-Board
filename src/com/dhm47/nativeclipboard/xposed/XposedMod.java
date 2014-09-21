@@ -77,7 +77,30 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				CBMctx.sendBroadcast(intent);
 			}
 		});
-		
+		XposedHelpers.findAndHookMethod(ClipboardManager.class, "setText", CharSequence.class, new XC_MethodHook(){
+			@Override
+            protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
+				CharSequence clip=(CharSequence) param.args[0];
+				Log.d("NativeClipBoard", pkg+" copied(old)");
+				Intent intent = new Intent();
+				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
+				intent.putExtra("Package", pkg);
+				intent.putExtra("Clip",clip.toString());
+				CBMctx.sendBroadcast(intent);
+			}
+		});
+		XposedHelpers.findAndHookMethod(ClipboardManager.class, "reportPrimaryClipChanged", new XC_MethodHook() {
+			@Override
+            protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
+				mClipboardManager =(ClipboardManager) CBMctx.getSystemService(Context.CLIPBOARD_SERVICE);
+				Log.d("NativeClipBoard", pkg+" copied with listener");
+				Intent intent = new Intent();
+				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
+				intent.putExtra("Package", pkg);
+				intent.putExtra("Clip",mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CBMctx).toString());
+				CBMctx.sendBroadcast(intent);
+			}
+		});
 				
 	}
 	public void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable {
@@ -96,22 +119,25 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
 			    	            @Override
 			    	            public void onPrimaryClipChanged() {
-			    	            	try {
-			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-			    					} catch (Exception e1) {
-			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
-			    						e1.printStackTrace();
-			    					}
-			    	            	try {
-			    	            		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals(""));
-			    	            		else{   		   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
-			    	            						  +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
-			    	            						  +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
-			    	            		Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());}
+			    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+			    	            		try {
+				    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+				    					} catch (Exception e1) {
+				    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+				    						e1.printStackTrace();
+				    					}	
+			    	            	}
+		    	            		else{
+		    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+			    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+			    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+			    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
 			    					} catch (Throwable e) {
 			    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
 			    						e.printStackTrace();
 			    					}
+		    	            			}		    	            	
+			    	            				    	            	
 			    	        }};
 			    	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 							return true;}
@@ -167,24 +193,26 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
             	            @Override
             	            public void onPrimaryClipChanged() {
-            	            	
-            	            	try {
-            						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-            					} catch (Exception e1) {
-            						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
-            						e1.printStackTrace();
-            					}
-            	            	try {
-            	            		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals(""));
-            	            		else{          	  Etextview.setText(Etextview.getText().subSequence(0, start).toString()
-            	            						  +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
-            	            						  +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
-            	            		Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());}
-            					} catch (Throwable e) {
-            						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
-            						e.printStackTrace();
-            					}
-            	        }};
+		    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+		    	            		try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+		    	            	}
+	    	            		else{
+	    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+		    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+		    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+		    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+		    					} catch (Throwable e) {
+		    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+		    						e.printStackTrace();
+		    					}
+	    	            			}		    	            	
+		    	            				    	            	
+		    	        }};
             	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
             	        param.setResult(true);
         				return;
@@ -255,20 +283,22 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
 		                @Override
 		                public void onPrimaryClipChanged() {
-		                	try {
-		    					mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-		    				} catch (Exception e1) {
-		    					Toast.makeText(CSctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
-		    					e1.printStackTrace();
-		    				}
-		                	try {
-		                		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CSctx).toString().equals(""));
-		                		else{XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);}
-		    				} catch (Throwable e) {
-		    					Toast.makeText(CSctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
+		                	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CPctx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+	    	            		try {
+		    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+		    					} catch (Exception e1) {
+		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+		    						e1.printStackTrace();
+		    					}	
+	    	            	}
+    	            		else{
+    	            			try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
+    	            			} catch (Throwable e) {
+    	            				Toast.makeText(CSctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
 		    					e.printStackTrace();
-		    				}
-		            }};
+		    				}}		    	            	
+	    	        
+		                }};
 		            mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 		    		param.setResult(true);
 		    		return;
@@ -287,20 +317,21 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
 			                @Override
 			                public void onPrimaryClipChanged() {
-			                	try {
-			    					mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-			    				} catch (Exception e1) {
-			    					Toast.makeText(CPctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
-			    					e1.printStackTrace();
-			    				}
-			                	try {
-			                		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CPctx).toString().equals(""));
-			                		else{XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);}
-			    				} catch (Throwable e) {
+			                	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CPctx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+		    	            		try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+		    	            	}
+	    	            		else{
+	    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+	    	            			} catch (Throwable e) {
 			    					Toast.makeText(CPctx, "could not call(click)", Toast.LENGTH_SHORT).show();
 			    					e.printStackTrace();
-			    				}
-			            }};
+			    				}}		    	            	
+		    	        }};
 			            mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 			            param.setResult(null);
 						return ;

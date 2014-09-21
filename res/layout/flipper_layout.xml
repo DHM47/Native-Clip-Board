@@ -9,9 +9,10 @@
         <!--  Layout 1 for 1st Screen -->
            <RelativeLayout 
     				android:layout_width="match_parent"
-    				android:layout_height="match_parent"
+    				android:layout_height="280dp"
     				android:id="@+id/clipboard"
     				android:orientation="vertical"
+    				android:layout_gravity="bottom"
     				android:layoutDirection="ltr" >
 
 			<GridView
@@ -58,7 +59,8 @@
             <RelativeLayout 
                 android:id="@+id/bigtextview"
     			android:layout_width="match_parent"
-    			android:layout_height="match_parent" >
+    			android:layout_height="280dp" 
+    			android:layout_gravity="bottom">
     
             	<RelativeLayout 
             	    android:id="@+id/bigtextviewF"

@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,7 +41,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.GridView;
-import android.widget.ViewFlipper;
 
 
 @SuppressLint({ "InflateParams", "ClickableViewAccessibility" })
@@ -55,6 +53,10 @@ public class ClipBoard extends Activity{
 	private Context ctx;
 	private Button clear;
 	private ImageView close;
+	private ImageView delete;
+	private ImageView pin;
+	private ImageView cancel;
+	private TextView textView;
 	private ClipAdapter clipAdapter;
 	private SharedPreferences setting ;
 	public static String backupS;
@@ -64,7 +66,7 @@ public class ClipBoard extends Activity{
 	private View Undo;
 	public static  List<String> pinned=new ArrayList<String>();
 	private boolean clearall=false;
-	private ViewFlipper viewFlipper;
+	
 	
 
 
@@ -94,8 +96,7 @@ public class ClipBoard extends Activity{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		setContentView(R.layout.flipper_layout);
-		viewFlipper=(ViewFlipper)findViewById(R.id.view_flipper);
+		setContentView(R.layout.test);
 		prevClip=mClipboardManager.getPrimaryClip();
 	}
 		/*final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -166,19 +167,22 @@ public class ClipBoard extends Activity{
     protected void onStart() {
         super.onStart();
         // The activity is about to become visible.
-        mainLayout=(RelativeLayout) viewFlipper.findViewById(R.id.clipboard);
-		mainLayout.setOnClickListener(new OnClickListener() {
+        mainLayout=(RelativeLayout) findViewById(R.id.mainlayout);
+        mainLayout.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
-				ClipBoard.this.finish();
+				Cancel();
 				
 			}
 		});
-		gridView =(GridView) mainLayout.findViewById(R.id.grid_view1);
-		gridView.setAdapter(clipAdapter);
+        
+         
+		gridView =(GridView) mainLayout.findViewById(R.id.grid_view);
 		gridView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.px(setting.getInt("windowsize",280), ctx)));
+        gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
+		gridView.setAdapter(clipAdapter);
+		
 		clear= (Button) mainLayout.findViewById(R.id.clear);
 		clear.setOnClickListener(new OnClickListener() {
 			
@@ -220,8 +224,7 @@ public class ClipBoard extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
-				ClipBoard.this.finish();
+				Cancel();
 				
 				//for(int x=gridView.getChildCount()-1;x>0;x--){
 				//gridView.getChildAt(x).animate().x(gridView.getChildAt(x-1).getX()).y(gridView.getChildAt(x-1).getY()).setDuration(3000).start();//}
@@ -229,7 +232,7 @@ public class ClipBoard extends Activity{
 			}
 		});
 		
-		gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));//setBackgroundResource(R.drawable.background);//gridView.setBackgroundColor(0x80E6E6E6);//setBackgroundColor(0xff141414);
+		//gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));//setBackgroundResource(R.drawable.background);//gridView.setBackgroundColor(0x80E6E6E6);//setBackgroundColor(0xff141414);
 		
 		if(isColorDark(setting.getInt("bgcolor",0x80E6E6E6)))close.setImageResource(R.drawable.ic_close_dark);
 		
@@ -247,21 +250,23 @@ public class ClipBoard extends Activity{
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
-				View pview = (RelativeLayout) viewFlipper.findViewById(R.id.bigtextview);
+				/*View pview = (RelativeLayout) viewFlipper.findViewById(R.id.bigtextview);
 				pview.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
-						mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
-						ClipBoard.this.finish();
+						Cancel();
 						
 					}
 				});
 				final View mview  = (RelativeLayout) pview.findViewById(R.id.bigtextviewF);
-				mview.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
-				mview.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.px(setting.getInt("windowsize",280), ctx)));
+				//mview.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
+				//mview.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.px(setting.getInt("windowsize",280), ctx)));
+				*/
 				
-				final TextView textView =(TextView) mview.findViewById(R.id.textViewB);
+				
+				
+				textView =(TextView) mainLayout.findViewById(R.id.textViewB);
 				textView.setText(ClipAdapter.mClips.get(position));
 				if(pinned.contains(ClipAdapter.mClips.get(position)))textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 				else textView.setBackgroundColor(setting.getInt("clpcolor",0xFFFFBB22));
@@ -274,8 +279,7 @@ public class ClipBoard extends Activity{
 					@Override
 				    public boolean onTouch(View v, MotionEvent event) {
 				        if(event.getAction() == MotionEvent.ACTION_UP && NotFar(event)){
-				        	mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));		
-				            ClipBoard.this.finish();
+				        	Select(position);
 				            return true;
 				        }else if (event.getAction() == MotionEvent.ACTION_DOWN){
 				        	startx=event.getRawX();
@@ -295,27 +299,60 @@ public class ClipBoard extends Activity{
 				});
 				
 				
-				final ImageView delete =(ImageView) mview.findViewById(R.id.imageViewBD);
+				//float SmllX=(float)gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getWidth();
+				//float BigX =(float)(gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft());
+				//float SmllY=(float)gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getHeight();
+				//float BigY =(float)(gridView.getHeight()-gridView.getPaddingTop()-gridView.getPaddingBottom());
+				
+				
+				
+				//Animation anim=new TranslateAnimation(Animation.ABSOLUTE, (view.getX()-gridView.getPaddingLeft())-((textView.getWidth()/2.0f)-view.getWidth())/*view.getX()-(float)gridView.getPaddingLeft()-Xsign*(BigX-SmllX)*/ , Animation.RELATIVE_TO_SELF, 0.0f,
+				//									  Animation.ABSOLUTE, (view.getY()-gridView.getPaddingLeft())-((textView.getHeight()/2.0f)-view.getHeight())/*view.getY()-(float)gridView.getPaddingLeft()-Ysign*(BigY-SmllY)*/ , Animation.RELATIVE_TO_SELF, 0.0f);
+				//anim.setDuration(6000);
+				//anim.setStartOffset(1000);
+				
+				//final Animation animexp =new ScaleAnimation(view.getWidth()/(float)textView.getWidth(), 1.0f, view.getHeight()/(float)textView.getHeight(), 1.0f, 
+				//											Animation.ABSOLUTE, textView.getWidth()/2.0f, Animation.ABSOLUTE, textView.getHeight()/2.0f);
+				//animexp.setDuration(6000);
+				//animexp.setFillAfter(false);
+				//animexp.setStartOffset(6000);
+				//float X=(textView.getWidth()-view.getWidth());
+				//float Y=(textView.getHeight()-view.getHeight());
+				//int Xsign=(int) ((X-view.getX())/Math.abs(X-view.getX()));
+				//int Ysign=(int) ((Y-view.getY())/Math.abs(Y-view.getY()));
+				
+				//AnimationSet anims=new AnimationSet(true);
+				//anims.addAnimation(anim);
+				//anims.addAnimation(animexp);
+				
+				//final Animation animcomp =new ScaleAnimation( 1.0f ,view.getWidth()/(float)textView.getWidth(), 1.0f ,view.getHeight()/(float)textView.getHeight(), 
+				//										Animation.ABSOLUTE, textView.getWidth()/2.0f, Animation.ABSOLUTE, textView.getHeight()/2.0f);
+				//animcomp.setDuration(6000);
+				//animcomp.setFillAfter(false);
+				
+				
+				delete =(ImageView) mainLayout.findViewById(R.id.imageViewBD);
 				delete.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
 						ClipAdapter.mClips.remove(position);
 						clipAdapter.notifyDataSetChanged();
-						viewFlipper.showPrevious();
+						toGrid();
+						
 						
 					}
 				});
 				
-				ImageView cancel =(ImageView) mview.findViewById(R.id.imageViewBC);
+				cancel =(ImageView) mainLayout.findViewById(R.id.imageViewBC);
 				cancel.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
-						viewFlipper.showPrevious();
+						toGrid();
 					}
 				});
-				ImageView pin=(ImageView) mview.findViewById(R.id.imageViewBS);
+				pin=(ImageView) mainLayout.findViewById(R.id.imageViewBS);
 				pin.setOnClickListener(new OnClickListener() {
 					
 					@Override
@@ -333,8 +370,12 @@ public class ClipBoard extends Activity{
 						}
 					}
 				});
+				//String dim="X="+textView.getWidth()+" Y="+textView.getHeight();
+				//Toast.makeText(ctx, dim, Toast.LENGTH_LONG).show();
+				toBig();
+				//textView.setAnimation(anim);
+				//textView.animate();
 				if(pinned.contains(ClipAdapter.mClips.get(position)))delete.setVisibility(View.INVISIBLE);
-				viewFlipper.showNext();
 				return true;
 			}
 		});
@@ -421,20 +462,27 @@ public class ClipBoard extends Activity{
 		});
 		
 	}
-	
 	@Override
+	public void onBackPressed() {
+		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));	    
+		super.onBackPressed();
+	    overridePendingTransition(0, R.anim.slide_down); 
+	}
+	
+	/*@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)  {
 	    if (keyCode == KeyEvent.KEYCODE_BACK ) {
-	    	mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));
+	    	mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));	    	
 	    }
 
 	    return super.onKeyDown(keyCode, event);
-	}
+	}*/
 	
 	@Override
 	  public void onDestroy() {
-		super.onDestroy();
-		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(this).toString().equals(""))mClipboardManager.setPrimaryClip(prevClip);
+		
+		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(this).toString().equals("//NATIVECLIPBOARDCLOSE//"))mClipboardManager.setPrimaryClip(prevClip);
+		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		try {
 			FileOutputStream fosc = ctx.openFileOutput("Clips", Context.MODE_PRIVATE);
 			ObjectOutputStream osc = new ObjectOutputStream(fosc);
@@ -447,7 +495,7 @@ public class ClipBoard extends Activity{
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-			
+		super.onDestroy();	
 	}
 
 	public boolean isColorDark(int color){
@@ -458,7 +506,59 @@ public class ClipBoard extends Activity{
 	        return true; // It's a dark color
 	    }
 	}
+	private void Cancel() {
+		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
+		try {windowManager.removeView(Undo);} catch (Exception e) {}
+		ClipBoard.this.finish();
+		overridePendingTransition(0, R.anim.slide_down);
+	}
+	
+	public void Select(int position){
+		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
+		//try {windowManager.removeView(Undo);} catch (Exception e) {}
+        //ClipBoard.this.finish();
+        //overridePendingTransition(0, R.anim.slide_down);
+	}
+	
+	public void toBig(){
+		close.setVisibility(View.INVISIBLE);
+		clear.setVisibility(View.INVISIBLE);
+		delete.setVisibility(View.VISIBLE);
+		pin.setVisibility(View.VISIBLE);
+		cancel.setVisibility(View.VISIBLE);
+		textView.setVisibility(View.VISIBLE);
+		//textView.startAnimation(anim);
 		
+	}
+	public void toGrid(){
+		close.setVisibility(View.VISIBLE);
+		clear.setVisibility(View.VISIBLE);
+		delete.setVisibility(View.INVISIBLE);
+		pin.setVisibility(View.INVISIBLE);
+		cancel.setVisibility(View.INVISIBLE);
+		textView.setVisibility(View.INVISIBLE);
+		/*anim.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				textView.setVisibility(View.INVISIBLE);
+				
+			}
+		});
+		textView.startAnimation(anim);*/
+	}
 }
 
 

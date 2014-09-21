@@ -5,7 +5,6 @@ import java.util.List;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -114,7 +113,8 @@ public class ClipAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));	
-				((Activity)mContext).finish();
+				//((Activity)mContext).finish();
+				//((Activity)mContext).overridePendingTransition(0, R.anim.slide_down);
 			}
 		});
 		if(ClipBoard.pinned.contains(mClips.get(position)))
