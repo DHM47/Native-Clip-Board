@@ -70,11 +70,12 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
 				ClipData clip=(ClipData) param.args[0];
 				Log.d("NativeClipBoard", pkg+" copied");
+				if(!(pkg.equals("com.dhm47.nativeclipboard"))){
 				Intent intent = new Intent();
 				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
 				intent.putExtra("Package", pkg);
 				intent.putExtra("Clip",clip.getItemAt(0).coerceToText(CBMctx).toString());
-				CBMctx.sendBroadcast(intent);
+				CBMctx.sendBroadcast(intent);}
 			}
 		});
 		XposedHelpers.findAndHookMethod(ClipboardManager.class, "setText", CharSequence.class, new XC_MethodHook(){
@@ -82,25 +83,27 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
 				CharSequence clip=(CharSequence) param.args[0];
 				Log.d("NativeClipBoard", pkg+" copied(old)");
+				if(!(pkg.equals("com.dhm47.nativeclipboard"))){
 				Intent intent = new Intent();
 				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
 				intent.putExtra("Package", pkg);
 				intent.putExtra("Clip",clip.toString());
-				CBMctx.sendBroadcast(intent);
+				CBMctx.sendBroadcast(intent);}
 			}
 		});
-		XposedHelpers.findAndHookMethod(ClipboardManager.class, "reportPrimaryClipChanged", new XC_MethodHook() {
+		/*XposedHelpers.findAndHookMethod(ClipboardManager.class, "reportPrimaryClipChanged", new XC_MethodHook() {
 			@Override
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
 				mClipboardManager =(ClipboardManager) CBMctx.getSystemService(Context.CLIPBOARD_SERVICE);
 				Log.d("NativeClipBoard", pkg+" copied with listener");
+				if(!(pkg.equals("com.dhm47.nativeclipboard"))){
 				Intent intent = new Intent();
 				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
 				intent.putExtra("Package", pkg);
 				intent.putExtra("Clip",mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CBMctx).toString());
-				CBMctx.sendBroadcast(intent);
+				CBMctx.sendBroadcast(intent);}
 			}
-		});
+		});*/
 				
 	}
 	public void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable {

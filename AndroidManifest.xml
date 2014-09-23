@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhm47.nativeclipboard"
     android:versionCode="27"
-    android:versionName="2.7.2" >
+    android:versionName="2.7.3" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -44,17 +44,7 @@
             android:theme="@style/TransparentBackground"
             android:process=":clipboard">
         </activity>
-        
-        <receiver 
-        	android:name="com.dhm47.nativeclipboard.BroadCast"
-        	android:enabled="true"
-        	android:exported="true">
-        	<intent-filter>
-        		<action android:name="DHM47.Xposed.ClipBoard">
-        		</action>
-        	</intent-filter>
-        </receiver>
-        
+            
         <receiver android:name="com.dhm47.nativeclipboard.BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -62,7 +52,7 @@
         </receiver>
         
         <receiver 
-        	android:name="com.dhm47.nativeclipboard.ClipMonitor"
+        	android:name="com.dhm47.nativeclipboard.ClipMonitorReceiver"
         	android:enabled="true"
         	android:exported="true">
         	<intent-filter>
@@ -70,6 +60,9 @@
         		</action>
         	</intent-filter>
         </receiver>
+        
+        <service
+            android:name="com.dhm47.nativeclipboard.ClipMonitorService"/>
         
         <meta-data
             android:name="xposedmodule"
