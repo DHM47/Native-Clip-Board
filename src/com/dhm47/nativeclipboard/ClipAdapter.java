@@ -112,7 +112,8 @@ public class ClipAdapter extends BaseAdapter {
 		textView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));	
+				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
+				ClipBoard.prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
 				//((Activity)mContext).finish();
 				//((Activity)mContext).overridePendingTransition(0, R.anim.slide_down);
 			}

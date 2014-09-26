@@ -62,7 +62,7 @@ public class ClipBoard extends Activity{
 	public static String backupS;
 	public static int backupP;
 	private int size;
-	private ClipData prevClip;
+	static ClipData prevClip;
 	private View Undo;
 	public static  List<String> pinned=new ArrayList<String>();
 	private boolean clearall=false;
@@ -96,7 +96,7 @@ public class ClipBoard extends Activity{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		setContentView(R.layout.test);
+		setContentView(R.layout.clip_board);
 		prevClip=mClipboardManager.getPrimaryClip();
 	}
 		/*final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -234,7 +234,10 @@ public class ClipBoard extends Activity{
 		
 		//gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));//setBackgroundResource(R.drawable.background);//gridView.setBackgroundColor(0x80E6E6E6);//setBackgroundColor(0xff141414);
 		
-		if(isColorDark(setting.getInt("bgcolor",0x80E6E6E6)))close.setImageResource(R.drawable.ic_close_dark);
+		if(isColorDark(setting.getInt("bgcolor",0x80E6E6E6))){
+			close.setImageResource(R.drawable.ic_close_dark);
+			clear.setTextColor(0xFFCCCCCC);
+		}
 		
 		/*gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -464,9 +467,13 @@ public class ClipBoard extends Activity{
 	}
 	@Override
 	public void onBackPressed() {
+		if (clear.getVisibility()==View.INVISIBLE){
+			toGrid();
+		}else {
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));	    
 		super.onBackPressed();
-	    overridePendingTransition(0, R.anim.slide_down); 
+	    overridePendingTransition(0, R.anim.slide_down);
+		}
 	}
 	
 	/*@Override
@@ -515,6 +522,7 @@ public class ClipBoard extends Activity{
 	
 	public void Select(int position){
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
+		prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
 		//try {windowManager.removeView(Undo);} catch (Exception e) {}
         //ClipBoard.this.finish();
         //overridePendingTransition(0, R.anim.slide_down);
