@@ -20,6 +20,9 @@
     <string name="uisize">ClipBoard Size</string>
     <string name="notification_title">Show Notification</string>
     <string name="notification_summary">This might be needed to keep the service running (especially on low RAM devices)</string>
+    <string name="pastefunction">Switch paste functionality</string>
+    <string name="pastefunction_summary_off">Single Click : Pastes\nLong Click : Opens ClipBoard\nRequires Reboot</string>
+    <string name="pastefunction_summary_on">Single Click : Opens ClipBoard\nLong Click : Pastes\nRequires Reboot</string>
     <string name="test">Test</string>
     <string name="blacklist">Blacklist</string>
     <string name="blacklist_help">Choose which apps should not be copied from (ex. Password managers).</string>

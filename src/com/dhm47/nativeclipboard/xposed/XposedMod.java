@@ -3,6 +3,8 @@ package com.dhm47.nativeclipboard.xposed;
 
 
 
+
+import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -10,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Handler;
 import android.text.Selection;
 import android.text.Spannable;
@@ -27,6 +30,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam;
@@ -51,10 +55,12 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	static MethodHookParam mparam;
 	private ClipboardManager mClipboardManager;	
 	private ClipboardManager.OnPrimaryClipChangedListener mOnPrimaryClipChangedListener;
+	XSharedPreferences pref;
 	
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
 		//MODULE_PATH =startupParam.modulePath;
+		pref=new XSharedPreferences("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard_preferences");
 		
 		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
 			@Override
@@ -115,36 +121,39 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 					@Override
 					public boolean onLongClick(View v) {
 						if(Resources.getSystem().getString(android.R.string.paste).equals(text.getText().toString())){
-							Open(text.getContext());
-							final int start=Etextview.getSelectionStart();
-			    			final int end=Etextview.getSelectionEnd();
-			    			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
-			    			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
-			    	            @Override
-			    	            public void onPrimaryClipChanged() {
-			    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
-			    	            		try {
-				    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-				    					} catch (Exception e1) {
-				    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
-				    						e1.printStackTrace();
-				    					}	
-			    	            	}
-		    	            		else{
-		    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
-			    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
-			    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
-			    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
-			    					} catch (Throwable e) {
-			    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
-			    						e.printStackTrace();
-			    					}
-		    	            			}		    	            	
-			    	            				    	            	
-			    	        }};
-			    	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-							return true;}
-						else {
+							if(pref.getBoolean("pastefunction", false))Etextview.onTextContextMenuItem(android.R.id.paste);
+							else {
+								Open(text.getContext());
+								final int start=Etextview.getSelectionStart();
+				    			final int end=Etextview.getSelectionEnd();
+				    			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
+				    			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
+				    	            @Override
+				    	            public void onPrimaryClipChanged() {
+				    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+				    	            		try {
+					    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+					    					} catch (Exception e1) {
+					    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+					    						e1.printStackTrace();
+					    					}	
+				    	            	}
+			    	            		else{
+			    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+				    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+				    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+				    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+				    					} catch (Throwable e) {
+				    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+				    						e.printStackTrace();
+				    					}
+			    	            			}		    	            	
+				    	            				    	            	
+				    	        }};
+				    	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+							}
+							return true;
+						}else {
 							Toast.makeText(text.getContext(), "Long Clicked "+text.getText().toString(), Toast.LENGTH_SHORT).show();
 							return false;			
 						}
@@ -223,7 +232,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		        
             }
         });
-    	/*XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", lpparam.classLoader, "onClick",View.class,  new XC_MethodHook() {
+    	if(pref.getBoolean("pastefunction", false)){
+    	XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", lpparam.classLoader, "onClick",View.class,  new XC_MethodHook() {
             @Override	
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             	TextView text =(TextView) param.args[0];
@@ -235,28 +245,31 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
     	            @Override
     	            public void onPrimaryClipChanged() {
-    	            	try {
-    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
-    					} catch (Exception e1) {
-    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
-    						e1.printStackTrace();
-    					}
-    	            	try {
-    	            		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals(""));
-    	            		else{   		   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
-    	            						  +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
-    	            						  +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
-    	            		Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());}
+    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+    	            		try {
+	    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+	    					} catch (Exception e1) {
+	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+	    						e1.printStackTrace();
+	    					}	
+    	            	}
+	            		else{
+	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
     					} catch (Throwable e) {
     						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
     						e.printStackTrace();
     					}
+	            			}		    	            	
+    	            				    	            	
     	        }};
     	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 	            param.setResult(null);
 				return ;}
             }
-        });*/
+        });}
     	//---------------------------------------------------------------------------------------------------//
     	//-------------------------------------------BROWESR-------------------------------------------------//
     	//---------------------------------------------------------------------------------------------------//
@@ -393,10 +406,13 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	}
 	
 	
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	private void Open(Context mctx) {
+		//ActivityOptions opt=ActivityOptions.makeCustomAnimation(mctx, com.dhm47.nativeclipboard.R.anim.slide_up, com.dhm47.nativeclipboard.R.anim.slide_down);
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
 		mctx.startActivity(intent);
+		//((Activity)mctx).overridePendingTransition(com.dhm47.nativeclipboard.R.anim.slide_up, 0);
 	}
 	
 	

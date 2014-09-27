@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:title="@string/app_name" >
+
     <net.margaritov.preference.colorpicker.ColorPickerPreference
     	android:key="bgcolor"
         android:title="@string/bgcolor"
@@ -48,6 +51,12 @@
    <Preference
             android:key="blacklist"
             android:title="@string/blacklist" />
+   <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pastefunction"
+            android:title="@string/pastefunction"
+            android:summaryOff="@string/pastefunction_summary_off"
+            android:summaryOn="@string/pastefunction_summary_on"/>
    <Preference
             android:key="test"
             android:title="@string/test" />
