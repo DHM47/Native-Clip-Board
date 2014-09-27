@@ -1,5 +1,7 @@
 package com.dhm47.nativeclipboard;
-
+/*
+ * By zst123 from XHaloFloatingWindow
+ */
 
 import android.content.Context;
 import android.content.DialogInterface;

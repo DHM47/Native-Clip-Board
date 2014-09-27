@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Próbnik kolorów</string>
+    <string name="press_color_to_apply">Wskaż kolor aby zastosować</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Kolor tła</string>
+    <string name="clpcolor">Kolor wycinka</string>
+    <string name="clpcolor_summary">Tło tekstu</string>
+    <string name="pinnedcolor">Kolor przypiętego wycinka</string>
+    <string name="txtcolor">Kolor tekstu</string>
+    <string name="history_summary">Wybierz liczbę elementów przechowywanych w historii</string>
+    <string name="history_title">Rozmiar historii</string>
+    <string name="txtsize">Rozmiar tekstu</string>
+    <string name="uisize">Rozmiar schowka</string>
+    <string name="notification_title">Pokaż powiadomienia</string>
+    <string name="notification_summary">Może być potrzebne, aby usługa pozostała uruchomiona (szczególnie w urządzeniach z małą ilością pamięci RAM)</string>
+    <string name="test">Test</string>
+    <string name="blacklist">Czarna lista</string>
+    <string name="blacklist_help">Wybierz aplikacje, które nie mogą korzystać ze schowka (np. menadżer haseł).</string>
+    <string name="add">Dodaj</string>
+    <string name="unknown">Nieznane</string>
+    <string name="help">Pomoc</string>
+    <string name="xda">Wątek na forum XDA</string>
+     <!-- Clip Board -->
+    <string name="clear_all">Wyczyść</string>
+    <string name="clear_all_conf">Wyczyścić wszystko?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Cofnij</string>
+    <string name="deleted">Usunięte: </string>
+    <string name="copied">Skopiowane</string>
+</resources>

@@ -99,81 +99,15 @@ public class ClipBoard extends Activity{
 		setContentView(R.layout.clip_board);
 		prevClip=mClipboardManager.getPrimaryClip();
 	}
-		/*final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-				WindowManager.LayoutParams.MATCH_PARENT,
-				Util.px(setting.getInt("windowsize",280), ctx),
-				WindowManager.LayoutParams.TYPE_PHONE,
-				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-				PixelFormat.TRANSLUCENT);
-				params.gravity = Gravity.BOTTOM | Gravity.CENTER;
-				params.windowAnimations=android.R.style.Animation_InputMethod;*/
-				
-		/*final DismissCallbacks mCallbacks=new SwipeDismissGridViewTouchListener.DismissCallbacks() {
-                    @Override
-                    public boolean canDismiss(int position) {
-                        if(pinned.contains(ClipAdapter.mClips.get(position)))return false;
-                        else return true;
-                    }
-
-                    @Override
-                    public void onDismiss(GridView gridView, int[] reverseSortedPositions) {
-                       for (int position : reverseSortedPositions) {
-                    	backupS=ClipAdapter.mClips.get(position);
-        				backupP=position;
-        				ClipAdapter.mClips.remove(position);}
-                    	
-        				clipAdapter.notifyDataSetChanged();
-        				
-        				try {windowManager.removeView(Undo);} catch (Exception e) {}
-        				if(!clearall){//ClipAdapter.mClips.size()<size &&  && (ClipAdapter.mClips.size()!=0 || size==1)
-        					Undo = inflater.inflate(R.layout.undo,null);
-        					final CountDownTimer timeout=new CountDownTimer(3000, 3000) {
-        			        	public void onTick(long millisUntilFinished) {}
-        			            public void onFinish() {
-        			            	try {windowManager.removeView(Undo);} catch (Exception e) {}
-        			            }
-        			        };
-        			         
-        				WindowManager.LayoutParams undoparams = new WindowManager.LayoutParams(
-        						WindowManager.LayoutParams.WRAP_CONTENT,
-        						WindowManager.LayoutParams.WRAP_CONTENT,
-        						WindowManager.LayoutParams.TYPE_PHONE,
-        						WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-        						PixelFormat.TRANSLUCENT);
-        						undoparams.gravity = Gravity.BOTTOM | Gravity.CENTER;
-        						undoparams.y=Util.px(60, ctx);
-        						undoparams.windowAnimations=android.R.style.Animation_Toast;
-        				
-        				TextView button =(TextView) Undo.findViewById(R.id.undobutton);
-        				button.setOnClickListener(new OnClickListener() {
-        					
-        					@Override
-        					public void onClick(View v) {
-        						ClipAdapter.mClips.add(backupP, backupS);
-        						timeout.cancel();
-        						windowManager.removeView(Undo);
-        						clipAdapter.notifyDataSetChanged();
-        					}
-        				});
-        				TextView text =(TextView) Undo.findViewById(R.id.undotxt);
-        				text.setText(getResources().getString(R.string.deleted)+backupS+" ");
-        				windowManager.addView(Undo, undoparams);
-        				timeout.start();
-        				clearall=false;
-        		      }
-                    }
-                };*/
+		
 	@Override
     protected void onStart() {
         super.onStart();
-        // The activity is about to become visible.
         mainLayout=(RelativeLayout) findViewById(R.id.mainlayout);
-        mainLayout.setOnClickListener(new OnClickListener() {
-			
+        mainLayout.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Cancel();
-				
+				Cancel();				
 			}
 		});
         
@@ -184,8 +118,7 @@ public class ClipBoard extends Activity{
 		gridView.setAdapter(clipAdapter);
 		
 		clear= (Button) mainLayout.findViewById(R.id.clear);
-		clear.setOnClickListener(new OnClickListener() {
-			
+		clear.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				AlertDialog dialog ;
@@ -196,13 +129,9 @@ public class ClipBoard extends Activity{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						clearall=true;
-						//touchListener.performDismiss(dismissView, dismissPosition);
-						//mCallbacks.onDismiss(gridView, dismissPositions);
 						ClipAdapter.mClips.clear();
 						ClipAdapter.mClips.addAll(pinned);
 						clipAdapter.notifyDataSetChanged();
-						//windowManager.updateViewLayout(mainLayout, params);
-						
 					}
 				});
 				confirm.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -210,7 +139,6 @@ public class ClipBoard extends Activity{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
-						
 					}
 				});
 				dialog = confirm.create();
@@ -225,49 +153,18 @@ public class ClipBoard extends Activity{
 			@Override
 			public void onClick(View v) {
 				Cancel();
-				
-				//for(int x=gridView.getChildCount()-1;x>0;x--){
-				//gridView.getChildAt(x).animate().x(gridView.getChildAt(x-1).getX()).y(gridView.getChildAt(x-1).getY()).setDuration(3000).start();//}
-
-			}
+				}
 		});
-		
-		//gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));//setBackgroundResource(R.drawable.background);//gridView.setBackgroundColor(0x80E6E6E6);//setBackgroundColor(0xff141414);
 		
 		if(isColorDark(setting.getInt("bgcolor",0x80E6E6E6))){
 			close.setImageResource(R.drawable.ic_close_dark);
 			clear.setTextColor(0xFFCCCCCC);
 		}
-		
-		/*gridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));		
-				ClipBoard.this.stopSelf();
 				
-			}
-		});*/
-		
 		gridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
-				/*View pview = (RelativeLayout) viewFlipper.findViewById(R.id.bigtextview);
-				pview.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						Cancel();
-						
-					}
-				});
-				final View mview  = (RelativeLayout) pview.findViewById(R.id.bigtextviewF);
-				//mview.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
-				//mview.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.px(setting.getInt("windowsize",280), ctx)));
-				*/
-				
-				
 				
 				textView =(TextView) mainLayout.findViewById(R.id.textViewB);
 				textView.setText(ClipAdapter.mClips.get(position));
@@ -300,40 +197,7 @@ public class ClipBoard extends Activity{
 						
 					}
 				});
-				
-				
-				//float SmllX=(float)gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getWidth();
-				//float BigX =(float)(gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft());
-				//float SmllY=(float)gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getHeight();
-				//float BigY =(float)(gridView.getHeight()-gridView.getPaddingTop()-gridView.getPaddingBottom());
-				
-				
-				
-				//Animation anim=new TranslateAnimation(Animation.ABSOLUTE, (view.getX()-gridView.getPaddingLeft())-((textView.getWidth()/2.0f)-view.getWidth())/*view.getX()-(float)gridView.getPaddingLeft()-Xsign*(BigX-SmllX)*/ , Animation.RELATIVE_TO_SELF, 0.0f,
-				//									  Animation.ABSOLUTE, (view.getY()-gridView.getPaddingLeft())-((textView.getHeight()/2.0f)-view.getHeight())/*view.getY()-(float)gridView.getPaddingLeft()-Ysign*(BigY-SmllY)*/ , Animation.RELATIVE_TO_SELF, 0.0f);
-				//anim.setDuration(6000);
-				//anim.setStartOffset(1000);
-				
-				//final Animation animexp =new ScaleAnimation(view.getWidth()/(float)textView.getWidth(), 1.0f, view.getHeight()/(float)textView.getHeight(), 1.0f, 
-				//											Animation.ABSOLUTE, textView.getWidth()/2.0f, Animation.ABSOLUTE, textView.getHeight()/2.0f);
-				//animexp.setDuration(6000);
-				//animexp.setFillAfter(false);
-				//animexp.setStartOffset(6000);
-				//float X=(textView.getWidth()-view.getWidth());
-				//float Y=(textView.getHeight()-view.getHeight());
-				//int Xsign=(int) ((X-view.getX())/Math.abs(X-view.getX()));
-				//int Ysign=(int) ((Y-view.getY())/Math.abs(Y-view.getY()));
-				
-				//AnimationSet anims=new AnimationSet(true);
-				//anims.addAnimation(anim);
-				//anims.addAnimation(animexp);
-				
-				//final Animation animcomp =new ScaleAnimation( 1.0f ,view.getWidth()/(float)textView.getWidth(), 1.0f ,view.getHeight()/(float)textView.getHeight(), 
-				//										Animation.ABSOLUTE, textView.getWidth()/2.0f, Animation.ABSOLUTE, textView.getHeight()/2.0f);
-				//animcomp.setDuration(6000);
-				//animcomp.setFillAfter(false);
-				
-				
+								
 				delete =(ImageView) mainLayout.findViewById(R.id.imageViewBD);
 				delete.setOnClickListener(new OnClickListener() {
 					
@@ -342,8 +206,6 @@ public class ClipBoard extends Activity{
 						ClipAdapter.mClips.remove(position);
 						clipAdapter.notifyDataSetChanged();
 						toGrid();
-						
-						
 					}
 				});
 				
@@ -373,22 +235,12 @@ public class ClipBoard extends Activity{
 						}
 					}
 				});
-				//String dim="X="+textView.getWidth()+" Y="+textView.getHeight();
-				//Toast.makeText(ctx, dim, Toast.LENGTH_LONG).show();
 				toBig();
-				//textView.setAnimation(anim);
-				//textView.animate();
 				if(pinned.contains(ClipAdapter.mClips.get(position)))delete.setVisibility(View.INVISIBLE);
 				return true;
 			}
 		});
 
-        //gridView.setOnTouchListener(touchListener);
-        // Setting this scroll listener is required to ensure that during ListView scrolling,
-        // we don't look for swipes.
-        //gridView.setOnScrollListener(touchListener.makeScrollListener());
-		//windowManager.addView(mainLayout, params);
-		
 		clipAdapter.registerDataSetObserver(new DataSetObserver() {
 			public void onChanged() {
 				try {windowManager.removeView(Undo);} catch (Exception e) {}
@@ -475,16 +327,7 @@ public class ClipBoard extends Activity{
 	    overridePendingTransition(0, R.anim.slide_down);
 		}
 	}
-	
-	/*@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)  {
-	    if (keyCode == KeyEvent.KEYCODE_BACK ) {
-	    	mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ""));	    	
-	    }
-
-	    return super.onKeyDown(keyCode, event);
-	}*/
-	
+		
 	@Override
 	  public void onDestroy() {
 		
@@ -523,9 +366,7 @@ public class ClipBoard extends Activity{
 	public void Select(int position){
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
 		prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
-		//try {windowManager.removeView(Undo);} catch (Exception e) {}
-        //ClipBoard.this.finish();
-        //overridePendingTransition(0, R.anim.slide_down);
+		
 	}
 	
 	public void toBig(){
@@ -535,8 +376,7 @@ public class ClipBoard extends Activity{
 		pin.setVisibility(View.VISIBLE);
 		cancel.setVisibility(View.VISIBLE);
 		textView.setVisibility(View.VISIBLE);
-		//textView.startAnimation(anim);
-		
+				
 	}
 	public void toGrid(){
 		close.setVisibility(View.VISIBLE);
@@ -545,33 +385,6 @@ public class ClipBoard extends Activity{
 		pin.setVisibility(View.INVISIBLE);
 		cancel.setVisibility(View.INVISIBLE);
 		textView.setVisibility(View.INVISIBLE);
-		/*anim.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				textView.setVisibility(View.INVISIBLE);
-				
-			}
-		});
-		textView.startAnimation(anim);*/
+		
 	}
 }
-
-
-
-//Animation
-//Remove
-//for(int x=gridView.getChildCount()-1;x>0;x--){
-//gridView.getChildAt(x).animate().x(gridView.getChildAt(x-1).getX()).y(gridView.getChildAt(x-1).getY()).setDuration(3000).start();}

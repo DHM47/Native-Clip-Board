@@ -26,9 +26,7 @@ public class ClipMonitorService extends Service{
 	@SuppressWarnings("unchecked")
 	@Override
 	  public int onStartCommand(Intent intent, int flags, int startId) {
-	    //TODO do something useful
-
-		pkg=intent.getStringExtra("Package");
+	    pkg=intent.getStringExtra("Package");
 		Clip=intent.getStringExtra("Clip");
 		Context ctx =this;
 
@@ -56,8 +54,6 @@ public class ClipMonitorService extends Service{
               ObjectOutputStream os = new ObjectOutputStream(fos);
               os.writeObject(mClip);
               os.close();
-              //Toast.makeText(ctx,R.string.copied, Toast.LENGTH_SHORT).show();
-              //mClip=null;
               }
 		} catch (Exception e) {}
 		}		
@@ -67,7 +63,6 @@ public class ClipMonitorService extends Service{
 
 	  @Override
 	  public IBinder onBind(Intent intent) {
-	  //TODO for communication return IBinder implementation
 	    return null;
 	  }
 
@@ -79,11 +74,9 @@ public class ClipMonitorService extends Service{
 				for(int i = 0; i < size; i++){
 					String pkg = prefs.getString("items" + "_" + i, "");
 					if(pkg.equals(currentPkg)){
-						//Toast.makeText(context, "Black listed", Toast.LENGTH_SHORT).show();
 						return true;}
 				}
 			}
-			//Toast.makeText(context, "Not Black listed", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 	

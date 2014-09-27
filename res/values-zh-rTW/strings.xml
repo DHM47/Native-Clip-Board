@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">本地剪貼板</string>
+    <string name="dialog_color_picker">拾色器</string>
+    <string name="press_color_to_apply">選取顏色來應用</string>
+    <string name="bgcolor">背景顏色</string>
+    <string name="clpcolor">剪貼顏色</string>
+    <string name="clpcolor_summary">文本背景</string>
+    <string name="pinnedcolor">固定板顏色</string>
+    <string name="txtcolor">文本顏色</string>
+    <string name="history_summary">選擇保存歷史記錄的數量</string>
+    <string name="history_title">歷史數量</string>
+    <string name="txtsize">文本大小</string>
+    <string name="uisize">剪貼板尺寸</string>
+    <string name="notification_title">顯示通知</string>
+    <string name="notification_summary">這能夠保持服務運行的穩定（特別是在低內存設備上）</string>
+    <string name="test">測試</string>
+    <string name="blacklist">黑名單</string>
+    <string name="blacklist_help">選擇不進行拷貝操作的程式(如密碼管理)</string>
+    <string name="add">添加</string>
+    <string name="unknown">未知</string>
+    <string name="help">幫助</string>
+    <string name="xda">XDA相關</string>
+    <string name="clear_all">清除所有</string>
+    <string name="clear_all_conf">清除所有的剪貼內容？</string>
+    <string name="undo">取消</string>
+    <string name="deleted">刪除:</string>
+    <string name="copied">已拷貝</string>
+</resources>

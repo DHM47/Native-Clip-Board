@@ -22,7 +22,6 @@ public class ClipAdapter extends BaseAdapter {
 	private static ClipboardManager mClipboardManager;
 	private static LayoutInflater inflater;
 	public static List<String> mClips = new ArrayList<String>();
-	//public static List<String> pClips = new ArrayList<String>();
 	static SharedPreferences setting ;
 	static TextView textView;
 	int x;
@@ -76,9 +75,6 @@ public class ClipAdapter extends BaseAdapter {
 						        				
         				if(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()!=(position-ClipBoard.gridView.getFirstVisiblePosition())){
         				for(x=ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x>(position-ClipBoard.gridView.getFirstVisiblePosition());x--){
-        					//String vis=" "+ClipBoard.gridView.getChildAt(x).getVisibility();
-        					//String itm=""+x;
-        					//Toast.makeText(mContext, itm+vis, Toast.LENGTH_SHORT).show();
         					if(x>(position-ClipBoard.gridView.getFirstVisiblePosition()+1)){
         					ClipBoard.gridView.getChildAt(x).animate()
         					.x(ClipBoard.gridView.getChildAt(x-1).getX())
@@ -114,9 +110,7 @@ public class ClipAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
 				ClipBoard.prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
-				//((Activity)mContext).finish();
-				//((Activity)mContext).overridePendingTransition(0, R.anim.slide_down);
-			}
+				}
 		});
 		if(ClipBoard.pinned.contains(mClips.get(position)))
 			textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));

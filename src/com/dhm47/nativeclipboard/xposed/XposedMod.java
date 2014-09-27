@@ -39,7 +39,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 
 public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,IXposedHookInitPackageResources{
-	//public static Context ctx;
+
 	private  Context CBMctx;
 	private  String pkg;
 	
@@ -48,8 +48,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	private  Context CSctx;
 	private  Context CPctx;
-	//static mActionBar actionBar;
-	//static String MODULE_PATH;
+	
 	static Menu menu;
 	final int id=1259;
 	static MethodHookParam mparam;
@@ -59,7 +58,6 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
-		//MODULE_PATH =startupParam.modulePath;
 		pref=new XSharedPreferences("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard_preferences");
 		
 		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
@@ -97,20 +95,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				CBMctx.sendBroadcast(intent);}
 			}
 		});
-		/*XposedHelpers.findAndHookMethod(ClipboardManager.class, "reportPrimaryClipChanged", new XC_MethodHook() {
-			@Override
-            protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
-				mClipboardManager =(ClipboardManager) CBMctx.getSystemService(Context.CLIPBOARD_SERVICE);
-				Log.d("NativeClipBoard", pkg+" copied with listener");
-				if(!(pkg.equals("com.dhm47.nativeclipboard"))){
-				Intent intent = new Intent();
-				intent.setAction("DHM47.Xposed.ClipBoardMonitor");
-				intent.putExtra("Package", pkg);
-				intent.putExtra("Clip",mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CBMctx).toString());
-				CBMctx.sendBroadcast(intent);}
-			}
-		});*/
-				
+						
 	}
 	public void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable {
 	    resparam.res.hookLayout("android", "layout", "text_edit_action_popup_text", new XC_LayoutInflated() {
@@ -357,49 +342,6 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
         }
     }
 	
-	
-	//---------------------------------------------------------------------------------------------------//
-	//-------------------------------------------TESTING-------------------------------------------------//
-	//---------------------------------------------------------------------------------------------------//.
-	/*XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", null,"onClick", View.class, new XC_MethodHook(){
-	@Override
-    protected void beforeHookedMethod(final MethodHookParam param) throws Throwable {
-		try {
-			TextView text = (TextView) param.args[0];
-			if(Resources.getSystem().getString(android.R.string.paste).equals(text.getText().toString())){
-				actionBar.open();
-				param.setResult(null);
-				return ;}
-			else{Toast.makeText(ctx, "not paste", Toast.LENGTH_SHORT).show();}
-		} catch (Exception e) {
-			Toast.makeText(ctx, "Not textview", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
-		}
-		
-		}
-	});*/
-	    //------------------------------------------------------------
-	    /*if(resparam.packageName.equals("com.chrome.beta")){
-	    XModuleResources modRes = XModuleResources.createInstance(MODULE_PATH, resparam.res);
-	    resparam.res.setReplacement("com.chrome.beta", "menu", "select_action_menu", modRes.fwd(com.dhm47.nativeclipboard.R.menu.menu));}*/
-	    //------------------------------------------------------------
-	    /*resparam.res.hookLayout("android", "layout", "text_edit_paste_window", new XC_LayoutInflated() {
-	        @Override
-	        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-	            LinearLayout layout = (LinearLayout) liparam.view;
-	            final TextView text = (TextView)layout.findViewById(android.R.id.title);
-	            text.setOnLongClickListener(new OnLongClickListener() {
-					@Override
-					public boolean onLongClick(View v) {
-						//if(Resources.getSystem().getString(android.R.string.paste).equals(text.getText().toString())){
-							actionBar.open();
-							return true;//}	else return false;			
-						
-					}
-				});
-	            
-	        }
-	    });*/
 	private void CBButton(Menu menu2){
 		menu2.add(android.view.Menu.NONE, id,android.view.Menu.NONE, "CB");
 		menu2.findItem(id).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -408,12 +350,10 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	private void Open(Context mctx) {
-		//ActivityOptions opt=ActivityOptions.makeCustomAnimation(mctx, com.dhm47.nativeclipboard.R.anim.slide_up, com.dhm47.nativeclipboard.R.anim.slide_down);
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
 		mctx.startActivity(intent);
-		//((Activity)mctx).overridePendingTransition(com.dhm47.nativeclipboard.R.anim.slide_up, 0);
-	}
+		}
 	
 	
 	
