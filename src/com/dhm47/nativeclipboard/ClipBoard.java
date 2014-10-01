@@ -117,6 +117,16 @@ public class ClipBoard extends Activity{
         gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
 		gridView.setAdapter(clipAdapter);
 		
+		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
+	    	params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+	    	gridView.setLayoutParams(params); 
+	    }else {
+	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
+	    	params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	    	gridView.setLayoutParams(params); 
+		}
+		
 		clear= (Button) mainLayout.findViewById(R.id.clear);
 		clear.setOnClickListener(new OnClickListener() {			
 			@Override

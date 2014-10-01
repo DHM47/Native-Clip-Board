@@ -4,7 +4,6 @@ package com.dhm47.nativeclipboard.xposed;
 
 
 
-import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -12,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Handler;
 import android.text.Selection;
 import android.text.Spannable;
@@ -348,10 +346,15 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	}
 	
 	
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	private void Open(Context mctx) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
+		int[] location = new int[2];
+		Rect r = new Rect();
+		Etextview.getLocationOnScreen(location);
+		Etextview.getWindowVisibleDisplayFrame(r);
+		double Precentage =((double)location[1])/(r.bottom-r.top);
+		intent.putExtra("Keyheight",Precentage );
 		mctx.startActivity(intent);
 		}
 	
