@@ -12,8 +12,6 @@
     <string name="history_title">歷史數量</string>
     <string name="txtsize">文本大小</string>
     <string name="uisize">剪貼板尺寸</string>
-    <string name="notification_title">顯示通知</string>
-    <string name="notification_summary">這能夠保持服務運行的穩定（特別是在低內存設備上）</string>
     <string name="test">測試</string>
     <string name="blacklist">黑名單</string>
     <string name="blacklist_help">選擇不進行拷貝操作的程式(如密碼管理)</string>
@@ -25,5 +23,5 @@
     <string name="clear_all_conf">清除所有的剪貼內容？</string>
     <string name="undo">取消</string>
     <string name="deleted">刪除:</string>
-    <string name="copied">已拷貝</string>
+    
 </resources>

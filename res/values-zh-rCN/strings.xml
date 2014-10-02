@@ -17,8 +17,6 @@
     <string name="history_title">历史数量</string>
     <string name="txtsize">文本大小</string>
     <string name="uisize">剪贴板大小</string>
-    <string name="notification_title">显示通知</string>
-    <string name="notification_summary">该选项有助于使服务保持运行（尤其在低内存机型上）</string>
     <string name="test">测试</string>
     <string name="blacklist">黑名单</string>
     <string name="blacklist_help">选择不能从中复制的程序（例如密码管理器）</string>
@@ -33,5 +31,5 @@
      <!-- Toast Messages -->
     <string name="undo">撤销</string>
     <string name="deleted">已删除: </string>
-    <string name="copied">已复制</string>
+    
 </resources>

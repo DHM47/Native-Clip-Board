@@ -17,8 +17,6 @@
     <string name="history_summary">Scegli il numero degli elementi da mantenere nella cronologia</string>
     <string name="history_title">Dimensione Cronologia</string>
     <string name="txtsize">Dimensione Testo</string>
-    <string name="notification_title">Mostra Notifica</string>
-    <string name="notification_summary">Necessaria a mantenere il servizio attivo (specialmente nei dispositivi con poca RAM)</string>
     <string name="test">Testa</string>
     
      <!-- Clip Board -->
@@ -28,5 +26,5 @@
      <!-- Toast Messages -->
     <string name="undo">Annulla</string>
     <string name="deleted">Rimosso: </string>
-    <string name="copied">Copiato</string>
+    
 </resources>

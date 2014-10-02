@@ -4,54 +4,19 @@ package com.dhm47.nativeclipboard;
 
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.app.Activity;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.Preference.OnPreferenceClickListener;
 
 
 
 
-public class Setting extends PreferenceActivity {
-    Context ctx;
-	
-	@SuppressWarnings("deprecation")
+public class Setting extends Activity{
+    
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ctx=this;
-		addPreferencesFromResource(R.layout.preference_headers);
-		findPreference("test").setOnPreferenceClickListener(new OnPreferenceClickListener(){
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingFragment()).commit();
 
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(ctx, ClipBoard.class);
-				ctx.startActivity(intent);
-				return true;
-			}
-		});
-		findPreference("blacklist").setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(ctx, Blacklist.class);
-				ctx.startActivity(intent);
-				return true;
-			}
-		});
-		findPreference("xda").setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
-				ctx.startActivity(intent);
-				return true;
-			}
-		});
-				
 	}
 	@Override
 	public void onDestroy (){

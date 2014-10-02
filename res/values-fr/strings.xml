@@ -17,8 +17,6 @@
     <string name="history_title">Taille de l\'historique</string>
     <string name="txtsize">Taille du texte</string>
     <string name="uisize">Taille du cadre des presses papiers</string>
-    <string name="notification_title">Montrer notification</string>
-    <string name="notification_summary">Ceci peut être nécessaire pour maintenir le service (spécialement sur des appareils avec une mémoire faible)</string>
     <string name="test">Tester</string>
     <string name="blacklist">Liste noire</string>
     <string name="blacklist_help">Choisir quelles applications ne seront pas prise en compte concernant la copie
@@ -34,5 +32,5 @@
      <!-- Toast Messages -->
     <string name="undo">Annuler</string>
     <string name="deleted">Effacer: </string>
-    <string name="copied">Copié</string>
+    
 </resources>

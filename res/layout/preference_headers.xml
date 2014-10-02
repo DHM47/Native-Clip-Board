@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:title="@string/app_name" >
-
+	<PreferenceScreen
+	     android:title="@string/category_theme">
+	     
     <net.margaritov.preference.colorpicker.ColorPickerPreference
     	android:key="bgcolor"
         android:title="@string/bgcolor"
@@ -29,7 +31,13 @@
     	android:defaultValue="0xFF664B0E"    
     	alphaSlider="true"
     	hexValue="true" />
-   <com.dhm47.nativeclipboard.WidgetNumberPicker
+   
+    </PreferenceScreen>
+
+    <PreferenceScreen
+            android:title="@string/category_sizes">
+    
+    <com.dhm47.nativeclipboard.WidgetNumberPicker
                 defaultValue="25"
                 maximum="50"
                 minimum="1"
@@ -48,16 +56,24 @@
                 minimum="100"
                 android:key="windowsize"
                	android:title="@string/uisize" />
+   </PreferenceScreen>
+   
    <Preference
             android:key="blacklist"
             android:title="@string/blacklist" />
+    
+    <PreferenceScreen
+            android:title="@string/category_advanced">
+   
    <CheckBoxPreference
             android:defaultValue="false"
             android:key="pastefunction"
             android:title="@string/pastefunction"
             android:summaryOff="@string/pastefunction_summary_off"
             android:summaryOn="@string/pastefunction_summary_on"/>
-   <Preference
+    </PreferenceScreen>
+    
+    <Preference
             android:key="test"
             android:title="@string/test" />
    <Preference

@@ -12,8 +12,6 @@
     <string name="history_title">Размер предыстории</string>
     <string name="txtsize">Размер текста</string>
     <string name="uisize">Размер фоновой доски</string>
-    <string name="notification_title">Показать уведомление</string>
-    <string name="notification_summary">Может быть необходимо для предотвращения выгрузки (особенно на устройствах с малым размером оперативы)</string>
     <string name="pastefunction">Переключить функции вставки</string>
     <string name="pastefunction_summary_off">"Одно нажатие: Вставить
 Долгое нажмите: Открывает ClipBoard
@@ -32,5 +30,5 @@
     <string name="clear_all_conf">Удалить все клипы ?</string>
     <string name="undo">Отменить</string>
     <string name="deleted">Удалено:</string>
-    <string name="copied">Скопировано</string>
+    
 </resources>
