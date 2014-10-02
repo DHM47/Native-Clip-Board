@@ -31,6 +31,9 @@
     <string name="category_theme">Theme</string>
     <string name="category_sizes">Sizes</string>
     <string name="category_advanced">Advanced</string>
+    <string name="cbbutton">Add CB button</string>
+    <string name="cbbutton_summary">Add CB button to selection menu\nRequires Reboot</string>
+    
      <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>

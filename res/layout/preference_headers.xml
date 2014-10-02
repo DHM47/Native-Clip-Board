@@ -71,6 +71,12 @@
             android:title="@string/pastefunction"
             android:summaryOff="@string/pastefunction_summary_off"
             android:summaryOn="@string/pastefunction_summary_on"/>
+   <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="cbbutton"
+            android:title="@string/cbbutton"
+            android:summary="@string/cbbutton_summary"/>
+   
     </PreferenceScreen>
     
     <Preference

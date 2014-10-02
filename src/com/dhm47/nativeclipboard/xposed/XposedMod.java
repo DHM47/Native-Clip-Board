@@ -167,6 +167,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				}
 				});
 		
+		if(pref.getBoolean("cbbutton", true)){
     	XposedHelpers.findAndHookMethod("android.widget.Editor.SelectionActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
             @Override	
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -215,6 +216,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		        
             }
         });
+		}
+		
     	if(pref.getBoolean("pastefunction", false)){
     	XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", lpparam.classLoader, "onClick",View.class,  new XC_MethodHook() {
             @Override	
@@ -258,8 +261,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     	//---------------------------------------------------------------------------------------------------//
 		if (lpparam.packageName.equals("com.chrome.beta") || lpparam.packageName.equals("com.android.chrome")){
             
-	
-        XposedHelpers.findAndHookMethod("org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
+		if(pref.getBoolean("cbbutton", true)){
+		XposedHelpers.findAndHookMethod("org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
             @Override	
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             	menu =(Menu) param.args[1];
@@ -306,7 +309,9 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		        
             }
         });
-        XposedHelpers.findAndHookMethod("org.chromium.content.browser.input.InsertionHandleController.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
+        }
+        
+		XposedHelpers.findAndHookMethod("org.chromium.content.browser.input.InsertionHandleController.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
             @Override	
             protected void beforeHookedMethod(final MethodHookParam param) throws Throwable {
             			View mview =(View) param.args[0];

@@ -334,7 +334,12 @@ public class ClipBoard extends Activity{
 		}else {
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));	    
 		super.onBackPressed();
-	    overridePendingTransition(0, R.anim.slide_down);
+		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+			overridePendingTransition(0, R.anim.slide_up); 
+	    }else {
+	    	overridePendingTransition(0, R.anim.slide_down); 
+		}
+		
 		}
 	}
 		
@@ -370,7 +375,11 @@ public class ClipBoard extends Activity{
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
 		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		ClipBoard.this.finish();
-		overridePendingTransition(0, R.anim.slide_down);
+		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+			overridePendingTransition(0, R.anim.slide_up); 
+	    }else {
+	    	overridePendingTransition(0, R.anim.slide_down); 
+		}
 	}
 	
 	public void Select(int position){

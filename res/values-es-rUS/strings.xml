@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<!-- App -->
     <string name="app_name">Native Clip Board</string> 
@@ -13,14 +13,14 @@
     <string name="clpcolor">Color del Sujetapapeles</string>
     <string name="clpcolor_summary">Del fondo del texto</string>
     <string name="txtcolor">Color del Texto</string>
-    <string name="history_summary">Escoje el limite de copias que se almacenarán en el historial</string>
-    <string name="history_title">Tamaño del Historial</string>
-    <string name="txtsize">Tamaño del Texto</string>
+    <string name="history_summary">Escoje el limite de copias que se almacenarÃ¡n en el historial</string>
+    <string name="history_title">TamaÃ±o del Historial</string>
+    <string name="txtsize">TamaÃ±o del Texto</string>
     <string name="test">Probar</string>
     
      <!-- Clip Board -->
     <string name="clear_all">Eliminar Todos</string>
-    <string name="clear_all_conf">¿Desea eliminar todo lo almacenado en el sujetapapeles?</string>
+    <string name="clear_all_conf">Â¿Desea eliminar todo lo almacenado en el sujetapapeles?</string>
     
      <!-- Toast Messages -->
     <string name="undo">Deshacer</string>
