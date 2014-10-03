@@ -385,7 +385,14 @@ public class ClipBoard extends Activity{
 	public void Select(int position){
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
 		prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
-		
+		if(setting.getBoolean("singlepaste", false)){
+			finish();
+			if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+				overridePendingTransition(0, R.anim.slide_up); 
+		    }else {
+		    	overridePendingTransition(0, R.anim.slide_down); 
+			}					
+		}
 	}
 	
 	public void toBig(){

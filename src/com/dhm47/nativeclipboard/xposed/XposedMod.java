@@ -189,14 +189,30 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
             	            @Override
             	            public void onPrimaryClipChanged() {
-		    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+            	            if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
 		    	            		try {
 			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 			    					} catch (Exception e1) {
 			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
-		    	            	}
+		    	            	}else if(pref.getBoolean("singlepaste", false)){
+	            	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}
+	            	            	try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+	   	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+	   	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+	   	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+	            	            	} catch (Throwable e) {
+	            	            		Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+	            	            		e.printStackTrace();
+	            	            	}
+	            	            	
+	            	            }
 	    	            		else{
 	    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
 		    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
@@ -238,7 +254,23 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 	    						e1.printStackTrace();
 	    					}	
-    	            	}
+    	            	}else if(pref.getBoolean("singlepaste", false)){
+        	            	try {
+	    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+	    					} catch (Exception e1) {
+	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+	    						e1.printStackTrace();
+	    					}
+        	            	try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+        	            	} catch (Throwable e) {
+        	            		Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+        	            		e.printStackTrace();
+        	            	}
+        	            	
+        	            }
 	            		else{
 	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
     	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
@@ -292,7 +324,20 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 		    						e1.printStackTrace();
 		    					}	
-	    	            	}
+	    	            	}else if(pref.getBoolean("singlepaste", false)){
+            	            	try {
+		    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+		    					} catch (Exception e1) {
+		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+		    						e1.printStackTrace();
+		    					}	
+            	            	try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
+	    	            			} catch (Throwable e) {
+	    	            				Toast.makeText(CSctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
+			    					e.printStackTrace();
+			    				}
+            	            	
+            	            }
     	            		else{
     	            			try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
     	            			} catch (Throwable e) {
@@ -328,7 +373,21 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
-		    	            	}
+		    	            	}else if(pref.getBoolean("singlepaste", false)){
+	            	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+
+	    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+	    	            			} catch (Throwable e) {
+			    					Toast.makeText(CPctx, "could not call(click)", Toast.LENGTH_SHORT).show();
+			    					e.printStackTrace();
+			    				}
+	            	            	
+	            	            }
 	    	            		else{
 	    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
 	    	            			} catch (Throwable e) {

@@ -76,6 +76,11 @@
             android:key="cbbutton"
             android:title="@string/cbbutton"
             android:summary="@string/cbbutton_summary"/>
+   <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="singlepaste"
+            android:title="@string/singlepaste"
+            android:summary="@string/singlepaste_summary"/>
    
     </PreferenceScreen>
     
