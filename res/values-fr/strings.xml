@@ -19,8 +19,8 @@
     <string name="txtsize">Taille du texte</string>
     <string name="uisize">Taille du cadre</string>
     <string name="pastefunction">Fonction d\'insertion perso</string>
-    <string name="pastefunction_summary_off">Appui simple : colle\nAppui long : ouvre le presse-papiers\nRedémarrage requis</string>
-    <string name="pastefunction_summary_on">Appui simple : ouvre le presse-papiers\nAppui long : colle\nRedémarrage requis</string>    
+    <string name="pastefunction_summary_off">Appui simple : colle\nAppui long : ouvre le presse-papiers\n*Redémarrage requis</string>
+    <string name="pastefunction_summary_on">Appui simple : ouvre le presse-papiers\nAppui long : colle\n*Redémarrage requis</string>    
     <string name="test">Essai</string>
     <string name="blacklist">Liste noire</string>
     <string name="blacklist_help">Choisir quelles applis ne seront pas prise en compte concernant la copie (ex : Gestionnaire de mots de passe).</string>
@@ -32,8 +32,10 @@
     <string name="category_sizes">Tailles</string>
     <string name="category_advanced">Avancé</string>
     <string name="cbbutton">Ajouter un bouton CB</string>
-    <string name="cbbutton_summary">Ajouter un bouton CB au menu de sélection\nRedémarrage requis</string>
-    
+    <string name="cbbutton_summary">Ajouter un bouton CB au menu de sélection\n*Redémarrage requis</string>
+    <string name="singlepaste">Coller unique</string>
+    <string name="singlepaste_summary">Fermer le presse-papiers immédiatement après le collage\n*Redémarrage requis</string>    
+
      <!-- Clip Board -->
     <string name="clear_all">Tout effacer</string>
     <string name="clear_all_conf">Effacer tous les presse-papiers ?</string>
