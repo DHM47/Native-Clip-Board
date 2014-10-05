@@ -17,8 +17,6 @@
   	<string name="history_summary">اختر عدد القصاصات ( النصوص التي يتم نسخها ) التي تريد ابقاءها في السجل .</string>
   	<string name="history_title">حجم السجل</string>
   	<string name="txtsize">حجم الخط</string>
-  	<string name="notification_title">إظهار تنبيه للبرنامج</string>
-  	<string name="notification_summary">قد تحتاج هذا لابقاء البرنامج قيد التشغيل ( خاصة في الأجهزة ذات الRAM المنخفض )</string>
   	<string name="test">تجربة اختياراتك</string>
   	
   	<!-- Clip Board -->
@@ -28,5 +26,4 @@
   	<!-- Toast Messages -->
   	<string name="undo">تراجع</string>
   	<string name="deleted">تم مسح: </string>
-  	<string name="copied">تم النسخ</string>
 </resources>

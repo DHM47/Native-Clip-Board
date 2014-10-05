@@ -10,7 +10,6 @@
    					android:id="@+id/grid_view"
     				android:layout_width="match_parent"
     				android:layout_height="280dp"
-    				android:layout_alignParentBottom="true"
         			android:background="#FFE6E6E6"
 					android:columnWidth="120dp"
     				android:gravity="center"

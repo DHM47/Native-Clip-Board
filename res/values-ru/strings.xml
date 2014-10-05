@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <resources>
-            <!-- App -->
-        <string name="app_name">Native Clip Board</string>
-     
-       
-        <!-- Color Picker -->
-        <string name="dialog_color_picker">Выбор цвета</string>
-        <string name="press_color_to_apply">Нажмите на цвет чтобы применить</string>    
-       
-        <!-- Preferences -->
-        <string name="bgcolor">Цвет фона</string>
-        <string name="clpcolor">Цвет клипа</string>
-        <string name="clpcolor_summary">Фон текста</string>
-        <string name="txtcolor">Цвет текста</string>
-        <string name="history_summary">Задайте число элементов в предыстории</string>
-        <string name="history_title">Размер предыстории</string>
-        <string name="txtsize">Размер текста</string>
-        <string name="notification_title">Показать уведомление</string>
-        <string name="notification_summary">Может быть необходимо для предотвращения выгрузки (особенно на устройствах с малым размером оперативы)</string>
-        <string name="test">Проверка</string>
-       
-         <!-- Clip Board -->
-        <string name="clear_all">Очистить всё</string>
-        <string name="clear_all_conf">Удалить все клипы ?</string>
-       
-         <!-- Toast Messages -->
-        <string name="undo">Отменить</string>
-        <string name="deleted">Удалено: </string>
-        <string name="copied">Скопировано</string>
-    </resources>
-
+<resources>
+    <string name="app_name">Native Clip Board</string>
+    <string name="dialog_color_picker">Выбор цвета</string>
+    <string name="press_color_to_apply">Нажмите на цвет чтобы применить</string>
+    <string name="bgcolor">Цвет фона</string>
+    <string name="clpcolor">Цвет заметки</string>
+    <string name="clpcolor_summary">Фон за текстом</string>
+    <string name="pinnedcolor">Цвет закреплённой заметки</string>
+    <string name="txtcolor">Цвет текста</string>
+    <string name="history_summary">Задайте число элементов в предыстории</string>
+    <string name="history_title">Размер предыстории</string>
+    <string name="txtsize">Размер текста</string>
+    <string name="uisize">Размер фоновой доски</string>
+    <string name="pastefunction">Переключить функции вставки</string>
+    <string name="pastefunction_summary_off">"Одно нажатие: Вставить
+Долгое нажмите: Открывает ClipBoard
+Требуется перезагрузка"</string>
+    <string name="pastefunction_summary_on">"Одно нажатие: Открывает ClipBoard
+Долгое нажмите: Вставить
+Требуется перезагрузка"</string>
+    <string name="test">Проверка</string>
+    <string name="blacklist">Чёрный список</string>
+    <string name="blacklist_help">Выберите, из каких приложений не следует выполнять копирование (например Менеджеров паролей).</string>
+    <string name="add">Добавить</string>
+    <string name="unknown">Unknown</string>
+    <string name="help">Помощь</string>
+    <string name="xda">Тема на XDA</string>
+    <string name="clear_all">Очистить всё</string>
+    <string name="clear_all_conf">Удалить все клипы ?</string>
+    <string name="undo">Отменить</string>
+    <string name="deleted">Удалено:</string>
+    
+</resources>

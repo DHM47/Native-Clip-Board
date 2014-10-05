@@ -18,8 +18,6 @@
     <string name="history_title">Rozmiar historii</string>
     <string name="txtsize">Rozmiar tekstu</string>
     <string name="uisize">Rozmiar schowka</string>
-    <string name="notification_title">Pokaż powiadomienia</string>
-    <string name="notification_summary">Może być potrzebne, aby usługa pozostała uruchomiona (szczególnie w urządzeniach z małą ilością pamięci RAM)</string>
     <string name="test">Test</string>
     <string name="blacklist">Czarna lista</string>
     <string name="blacklist_help">Wybierz aplikacje, które nie mogą korzystać ze schowka (np. menadżer haseł).</string>
@@ -34,5 +32,5 @@
      <!-- Toast Messages -->
     <string name="undo">Cofnij</string>
     <string name="deleted">Usunięte: </string>
-    <string name="copied">Skopiowane</string>
+    
 </resources>

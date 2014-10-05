@@ -17,8 +17,6 @@
     <string name="history_summary">تعداد موارد قابل نگه داری در تاریخچه را تعیین کنید</string>
     <string name="history_title">اندازه تاریخچه</string>
     <string name="txtsize">سایز متن</string>
-    <string name="notification_title">نمایش در نوار اعلانات</string>
-    <string name="notification_summary">ممکن است این مقوله برای حفظ برنامه در حافظه موقت مخصوصا در موارد کمبود حافظه ضروری باشد</string>
     <string name="test">تست</string>
     
      <!-- Clip Board -->
@@ -28,5 +26,5 @@
      <!-- Toast Messages -->
     <string name="undo">بازگردانی</string>
     <string name="deleted">پاک شد: </string>
-    <string name="copied">کپی شد</string>
+    
 </resources>

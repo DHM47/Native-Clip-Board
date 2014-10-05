@@ -117,6 +117,16 @@ public class ClipBoard extends Activity{
         gridView.setBackgroundColor(setting.getInt("bgcolor",0x80E6E6E6));
 		gridView.setAdapter(clipAdapter);
 		
+		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
+	    	params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+	    	gridView.setLayoutParams(params); 
+	    }else {
+	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
+	    	params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	    	gridView.setLayoutParams(params); 
+		}
+		
 		clear= (Button) mainLayout.findViewById(R.id.clear);
 		clear.setOnClickListener(new OnClickListener() {			
 			@Override
@@ -324,7 +334,12 @@ public class ClipBoard extends Activity{
 		}else {
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));	    
 		super.onBackPressed();
-	    overridePendingTransition(0, R.anim.slide_down);
+		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+			overridePendingTransition(0, R.anim.slide_up); 
+	    }else {
+	    	overridePendingTransition(0, R.anim.slide_down); 
+		}
+		
 		}
 	}
 		
@@ -360,13 +375,24 @@ public class ClipBoard extends Activity{
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
 		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		ClipBoard.this.finish();
-		overridePendingTransition(0, R.anim.slide_down);
+		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+			overridePendingTransition(0, R.anim.slide_up); 
+	    }else {
+	    	overridePendingTransition(0, R.anim.slide_down); 
+		}
 	}
 	
 	public void Select(int position){
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
 		prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
-		
+		if(setting.getBoolean("singlepaste", false)){
+			finish();
+			if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+				overridePendingTransition(0, R.anim.slide_up); 
+		    }else {
+		    	overridePendingTransition(0, R.anim.slide_down); 
+			}					
+		}
 	}
 	
 	public void toBig(){

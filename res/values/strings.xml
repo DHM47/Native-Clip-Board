@@ -18,11 +18,9 @@
     <string name="history_title">History Size</string>
     <string name="txtsize">Text Size</string>
     <string name="uisize">ClipBoard Size</string>
-    <string name="notification_title">Show Notification</string>
-    <string name="notification_summary">This might be needed to keep the service running (especially on low RAM devices)</string>
     <string name="pastefunction">Switch paste functionality</string>
-    <string name="pastefunction_summary_off">Single Click : Pastes\nLong Click : Opens ClipBoard\nRequires Reboot</string>
-    <string name="pastefunction_summary_on">Single Click : Opens ClipBoard\nLong Click : Pastes\nRequires Reboot</string>
+    <string name="pastefunction_summary_off">Single Click : Pastes\nLong Click : Opens ClipBoard\n*Requires Reboot</string>
+    <string name="pastefunction_summary_on">Single Click : Opens ClipBoard\nLong Click : Pastes\n*Requires Reboot</string>
     <string name="test">Test</string>
     <string name="blacklist">Blacklist</string>
     <string name="blacklist_help">Choose which apps should not be copied from (ex. Password managers).</string>
@@ -30,6 +28,13 @@
     <string name="unknown">Unknown</string>
     <string name="help">Help</string>
     <string name="xda">XDA Thread</string>
+    <string name="category_theme">Theme</string>
+    <string name="category_sizes">Sizes</string>
+    <string name="category_advanced">Advanced</string>
+    <string name="cbbutton">Add CB button</string>
+    <string name="cbbutton_summary">Add CB button to selection menu\n*Requires Reboot</string>
+    <string name="singlepaste">Single paste</string>
+    <string name="singlepaste_summary">Close the clipboard diractly after pasting\n*Requires Reboot</string>
      <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>
@@ -37,5 +42,5 @@
      <!-- Toast Messages -->
     <string name="undo">Undo</string>
     <string name="deleted">Deleted: </string>
-    <string name="copied">Copied</string>
+    
 </resources>

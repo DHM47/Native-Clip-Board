@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Výber farby</string>
+    <string name="press_color_to_apply">Stlačte farbu pre jej použitie</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Farba pozadia</string>
+    <string name="clpcolor">Farba záznamu</string>
+    <string name="clpcolor_summary">Pozadie textu</string>
+    <string name="pinnedcolor">Farba pripnutého záznamu</string>
+    <string name="txtcolor">Farba textu</string>
+    <string name="history_summary">Počet položiek na ponechanie v histórii</string>
+    <string name="history_title">Veľkosť histórie</string>
+    <string name="txtsize">Veľkosť textu</string>
+    <string name="uisize">Veľkosť schránky</string>
+    <string name="pastefunction">Prepnutie prilepenia</string>
+    <string name="pastefunction_summary_off">Jednoduché kliknutie: Prilepiť\nDlhé: Otvoriť schránku\nVyžaduje sa reštart</string>
+    <string name="pastefunction_summary_on">Jednoduché kliknutie: Otvoriť schránku\nDlhé: Prilepiť\nVyžaduje sa reštart</string>
+    <string name="test">Skúžka</string>
+    <string name="blacklist">Čierna listina</string>
+    <string name="blacklist_help">Aplikácie, z ktorých by sa nemalo kopírovať (napr. správcovia hesiel).</string>
+    <string name="add">Pridať</string>
+    <string name="unknown">Neznáme</string>
+    <string name="help">Pomoc</string>
+    <string name="xda">Téma na XDA fóre</string>
+     <!-- Clip Board -->
+    <string name="clear_all">Vymazať všetky</string>
+    <string name="clear_all_conf">Vymazať všetky záznamy?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Späť</string>
+    <string name="deleted">Vymazané: </string>
+    
+</resources>

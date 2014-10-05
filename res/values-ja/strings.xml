@@ -18,8 +18,6 @@
     <string name="history_title">履歴サイズ</string>
     <string name="txtsize">文字サイズ</string>
     <string name="uisize">クリップボードサイズ</string>
-    <string name="notification_title">通知の表示</string>
-    <string name="notification_summary">空きメモリが少ない端末でこのオプションを無効にすると、サービスが動作しないことがあります。</string>
     <string name="test">テスト</string>
     <string name="blacklist">ブラックリスト</string>
     <string name="blacklist_help">コピー履歴を残さないアプリを選んでください。(例: パスワード管理アプリ)</string>
@@ -34,6 +32,5 @@
     
      <!-- Toast Messages -->
     <string name="undo">元に戻す</string>
-    <string name="copied">コピーしました</string>
     <string name="deleted">削除:</string>
 </resources>

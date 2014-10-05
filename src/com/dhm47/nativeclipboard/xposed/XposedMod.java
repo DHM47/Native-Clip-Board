@@ -4,7 +4,6 @@ package com.dhm47.nativeclipboard.xposed;
 
 
 
-import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -12,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Handler;
 import android.text.Selection;
 import android.text.Spannable;
@@ -169,6 +167,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				}
 				});
 		
+		if(pref.getBoolean("cbbutton", true)){
     	XposedHelpers.findAndHookMethod("android.widget.Editor.SelectionActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
             @Override	
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -190,14 +189,30 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
             	            @Override
             	            public void onPrimaryClipChanged() {
-		    	            	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+            	            if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
 		    	            		try {
 			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 			    					} catch (Exception e1) {
 			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
-		    	            	}
+		    	            	}else if(pref.getBoolean("singlepaste", false)){
+	            	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}
+	            	            	try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+	   	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+	   	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+	   	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+	            	            	} catch (Throwable e) {
+	            	            		Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+	            	            		e.printStackTrace();
+	            	            	}
+	            	            	
+	            	            }
 	    	            		else{
 	    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
 		    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
@@ -217,6 +232,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		        
             }
         });
+		}
+		
     	if(pref.getBoolean("pastefunction", false)){
     	XposedHelpers.findAndHookMethod("android.widget.Editor.ActionPopupWindow", lpparam.classLoader, "onClick",View.class,  new XC_MethodHook() {
             @Override	
@@ -237,7 +254,23 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 	    						e1.printStackTrace();
 	    					}	
-    	            	}
+    	            	}else if(pref.getBoolean("singlepaste", false)){
+        	            	try {
+	    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+	    					} catch (Exception e1) {
+	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+	    						e1.printStackTrace();
+	    					}
+        	            	try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+        	            	} catch (Throwable e) {
+        	            		Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+        	            		e.printStackTrace();
+        	            	}
+        	            	
+        	            }
 	            		else{
 	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
     	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
@@ -260,8 +293,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     	//---------------------------------------------------------------------------------------------------//
 		if (lpparam.packageName.equals("com.chrome.beta") || lpparam.packageName.equals("com.android.chrome")){
             
-	
-        XposedHelpers.findAndHookMethod("org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
+		if(pref.getBoolean("cbbutton", true)){
+		XposedHelpers.findAndHookMethod("org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
             @Override	
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             	menu =(Menu) param.args[1];
@@ -291,7 +324,20 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 		    						e1.printStackTrace();
 		    					}	
-	    	            	}
+	    	            	}else if(pref.getBoolean("singlepaste", false)){
+            	            	try {
+		    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+		    					} catch (Exception e1) {
+		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+		    						e1.printStackTrace();
+		    					}	
+            	            	try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
+	    	            			} catch (Throwable e) {
+	    	            				Toast.makeText(CSctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
+			    					e.printStackTrace();
+			    				}
+            	            	
+            	            }
     	            		else{
     	            			try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
     	            			} catch (Throwable e) {
@@ -308,7 +354,9 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		        
             }
         });
-        XposedHelpers.findAndHookMethod("org.chromium.content.browser.input.InsertionHandleController.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
+        }
+        
+		XposedHelpers.findAndHookMethod("org.chromium.content.browser.input.InsertionHandleController.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
             @Override	
             protected void beforeHookedMethod(final MethodHookParam param) throws Throwable {
             			View mview =(View) param.args[0];
@@ -325,7 +373,21 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
-		    	            	}
+		    	            	}else if(pref.getBoolean("singlepaste", false)){
+	            	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+
+	    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+	    	            			} catch (Throwable e) {
+			    					Toast.makeText(CPctx, "could not call(click)", Toast.LENGTH_SHORT).show();
+			    					e.printStackTrace();
+			    				}
+	            	            	
+	            	            }
 	    	            		else{
 	    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
 	    	            			} catch (Throwable e) {
@@ -348,10 +410,15 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	}
 	
 	
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	private void Open(Context mctx) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
+		int[] location = new int[2];
+		Rect r = new Rect();
+		Etextview.getLocationOnScreen(location);
+		Etextview.getWindowVisibleDisplayFrame(r);
+		double Precentage =((double)location[1])/(r.bottom-r.top);
+		intent.putExtra("Keyheight",Precentage );
 		mctx.startActivity(intent);
 		}
 	
