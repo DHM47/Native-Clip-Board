@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!-- App -->
     <string name="app_name">原生剪贴板</string> 
@@ -16,7 +17,10 @@
     <string name="history_summary">选择保留在历史中的项目数</string>
     <string name="history_title">历史数量</string>
     <string name="txtsize">文本大小</string>
-    <string name="uisize">剪贴板大小</string>
+    <string name="uisize">剪贴板尺寸</string>
+    <string name="pastefunction">切换粘贴功能</string>
+  <string name="pastefunction_summary_off">短按：粘贴\n长按：打开剪贴板\n*需要重启</string>
+<string name="pastefunction_summary_on">短按：打开剪贴板\n长按：粘贴\n*需要重启</string>
     <string name="test">测试</string>
     <string name="blacklist">黑名单</string>
     <string name="blacklist_help">选择不能从中复制的程序（例如密码管理器）</string>
@@ -24,6 +28,13 @@
     <string name="unknown">未知</string>
     <string name="help">帮助</string>
     <string name="xda">XDA 帖子</string>
+    <string name="category_theme">主题</string>
+    <string name="category_sizes">大小</string>
+    <string name="category_advanced">高级</string>
+    <string name="cbbutton">添加CB按钮</string>
+    <string name="cbbutton_summary">将CB按钮添加到选择菜单中\n*需要重启</string>
+    <string name="singlepaste">单次粘贴</string>
+    <string name="singlepaste_summary">粘贴完成后马上关闭剪贴板\n*需要重启</string>
      <!-- Clip Board -->
     <string name="clear_all">全清</string>
     <string name="clear_all_conf">清除所有项目？</string>
