@@ -2,7 +2,7 @@
 <resources>
     <!-- App -->
     <string name="app_name">Native Clip Board</string> 
-
+    <string name="xposed_desc">Ajoute un gestionnaire de presse-papiers système</string>
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Sélectionner une couleur</string>
