@@ -2,6 +2,7 @@
 <resources>
 	<!-- App -->
     <string name="app_name">Native Clip Board</string> 
+    <string name="xposed_desc">Pridá systémového správcu záznamov v schránke</string>
 
     
     <!-- Color Picker -->
@@ -28,6 +29,14 @@
     <string name="unknown">Neznáme</string>
     <string name="help">Pomoc</string>
     <string name="xda">Téma na XDA fóre</string>
+    <string name="category_theme">Téma</string>
+    <string name="category_sizes">Veľkosti</string>
+    <string name="category_advanced">Pokročilé</string>
+    <string name="cbbutton">Pridať tlačidlo CB</string>
+    <string name="cbbutton_summary">Pridať tlačidlo schránky (CB) do ponuky výberu\n*Vyžaduje sa reštart</string>
+    <string name="singlepaste">Jednoduché prilepenie</string>
+    <string name="singlepaste_summary">Zavrieť schránku po prilepení\n*Vyžaduje sa reštart</string>
+
      <!-- Clip Board -->
     <string name="clear_all">Vymazať všetky</string>
     <string name="clear_all_conf">Vymazať všetky záznamy?</string>

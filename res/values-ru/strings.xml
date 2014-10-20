@@ -14,11 +14,11 @@
     <string name="uisize">Размер фоновой доски</string>
     <string name="pastefunction">Переключить функции вставки</string>
     <string name="pastefunction_summary_off">"Одно нажатие: Вставить
-Долгое нажмите: Открывает ClipBoard
-Требуется перезагрузка"</string>
-    <string name="pastefunction_summary_on">"Одно нажатие: Открывает ClipBoard
+Долгое нажмите: Открывает буфер обмена
+*Требуется перезагрузка"</string>
+    <string name="pastefunction_summary_on">"Одно нажатие: Открывает буфер обмена
 Долгое нажмите: Вставить
-Требуется перезагрузка"</string>
+*Требуется перезагрузка"</string>
     <string name="test">Проверка</string>
     <string name="blacklist">Чёрный список</string>
     <string name="blacklist_help">Выберите, из каких приложений не следует выполнять копирование (например Менеджеров паролей).</string>
@@ -26,9 +26,17 @@
     <string name="unknown">Unknown</string>
     <string name="help">Помощь</string>
     <string name="xda">Тема на XDA</string>
+    <string name="category_theme">Тема</string>
+    <string name="category_sizes">Размер</string>
+    <string name="category_advanced">Дополнительно</string>
+    <string name="cbbutton">Добавить кнопку CB</string>
+    <string name="cbbutton_summary">"Добавить кнопку CB в меню выбора 
+*Требуется перезагрузка"</string>
+    <string name="singlepaste">Одиночная вставка</string>
+    <string name="singlepaste_summary">"Закройте буфер обмена сразу после вставки 
+*Требуется перезагрузка"</string>
     <string name="clear_all">Очистить всё</string>
-    <string name="clear_all_conf">Удалить все клипы ?</string>
+    <string name="clear_all_conf">Удалить все заметки ?</string>
     <string name="undo">Отменить</string>
     <string name="deleted">Удалено:</string>
-    
 </resources>

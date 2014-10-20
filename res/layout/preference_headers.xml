@@ -89,5 +89,8 @@
             android:title="@string/test" />
    <Preference
             android:key="xda"
-            android:title="@string/xda" />
+            android:title="@string/xda">
+   <intent android:action="android.intent.action.VIEW"
+            android:data="http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682" />
+   </Preference>
 </PreferenceScreen>

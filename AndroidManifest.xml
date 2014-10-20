@@ -72,7 +72,7 @@
             android:value="30+" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Adds system wide clip manager" />
+            android:value="@string/xposed_desc" />
         
     </application>
 

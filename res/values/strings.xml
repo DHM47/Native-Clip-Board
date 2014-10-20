@@ -2,7 +2,7 @@
 <resources>
 	<!-- App -->
     <string name="app_name">Native Clip Board</string> 
-
+    <string name="xposed_desc">Adds system wide clip manager</string> 
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
