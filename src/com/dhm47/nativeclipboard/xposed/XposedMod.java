@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -122,6 +123,14 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 					    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 					    						e1.printStackTrace();
 					    					}	
+				    	            		final Handler handler = new Handler();
+				    	            		handler.postDelayed(new Runnable() {
+				    	            		    @Override
+				    	            		    public void run() {
+				    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
+						    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
+				    	            		    }
+				    	            		}, 100);
 				    	            	}else if(pref.getBoolean("singlepaste", false)){
 			            	            	try {
 					    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
@@ -216,6 +225,15 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
+		    	            		final Handler handler = new Handler();
+		    	            		handler.postDelayed(new Runnable() {
+		    	            		    @Override
+		    	            		    public void run() {
+		    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
+				    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
+		    	            		    }
+		    	            		}, 100);
+		    	            		
 		    	            	}else if(pref.getBoolean("singlepaste", false)){
 	            	            	try {
 			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
@@ -276,6 +294,14 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 	    						e1.printStackTrace();
 	    					}	
+    	            		final Handler handler = new Handler();
+    	            		handler.postDelayed(new Runnable() {
+    	            		    @Override
+    	            		    public void run() {
+    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
+		    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
+    	            		    }
+    	            		}, 100);
     	            	}else if(pref.getBoolean("singlepaste", false)){
         	            	try {
 	    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
