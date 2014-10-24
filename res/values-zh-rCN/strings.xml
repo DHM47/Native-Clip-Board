@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!-- App -->
-    <string name="app_name">原生剪贴板</string> 
+    <string name="app_name">原生剪贴板</string>
+    <string name="xposed_desc">添加系统级别的剪贴板管理器</string>  
 
     
     <!-- Color Picker -->
