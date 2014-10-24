@@ -18,6 +18,10 @@
     <string name="history_title">Rozmiar historii</string>
     <string name="txtsize">Rozmiar tekstu</string>
     <string name="uisize">Rozmiar schowka</string>
+    <string name="pastefunction">Zmień funkcjonalność wklejania</string>
+    <string name="pastefunction_summary_off">Pojedyncze kliknięcie : Wkleja\nPrzytrzymanie : Otwiera schowek\n*Wymaga restartu</string>
+    <string name="pastefunction_summary_on">Pojedyncze kliknięcie : Otwiera schowek\nPrzytrzymanie : Wkleja\n*Wymaga restartu</string>
+    
     <string name="test">Test</string>
     <string name="blacklist">Czarna lista</string>
     <string name="blacklist_help">Wybierz aplikacje, które nie mogą korzystać ze schowka (np. menadżer haseł).</string>
@@ -25,6 +29,13 @@
     <string name="unknown">Nieznane</string>
     <string name="help">Pomoc</string>
     <string name="xda">Wątek na forum XDA</string>
+    <string name="category_theme">Motyw</string>
+    <string name="category_sizes">Rozmiary</string>
+    <string name="category_advanced">Zaawansowane</string>
+    <string name="cbbutton">Dodaj przycisk SCHOWEK</string>
+    <string name="cbbutton_summary">Dodaj przycisk SCHOWEK do menu wyboru\n*Wymaga restartu</string>
+    <string name="singlepaste">Pojedyncze wklejenie</string>
+    <string name="singlepaste_summary">Zamknij schowek bezpośrednio po wklejeniu\n*Wymaga restartu</string>
      <!-- Clip Board -->
     <string name="clear_all">Wyczyść</string>
     <string name="clear_all_conf">Wyczyścić wszystko?</string>
@@ -32,5 +43,5 @@
      <!-- Toast Messages -->
     <string name="undo">Cofnij</string>
     <string name="deleted">Usunięte: </string>
-    
+
 </resources>
