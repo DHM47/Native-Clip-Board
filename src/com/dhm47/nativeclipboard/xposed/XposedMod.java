@@ -130,7 +130,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
 						    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
 				    	            		    }
-				    	            		}, 100);
+				    	            		}, 300);
 				    	            	}else if(pref.getBoolean("singlepaste", false)){
 			            	            	try {
 					    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
@@ -232,7 +232,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
 				    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
 		    	            		    }
-		    	            		}, 100);
+		    	            		}, 300);
 		    	            		
 		    	            	}else if(pref.getBoolean("singlepaste", false)){
 	            	            	try {
@@ -301,7 +301,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
 		    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
     	            		    }
-    	            		}, 100);
+    	            		}, 300);
     	            	}else if(pref.getBoolean("singlepaste", false)){
         	            	try {
 	    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
