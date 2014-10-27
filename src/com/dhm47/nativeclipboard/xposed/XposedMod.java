@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	private  Context Ectx;
 	private  TextView Etextview;
+	private int start;
+	private int end;
 	
 	private  Context CSctx;
 	private  Context CPctx;
@@ -107,8 +110,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 							if(pref.getBoolean("pastefunction", false))Etextview.onTextContextMenuItem(android.R.id.paste);
 							else {
 								Open(text.getContext());
-								final int start=Etextview.getSelectionStart();
-				    			final int end=Etextview.getSelectionEnd();
+								start=Etextview.getSelectionStart();
+				    			end=Etextview.getSelectionEnd();
 				    			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
 				    			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
 				    	            @Override
@@ -120,13 +123,39 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 					    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 					    						e1.printStackTrace();
 					    					}	
-				    	            	}
+				    	            		final Handler handler = new Handler();
+				    	            		handler.postDelayed(new Runnable() {
+				    	            		    @Override
+				    	            		    public void run() {
+				    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
+						    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
+				    	            		    }
+				    	            		}, 300);
+				    	            	}else if(pref.getBoolean("singlepaste", false)){
+			            	            	try {
+					    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+					    					} catch (Exception e1) {
+					    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+					    						e1.printStackTrace();
+					    					}
+			            	            	try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
+			   	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
+			   	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
+			   	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+			            	            	} catch (Throwable e) {
+			            	            		Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
+			            	            		e.printStackTrace();
+			            	            	}
+			            	            	
+			            	            }
 			    	            		else{
 			    	            			try {   Etextview.setText(Etextview.getText().subSequence(0, start).toString()
 				    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
 				    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
 				    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
-				    					} catch (Throwable e) {
+					   	            				start=start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length();
+					   	            				end=start;
+			    	            			} catch (Throwable e) {
 				    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
 				    						e.printStackTrace();
 				    					}
@@ -183,8 +212,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             	switch(item.getItemId()) {
             		case id:
             			Open(Ectx);
-            			final int start=Etextview.getSelectionStart();
-            			final int end=Etextview.getSelectionEnd();
+            			start=Etextview.getSelectionStart();
+            			end=Etextview.getSelectionEnd();
             			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
             			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
             	            @Override
@@ -196,6 +225,15 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
+		    	            		final Handler handler = new Handler();
+		    	            		handler.postDelayed(new Runnable() {
+		    	            		    @Override
+		    	            		    public void run() {
+		    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
+				    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
+		    	            		    }
+		    	            		}, 300);
+		    	            		
 		    	            	}else if(pref.getBoolean("singlepaste", false)){
 	            	            	try {
 			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
@@ -218,7 +256,9 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
 		    	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
 		    	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
-		    					} catch (Throwable e) {
+			   	            				start=start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length();
+			   	            				end=start;
+	    	            			} catch (Throwable e) {
 		    						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
 		    						e.printStackTrace();
 		    					}
@@ -241,8 +281,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             	TextView text =(TextView) param.args[0];
             	if(Resources.getSystem().getString(android.R.string.paste).equals(text.getText().toString())){
     			Open(Ectx);
-    			final int start=Etextview.getSelectionStart();
-    			final int end=Etextview.getSelectionEnd();
+    			start=Etextview.getSelectionStart();
+    			end=Etextview.getSelectionEnd();
     			mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
     			mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
     	            @Override
@@ -254,6 +294,14 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 	    						e1.printStackTrace();
 	    					}	
+    	            		final Handler handler = new Handler();
+    	            		handler.postDelayed(new Runnable() {
+    	            		    @Override
+    	            		    public void run() {
+    	            		    	InputMethodManager inputMethodManager=(InputMethodManager)Ectx.getSystemService(Context.INPUT_METHOD_SERVICE);
+		    	            	    inputMethodManager.showSoftInput(Etextview, InputMethodManager.SHOW_IMPLICIT);
+    	            		    }
+    	            		}, 300);
     	            	}else if(pref.getBoolean("singlepaste", false)){
         	            	try {
 	    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
@@ -276,6 +324,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     	            					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).toString()
     	            					 +Etextview.getText().subSequence(end, Etextview.getText().length()).toString());
     	            				Selection.setSelection((Spannable) Etextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length());
+	   	            				start=start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(Ectx).length();
+	   	            				end=start;
     					} catch (Throwable e) {
     						Toast.makeText(Ectx, "pasting went wrong", Toast.LENGTH_SHORT).show();
     						e.printStackTrace();
@@ -356,7 +406,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
         });
         }
         
-		XposedHelpers.findAndHookMethod("org.chromium.content.browser.input.InsertionHandleController.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
+		XposedHelpers.findAndHookMethod("org.chromium.content.browser.input.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
             @Override	
             protected void beforeHookedMethod(final MethodHookParam param) throws Throwable {
             			View mview =(View) param.args[0];

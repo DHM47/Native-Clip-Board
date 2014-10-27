@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Renk Seçici</string>
+    <string name="press_color_to_apply">Uygulamak için bir renk seçin</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Arkaplan Rengi</string>
+    <string name="clpcolor">Seçim Rengi</string>
+    <string name="clpcolor_summary">Yazı arkaplanı</string>
+    <string name="txtcolor">Yazı Rengi</string>
+    <string name="history_summary">Geçmişte saklamak istediğiniz kayıt sayısını seçin</string>
+    <string name="history_title">Geçmiş Büyüklüğü</string>
+    <string name="txtsize">Yazı Boyutu</string>
+    <string name="notification_title">Bildirim göster</string>
+    <string name="notification_summary">Bu servisi açık tutmak için gerekebilir (özellikle düşük RAM'li cihazlarda)</string>
+    <string name="test">Test</string>
+    
+     <!-- Clip Board -->
+    <string name="clear_all">Hepsini Temizle</string>
+    <string name="clear_all_conf">Tüm seçimler temizlensin mi?</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Geri alındı</string>
+    <string name="deleted">Silindi :</string>
+    <string name="copied">Kopyalandı</string>
+</resources>

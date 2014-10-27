@@ -13,6 +13,7 @@ import com.dhm47.nativeclipboard.R;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -62,6 +63,7 @@ public class ClipBoard extends Activity{
 	public static String backupS;
 	public static int backupP;
 	private int size;
+	private int lPosition;
 	static ClipData prevClip;
 	private View Undo;
 	public static  List<String> pinned=new ArrayList<String>();
@@ -175,7 +177,7 @@ public class ClipBoard extends Activity{
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
-				
+				lPosition=position;
 				textView =(TextView) mainLayout.findViewById(R.id.textViewB);
 				textView.setText(ClipAdapter.mClips.get(position));
 				if(pinned.contains(ClipAdapter.mClips.get(position)))textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
@@ -402,7 +404,51 @@ public class ClipBoard extends Activity{
 		pin.setVisibility(View.VISIBLE);
 		cancel.setVisibility(View.VISIBLE);
 		textView.setVisibility(View.VISIBLE);
-				
+		
+		int mPosition=lPosition-gridView.getFirstVisiblePosition();
+    	final int originalHeight = gridView.getChildAt(mPosition).getHeight();
+    	final int originalWidth = gridView.getChildAt(mPosition).getWidth();
+    	final float originalX=gridView.getChildAt(mPosition).getX();
+    	final float originalY=gridView.getChildAt(mPosition).getY()+gridView.getY();
+    	
+    	final int finalHeight = gridView.getHeight()-2*gridView.getPaddingBottom();
+    	final int finalWidth = gridView.getWidth();
+    	final float finalX=gridView.getX()+gridView.getPaddingLeft();
+    	final float finalY=gridView.getY()+gridView.getPaddingBottom()	;
+    	
+	        ValueAnimator animatorH = ValueAnimator.ofInt(originalHeight,finalHeight).setDuration(400);
+	        animatorH.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	                textView.setHeight((Integer) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        ValueAnimator animatorW = ValueAnimator.ofInt(originalWidth,finalWidth).setDuration(400);
+	        animatorW.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	                textView.setWidth((Integer) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        ValueAnimator animatorX = ValueAnimator.ofFloat(originalX,finalX).setDuration(400);
+	        animatorX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	            	textView.setX((Float) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        ValueAnimator animatorY = ValueAnimator.ofFloat(originalY,finalY).setDuration(400);
+	        animatorY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	            	textView.setY((Float) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        
+	        animatorH.start();
+	        animatorW.start();
+	        animatorX.start();
+	        animatorY.start();
 	}
 	public void toGrid(){
 		close.setVisibility(View.VISIBLE);
@@ -410,7 +456,56 @@ public class ClipBoard extends Activity{
 		delete.setVisibility(View.INVISIBLE);
 		pin.setVisibility(View.INVISIBLE);
 		cancel.setVisibility(View.INVISIBLE);
-		textView.setVisibility(View.INVISIBLE);
 		
+		final int mPosition=lPosition-gridView.getFirstVisiblePosition();
+		final int originalHeight = gridView.getChildAt(mPosition).getHeight();
+    	final int originalWidth = gridView.getChildAt(mPosition).getWidth();
+    	final float originalX=gridView.getChildAt(mPosition).getX();
+    	final float originalY=gridView.getChildAt(mPosition).getY()+gridView.getY();
+    	
+    	final int finalHeight = gridView.getHeight()-2*gridView.getPaddingBottom();
+    	final int finalWidth = gridView.getWidth();
+    	final float finalX=gridView.getX()+gridView.getPaddingLeft();
+    	final float finalY=gridView.getY()+gridView.getPaddingBottom()	;
+    	
+	        ValueAnimator animatorH = ValueAnimator.ofInt(finalHeight,originalHeight).setDuration(400);
+	        animatorH.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	                textView.setHeight((Integer) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        ValueAnimator animatorW = ValueAnimator.ofInt(finalWidth,originalWidth).setDuration(400);
+	        animatorW.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	                textView.setWidth((Integer) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        ValueAnimator animatorX = ValueAnimator.ofFloat(finalX,originalX).setDuration(400);
+	        animatorX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	            	textView.setX((Float) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        ValueAnimator animatorY = ValueAnimator.ofFloat(finalY,originalY).setDuration(400);
+	        animatorY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	            	textView.setY((Float) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        animatorY.addListener(new AnimatorListenerAdapter() {
+	            @Override
+	            public void onAnimationEnd(Animator animation) {
+	            	textView.setVisibility(View.INVISIBLE);
+	            }
+	        });
+	        animatorH.start();
+	        animatorW.start();
+	        animatorX.start();
+	        animatorY.start();
+
 	}
 }
