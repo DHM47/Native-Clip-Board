@@ -17,7 +17,7 @@
     <string name="history_title">Geçmiş Büyüklüğü</string>
     <string name="txtsize">Yazı Boyutu</string>
     <string name="notification_title">Bildirim göster</string>
-    <string name="notification_summary">Bu servisi açık tutmak için gerekebilir (özellikle düşük RAM'li cihazlarda)</string>
+    <string name="notification_summary">Bu servisi açık tutmak için gerekebilir (özellikle düşük RAM\'li cihazlarda)</string>
     <string name="test">Test</string>
     
      <!-- Clip Board -->

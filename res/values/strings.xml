@@ -35,6 +35,11 @@
     <string name="cbbutton_summary">Add CB button to selection menu\n*Requires Reboot</string>
     <string name="singlepaste">Single paste</string>
     <string name="singlepaste_summary">Close the clipboard directly after pasting\n*Requires Reboot</string>
+    <string name="monitorservice">Compatibility mode</string>
+    <string name="monitorservice_summary">Use a background service to monitor copied text for MIUI and Samsung Roms\n*disables Blacklisting</string>
+    <string name="notification_title">Show Notification</string>
+    <string name="notification_summary">This might be needed to keep the service running (especially on low RAM devices)</string>
+
      <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>

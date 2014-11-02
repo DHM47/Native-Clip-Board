@@ -61,6 +61,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	public void initZygote(StartupParam startupParam) throws Throwable {
 		pref=new XSharedPreferences("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard_preferences");
 		
+		if(!(pref.getBoolean("monitorservice", false))){
 		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
 			@Override
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
@@ -96,7 +97,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				CBMctx.sendBroadcast(intent);}
 			}
 		});
-						
+		}			
 	}
 	public void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable {
 	    resparam.res.hookLayout("android", "layout", "text_edit_action_popup_text", new XC_LayoutInflated() {
@@ -179,6 +180,74 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	
 	public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
+		
+		/*Trying to make it work on HTC Sense
+		XposedHelpers.findAndHookMethod("com.htc.quickselection.HtcQuickSelectionWindow", lpparam.classLoader, "onItemClick",AdapterView.class,View.class,int.class,long.class,  new XC_MethodHook() {
+            @Override	
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            	View mView =(View) param.args[1];
+            	Toast.makeText(mView.getContext(),"Item click in HtcQuickSelectionWindow",Toast.LENGTH_LONG).show();
+            	XposedBridge.log("Item click in HtcQuickSelectionWindow");
+            }
+		});
+		XposedHelpers.findAndHookMethod("com.htc.quickselection.QuickSelectionWindow", lpparam.classLoader, "onItemClick",AdapterView.class,View.class,int.class,long.class,  new XC_MethodHook() {
+            @Override	
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            	View mView =(View) param.args[1];
+            	Toast.makeText(mView.getContext(),"Item click in QuickSelectionWindow",Toast.LENGTH_LONG).show();
+            	XposedBridge.log("Item click in QuickSelectionWindow");
+            }
+		});
+		try {
+			XposedHelpers.findAndHookMethod(
+					"com.htc.textselection.HtcTextSelectionManager",
+					lpparam.classLoader, "prepareQuickActions", View.class,
+					Menu.class, OnClickListener.class, new XC_MethodHook() {
+						@Override
+						protected void afterHookedMethod(MethodHookParam param)
+								throws Throwable {
+							XposedBridge.log("Hook in prepareQuickActions");
+						}
+					});
+		} catch (Exception e) {
+			XposedBridge.log("Faild to hook prepareQuickActions");
+			XposedBridge.log(e);
+		}
+		
+		try {
+			XposedHelpers.findAndHookMethod(
+					"com.htc.textselection.HtcTextSelectionManager",
+					lpparam.classLoader, "prepareHtcPasteWindow", View.class,
+					OnClickListener.class, Context.class, boolean.class,
+					new XC_MethodHook() {
+						@Override
+						protected void afterHookedMethod(MethodHookParam param)
+								throws Throwable {
+							XposedBridge.log("Hook in prepareHtcPasteWindow");
+						}
+					});
+		} catch (Exception e) {
+			XposedBridge.log("Faild to hook prepareHtcPasteWindow");
+			XposedBridge.log(e);
+		}
+		
+		try {
+			XposedHelpers.findAndHookMethod(
+					"com.htc.textselection.HtcTextSelectionManager",
+					lpparam.classLoader, "prepareQuickActions", View.class,
+					OnClickListener.class, Context.class, boolean.class,
+					new XC_MethodHook() {
+						@Override
+						protected void afterHookedMethod(MethodHookParam param)
+								throws Throwable {
+							XposedBridge.log("Hook in prepareQuickActions2");
+						}
+					});
+		} catch (Exception e) {
+			XposedBridge.log("Faild to hook prepareQuickActions2");
+			XposedBridge.log(e);
+		}
+		*/
 		
 		XposedHelpers.findAndHookMethod(TextView.class, "onFocusChanged", boolean.class, int.class,	Rect.class, new XC_MethodHook() {
 				@Override
@@ -335,7 +404,9 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     	        }};
     	        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 	            param.setResult(null);
-				return ;}
+				return ;}else {
+					Toast.makeText(Ectx, "NCB click",Toast.LENGTH_SHORT).show();
+				}
             }
         });}
     	//---------------------------------------------------------------------------------------------------//

@@ -43,9 +43,7 @@ public class ClipMonitorService extends Service{
 			e.printStackTrace();
 		}
     	try {//Write
-			if(mClip.contains(Clip)){
-			}else if(Clip.equals("//NATIVECLIPBOARDCLOSE//")){
-			}else{
+			if( !(mClip.contains(Clip)) && !(Clip.equals("//NATIVECLIPBOARDCLOSE//")) && !(Clip.equals("")) ){
 		      mClip.add(0,Clip);
               int history =ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).getInt("history", 25);
               for (int x=mClip.size();x>history;x--){

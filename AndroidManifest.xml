@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhm47.nativeclipboard"
     android:versionCode="28"
-    android:versionName="2.8" >
+    android:versionName="2.8.1" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -33,6 +33,7 @@
         <activity
             android:name="com.dhm47.nativeclipboard.Blacklist"
             android:label="@string/blacklist"
+            android:parentActivityName="com.dhm47.nativeclipboard.Setting"
             android:process=":setting">
         </activity>
         
@@ -63,6 +64,9 @@
         
         <service
             android:name="com.dhm47.nativeclipboard.ClipMonitorService"/>
+        <service
+            android:name="com.dhm47.nativeclipboard.ClipMonitorLegacy"
+            android:process=":monitor"/>
         
         <meta-data
             android:name="xposedmodule"
