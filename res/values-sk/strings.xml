@@ -36,6 +36,10 @@
     <string name="cbbutton_summary">Pridať tlačidlo schránky (CB) do ponuky výberu\n*Vyžaduje sa reštart</string>
     <string name="singlepaste">Jednoduché prilepenie</string>
     <string name="singlepaste_summary">Zavrieť schránku po prilepení\n*Vyžaduje sa reštart</string>
+    <string name="monitorservice">Režim kompatibility</string>
+    <string name="monitorservice_summary">Použiť službu na pozadí na sledovanie skopírovaného textu pre MIUI a Samsung ROM\n*Zakáže sa čierna listina</string>
+    <string name="notification_title">Zobraziť oznámenie</string>
+    <string name="notification_summary">Povoliť zobrazenie oznámenia pre udržanie behu služby (najmä na zariadeniach s malou RAM pamäťou)</string>
 
      <!-- Clip Board -->
     <string name="clear_all">Vymazať všetky</string>
