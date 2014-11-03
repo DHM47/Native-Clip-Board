@@ -23,7 +23,7 @@
     <string name="pastefunction_summary_on">Appui simple : ouvre le presse-papiers\nAppui long : colle\n*Redémarrage requis</string>    
     <string name="test">Essai</string>
     <string name="blacklist">Liste noire</string>
-    <string name="blacklist_help">Choisir quelles applis ne seront pas prise en compte concernant la copie (ex : Gestionnaire de mots de passe).</string>
+    <string name="blacklist_help">Choisir les applis qui ne seront pas prise en compte concernant la copie (ex : Gestionnaire de mots de passe).</string>
     <string name="add">Ajouter</string>
     <string name="unknown">Inconnu</string>
     <string name="help">Aide</string>
@@ -34,7 +34,11 @@
     <string name="cbbutton">Ajouter un bouton CB</string>
     <string name="cbbutton_summary">Ajouter un bouton CB au menu de sélection\n*Redémarrage requis</string>
     <string name="singlepaste">Coller unique</string>
-    <string name="singlepaste_summary">Fermer le presse-papiers immédiatement après le collage\n*Redémarrage requis</string>    
+    <string name="singlepaste_summary">Fermer le presse-papiers immédiatement après le collage\n*Redémarrage requis</string>
+    <string name="monitorservice">Mode de compatibilité</string>
+    <string name="monitorservice_summary">Utiliser un service en tâche de fond pour le suivi du texte copié pour les Roms MIUI et Samsung\n*Désactive la liste noire</string>
+    <string name="notification_title">Afficher une notification</string>
+    <string name="notification_summary">Peut être nécessaire pour maintenir le service en exécution (en particulier sur les appareils de faible RAM)</string>    
 
      <!-- Clip Board -->
     <string name="clear_all">Tout effacer</string>
