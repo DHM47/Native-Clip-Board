@@ -58,10 +58,12 @@ public class ClipBoard extends Activity{
 	private ImageView pin;
 	private ImageView cancel;
 	private TextView textView;
-	private ClipAdapter clipAdapter;
+	private static ClipAdapter clipAdapter;
 	private SharedPreferences setting ;
 	public static String backupS;
 	public static int backupP;
+	public static float backupX;
+	public static float backupY;
 	private int size;
 	private int lPosition;
 	static ClipData prevClip;
@@ -215,9 +217,27 @@ public class ClipBoard extends Activity{
 					
 					@Override
 					public void onClick(View v) {
-						ClipAdapter.mClips.remove(position);
-						clipAdapter.notifyDataSetChanged();
+						backupS=ClipAdapter.mClips.get(position);
+						backupP=position;
+						backupX=gridView.getChildAt(gridView.getLastVisiblePosition()).getX();
+						backupY=gridView.getChildAt(gridView.getLastVisiblePosition()).getY();
 						toGrid();
+						final float xx=gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getX();
+						final float yy=gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getY();
+						
+						gridView.getChildAt(position-gridView.getFirstVisiblePosition()).animate()
+				         .translationX(gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getWidth())
+				         .alpha(0)
+				         .setDuration(300)
+				         .setStartDelay(405)
+				         .setListener(new AnimatorListenerAdapter() {
+				             @Override
+				             public void onAnimationEnd(Animator animation) {
+				                 animRearrange(position, xx, yy, ctx);
+				             }
+				         });
+						
+						
 					}
 				});
 				
@@ -281,24 +301,24 @@ public class ClipBoard extends Activity{
 					
 					@Override
 					public void onClick(View v) {
-						// TODO add addition animation for last item
+						// TODO add addition animation for last item DONE
 						timeout.cancel();
 	        			windowManager.removeView(Undo);
 	        			
-        				if(((gridView.getLastVisiblePosition())-gridView.getFirstVisiblePosition())>(backupP-gridView.getFirstVisiblePosition())){//Not last item or before last
+        				if(((gridView.getLastVisiblePosition())-gridView.getFirstVisiblePosition())>=(backupP-gridView.getFirstVisiblePosition())){//Not last item or before last
         					
-	        			for(int x=(backupP-ClipBoard.gridView.getFirstVisiblePosition());x<ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x++){
-	        					if(x<ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()-1){
-	        					ClipBoard.gridView.getChildAt(x).animate()
-	        					.x(ClipBoard.gridView.getChildAt(x+1).getX())
-	        					.y(ClipBoard.gridView.getChildAt(x+1).getY())
+	        			for(int x=(backupP-gridView.getFirstVisiblePosition());x<=gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition();x++){
+	        					if(x<gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()){
+	        					gridView.getChildAt(x).animate()
+	        					.x(gridView.getChildAt(x+1).getX())
+	        					.y(gridView.getChildAt(x+1).getY())
 	        					.setDuration(ctx.getResources().getInteger(
 	        			                android.R.integer.config_mediumAnimTime))
 	        					.start();
 	        					}else{
-	        						ClipBoard.gridView.getChildAt(x).animate()
-		        					.x(ClipBoard.gridView.getChildAt(x+1).getX())
-		        					.y(ClipBoard.gridView.getChildAt(x+1).getY())
+	        						gridView.getChildAt(x).animate()
+		        					.x(backupX)
+		        					.y(backupY)
 		        					.setDuration(ctx.getResources().getInteger(
 		        			                android.R.integer.config_mediumAnimTime))
 	        						.setListener(new AnimatorListenerAdapter() {
@@ -507,5 +527,36 @@ public class ClipBoard extends Activity{
 	        animatorX.start();
 	        animatorY.start();
 
+	}
+	public static void animRearrange(final int position,float xx, float yy, Context mContext){
+		int x;
+		if(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()!=(position-gridView.getFirstVisiblePosition())){
+			for(x=gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition();x>(position-gridView.getFirstVisiblePosition());x--){
+				if(x>(position-gridView.getFirstVisiblePosition()+1)){
+				gridView.getChildAt(x).animate()
+				.x(gridView.getChildAt(x-1).getX())
+				.y(gridView.getChildAt(x-1).getY())
+				.setDuration(mContext.getResources().getInteger(
+		                android.R.integer.config_mediumAnimTime))
+				.start();}
+				else {
+					gridView.getChildAt(x).animate()
+					.x(xx)
+					.y(yy)
+					.setDuration(mContext.getResources().getInteger(
+			                android.R.integer.config_mediumAnimTime))
+					.setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                        	ClipAdapter.mClips.remove(position);
+                        	clipAdapter.notifyDataSetChanged();
+                        }
+                    }).start();
+				}}
+			}else{
+					ClipAdapter.mClips.remove(position);
+					clipAdapter.notifyDataSetChanged();
+				}
+		
 	}
 }

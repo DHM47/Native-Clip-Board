@@ -2,8 +2,6 @@ package com.dhm47.nativeclipboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
@@ -73,34 +71,10 @@ public class ClipAdapter extends BaseAdapter {
                     public void onDismiss(View view, Object token,float xx,float yy) {
                     	ClipBoard.backupS=ClipAdapter.mClips.get(position);
         				ClipBoard.backupP=position;
-						        				
-        				if(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()!=(position-ClipBoard.gridView.getFirstVisiblePosition())){
-        				for(x=ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x>(position-ClipBoard.gridView.getFirstVisiblePosition());x--){
-        					if(x>(position-ClipBoard.gridView.getFirstVisiblePosition()+1)){
-        					ClipBoard.gridView.getChildAt(x).animate()
-        					.x(ClipBoard.gridView.getChildAt(x-1).getX())
-        					.y(ClipBoard.gridView.getChildAt(x-1).getY())
-        					.setDuration(mContext.getResources().getInteger(
-        			                android.R.integer.config_mediumAnimTime))
-        					.start();}
-        					else {
-        						ClipBoard.gridView.getChildAt(x).animate()
-            					.x(xx)
-            					.y(yy)
-            					.setDuration(mContext.getResources().getInteger(
-            			                android.R.integer.config_mediumAnimTime))
-            					.setListener(new AnimatorListenerAdapter() {
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                    	ClipAdapter.mClips.remove(position);
-                                    	notifyDataSetChanged();
-                                    }
-                                }).start();
-        					}}
-        				}else{
-        						ClipAdapter.mClips.remove(position);
-                            	notifyDataSetChanged();
-        					}
+        				ClipBoard.backupX=ClipBoard.gridView.getChildAt(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()).getX();
+        				ClipBoard.backupY=ClipBoard.gridView.getChildAt(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()).getY();
+						ClipBoard.animRearrange(position,xx,yy,mContext);			
+        				
         					
         				  				
                     }

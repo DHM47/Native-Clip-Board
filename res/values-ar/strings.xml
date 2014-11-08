@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  	<!-- App -->
-  	<string name="app_name">Native Clip Board</string>
-  
-  
- 	<!-- Color Picker -->
-  	<string name="dialog_color_picker">أداة اختيار الألوان</string>
-  	<string name="press_color_to_apply">اضغط على اللون لاختياره</string>
-  	
-  	<!-- Preferences -->
-  	<string name="bgcolor">لون الخلفية</string>
-  	<string name="clpcolor">لون القصاصة</string>
-  	<string name="clpcolor_summary">خلفية النص</string>
-  	<string name="pinnedcolor">لون القصاصه المحفوظه</string>
-  	<string name="txtcolor">لون الخط</string>
-  	<string name="history_summary">اختر عدد القصاصات ( النصوص التي يتم نسخها ) التي تريد ابقاءها في السجل .</string>
-  	<string name="history_title">حجم السجل</string>
-  	<string name="txtsize">حجم الخط</string>
-  	<string name="test">تجربة اختياراتك</string>
-  	
-  	<!-- Clip Board -->
-  	<string name="clear_all">مسح الكل</string>
-  	<string name="clear_all_conf">هل تريد مسح جميع القصاصات ؟</string>
-  	
-  	<!-- Toast Messages -->
-  	<string name="undo">تراجع</string>
-  	<string name="deleted">تم مسح: </string>
+  <!-- App -->
+  <string name="app_name">Native Clip Board</string>
+  <string name="xposed_desc">Adds system wide clip manager</string>
+  <!-- Color Picker -->
+  <string name="dialog_color_picker">اختيار الألوان </string>
+  <string name="press_color_to_apply">الرجاء اختيار اللون لتطبيقه</string>
+  <!-- Preferences -->
+  <string name="bgcolor">لون الخلفية </string>
+  <string name="clpcolor">لون القصاصه</string>
+  <string name="clpcolor_summary">خلفية النص</string>
+  <string name="pinnedcolor">لون القصاصه المحدده (المحفوظه)</string>
+  <string name="txtcolor">لون النص</string>
+  <string name="history_summary">الرجاء اختيار عدد القصاصات المراد حفظها في السجل </string>
+  <string name="history_title">حجم السجل</string>
+  <string name="txtsize">حجم النص</string>
+  <string name="uisize">حجم القصاصه</string>
+  <string name="pastefunction">خاصية ابدال اللصق</string>
+  <string name="pastefunction_summary_off">نقرة واحده : يلصق النص\nنقرة مطوله : يتم فتح البرنامج\n*يجب إعادة تشغيل الجهاز </string>
+  <string name="pastefunction_summary_on">نقرة واحده : يتم فتح البرنامج \nنقرة مطوله : يلصق النص\n*يجب إعادة تشغيل الجهاز </string>
+  <string name="test">تجربة سريعه لما تم اختياره</string>
+  <string name="blacklist">اللائحة السوداء </string>
+  <string name="blacklist_help">الرجاء اختيار البرامج التي لا يتم النسخ منها ( مثال: برامج حفظ كلمات المرور )</string>
+  <string name="add">أضف </string>
+  <string name="unknown">غير معلوم </string>
+  <string name="help">مساعده</string>
+  <string name="xda">رابط البرنامج في XDA</string>
+  <string name="category_theme">الموضوع ( نمط الألوان / شكل البرنامج )</string>
+  <string name="category_sizes">الأحجام </string>
+  <string name="category_advanced">متقدم </string>
+  <string name="cbbutton">إضافة اختصار للبرنامج</string>
+  <string name="cbbutton_summary">إضافة اختصار للبرنامج في القائمة ( قائمة النسخ واللصق ) \n*يجب إعادة تشغيل الجهاز </string>
+  <string name="singlepaste">اللصق مره واحده </string>
+  <string name="singlepaste_summary">الخروج من البرنامج بعد اللصق مره واحده \n*يجب إعادة تشغيل الجهاز </string>
+  <!-- Clip Board -->
+  <string name="clear_all">مسح الكل</string>
+  <string name="clear_all_conf">مسح كل القصاصات ؟ </string>
+  <!-- Toast Messages -->
+  <string name="undo">تراجع</string>
+  <string name="deleted">مسح</string>
 </resources>
