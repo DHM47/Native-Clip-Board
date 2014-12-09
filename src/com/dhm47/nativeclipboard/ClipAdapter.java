@@ -2,8 +2,6 @@ package com.dhm47.nativeclipboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
@@ -22,7 +20,7 @@ public class ClipAdapter extends BaseAdapter {
 	private Context mContext;
 	private static ClipboardManager mClipboardManager;
 	private static LayoutInflater inflater;
-	public static List<String> mClips = new ArrayList<String>();
+	public static List<Clip> mClips = new ArrayList<Clip>();
 	static SharedPreferences setting ;
 	static TextView textView;
 	int x;
@@ -39,7 +37,7 @@ public class ClipAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return mClips.get(position);
+		return mClips.get(position).getText();
 	}
 
 	@Override
@@ -55,7 +53,7 @@ public class ClipAdapter extends BaseAdapter {
 		setting = mContext.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4);
 		textView=new TextView(mContext);
 		textView=(TextView) inflater.inflate(R.layout.textview,null);
-		if(ClipBoard.pinned.contains(mClips.get(position)))textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
+		if(mClips.get(position).isPinned())textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 		else textView.setBackgroundColor(setting.getInt("clpcolor",0xFFFFBB22));
 		textView.setTextColor(setting.getInt("txtcolor",0xffffffff));
 		textView.setTextSize((float)(setting.getInt("txtsize",  20)));
@@ -65,52 +63,31 @@ public class ClipAdapter extends BaseAdapter {
                 new SwipeDismissTouchListener.DismissCallbacks() {
                     @Override
                     public boolean canDismiss(Object token) {
-                    	if(ClipBoard.pinned.contains(mClips.get(position)))return false;
+                    	if(mClips.get(position).isPinned())return false;
                         else return true;
                     }
 
                     @Override
                     public void onDismiss(View view, Object token,float xx,float yy) {
-                    	ClipBoard.backupS=ClipAdapter.mClips.get(position);
+                    	ClipBoard.backupS=ClipAdapter.mClips.get(position).getText();
         				ClipBoard.backupP=position;
-						        				
-        				if(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()!=(position-ClipBoard.gridView.getFirstVisiblePosition())){
-        				for(x=ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition();x>(position-ClipBoard.gridView.getFirstVisiblePosition());x--){
-        					if(x>(position-ClipBoard.gridView.getFirstVisiblePosition()+1)){
-        					ClipBoard.gridView.getChildAt(x).animate()
-        					.x(ClipBoard.gridView.getChildAt(x-1).getX())
-        					.y(ClipBoard.gridView.getChildAt(x-1).getY())
-        					.setDuration(mContext.getResources().getInteger(
-        			                android.R.integer.config_mediumAnimTime))
-        					.start();}
-        					else {
-        						ClipBoard.gridView.getChildAt(x).animate()
-            					.x(xx)
-            					.y(yy)
-            					.setDuration(mContext.getResources().getInteger(
-            			                android.R.integer.config_mediumAnimTime))
-            					.setListener(new AnimatorListenerAdapter() {
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                    	ClipAdapter.mClips.remove(position);
-                                    	notifyDataSetChanged();
-                                    }
-                                }).start();
-        					}}
-        				}else{
-        						ClipAdapter.mClips.remove(position);
-                            	notifyDataSetChanged();
-        					}
+        				ClipBoard.backupClip=mClips.get(position);
+        				ClipBoard.backupX=ClipBoard.gridView.getChildAt(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()).getX();
+        				ClipBoard.backupY=ClipBoard.gridView.getChildAt(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()).getY();
+						ClipBoard.animRearrange(position,xx,yy,mContext);			
+        				
         					
         				  				
                     }
                 }));
-		textView.setText(mClips.get(position));
+		if(mClips.get(position).getTitle().equals(""))textView.setText(mClips.get(position).getText());
+		else textView.setText(mClips.get(position).getTitle());
+		
 		textView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position)));
-				ClipBoard.prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position));
+				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position).getText()));
+				ClipBoard.prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position).getText());
 				if(setting.getBoolean("singlepaste", false)){
 					((Activity)mContext).finish();
 					if(((Activity)mContext).getIntent().getDoubleExtra("Keyheight", 0)>0.5){
@@ -123,7 +100,7 @@ public class ClipAdapter extends BaseAdapter {
 				
 				}
 		});
-		if(ClipBoard.pinned.contains(mClips.get(position)))
+		if(mClips.get(position).isPinned())
 			textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 		
 		return textView;

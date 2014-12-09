@@ -3,7 +3,8 @@
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:layoutDirection="ltr" >
     
    <!--  Main Layout  -->
         		<GridView
@@ -48,44 +49,92 @@
 	<!--  Expanded Layout  -->
 				
 				<TextView
-        			android:id="@+id/textViewB"
-        			style="@android:style/TextAppearance.Medium"
-        			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"
-        			android:layout_marginLeft="14dp"
-        			android:layout_marginTop="14dp"
-        			android:layout_marginRight="14dp"
-        			android:layout_marginBottom="7dp"
-        			android:padding="9dp"
-        			android:gravity="top"
-        			android:visibility="invisible"
-        			android:scrollbars="vertical"/> 
+        				android:id="@+id/textViewB"
+        				style="@android:style/TextAppearance.Medium"
+        				android:layout_width="wrap_content"
+        				android:layout_height="wrap_content"
+        				android:gravity="top"
+        				android:scrollbars="vertical"
+        				android:paddingLeft="9dp"
+        				android:paddingRight="9dp"
+        				android:paddingTop="9dp"
+        				android:paddingBottom="9dp"
+        				android:overScrollMode="ifContentScrolls"/>
+				
+				<TextView
+        				android:id="@+id/clipText"
+        				style="@android:style/TextAppearance.Medium"
+        				android:layout_width="wrap_content"
+        				android:layout_height="wrap_content"
+        				android:gravity="top"
+        				android:visibility="invisible"
+        				android:scrollbars="vertical"
+        				android:paddingLeft="9dp"
+        				android:paddingRight="9dp"
+        				android:paddingTop="9dp"
+        				android:paddingBottom="9dp"
+        				android:overScrollMode="ifContentScrolls"/>
+				    
+				<RelativeLayout 
+				    android:id="@+id/BottomBar"
+				    android:layout_width="match_parent"
+				    android:layout_height="35dp"
+				    android:layout_alignBottom="@+id/grid_view"
+				    android:layout_marginBottom="7dp"
+				    android:layout_marginLeft="14dp"
+				    android:layout_marginRight="14dp"
+				    android:visibility="invisible">
+				 <ImageView 
+				    	android:id="@+id/seperater"
+       					android:layout_width= "match_parent"
+       					android:layout_height="1.5dip" 
+       					android:layout_alignParentTop="true"
+    					android:src="#ff000000" />
+								
+				<TextView
+        				android:id="@+id/timestamp"
+        				style="@android:style/TextAppearance.Small"
+        				android:layout_width="wrap_content"
+        				android:layout_height="wrap_content"
+        				android:layout_alignParentLeft="true"
+	    				android:layout_centerVertical="true"
+        				android:padding="6dp"/>
 				
 				<ImageView
-    				android:id="@+id/imageViewBC"
-    				android:layout_width="wrap_content"
-    				android:layout_height="wrap_content"
-    				android:layout_alignParentLeft="true"
-    				android:layout_alignTop="@+id/grid_view"
-    				android:visibility="invisible"
-    				android:src="@android:drawable/ic_menu_close_clear_cancel" />
-
-				<ImageView
-	    			android:id="@+id/imageViewBD"
+	    			android:id="@+id/overflow"
 	    			android:layout_width="wrap_content"
 	    			android:layout_height="wrap_content"
 	    			android:layout_alignParentRight="true"
-	    			android:layout_alignTop="@+id/grid_view"
-	    			android:visibility="invisible"
-	    			android:src="@android:drawable/ic_menu_delete" />
-
-				<ImageView
-					android:id="@+id/imageViewBS"
-	    			android:layout_width="wrap_content"
-	    			android:layout_height="wrap_content"
-					android:layout_alignTop="@+id/grid_view"
-	    			android:layout_centerHorizontal="true"
-	    			android:visibility="invisible"
-	    			android:src="@android:drawable/ic_menu_save" />
-
+	    			android:layout_centerVertical="true"
+	    			android:src="@drawable/ic_action_overflow_light" />
+				    
+				</RelativeLayout>
+				
+				<LinearLayout 
+				    android:id="@+id/EditView"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:orientation="vertical"
+				    android:visibility="invisible"
+					android:layout_above="@+id/BottomBar"
+					android:layout_alignLeft="@+id/BottomBar"
+				    android:scrollbars="vertical">
+				    
+					<EditText 
+					    android:id="@+id/clipTitleEdit"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:padding="9dp"
+					    android:maxLines="2"
+					    android:visibility="visible"
+					    android:hint="@string/title_hint"/>
+					<EditText 
+					    android:id="@+id/clipEdit"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:visibility="visible"
+					    android:padding="9dp"/> 
+				
+				</LinearLayout>
+				
 </RelativeLayout>

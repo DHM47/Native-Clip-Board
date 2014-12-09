@@ -60,7 +60,12 @@
    
    <Preference
             android:key="blacklist"
-            android:title="@string/blacklist" />
+            android:title="@string/blacklist"/>
+   <ListPreference
+            android:key="sort"
+            android:title="@string/sort"
+            android:entries="@array/sortby"
+            android:entryValues="@array/sortvalues" />
     
     <PreferenceScreen
             android:title="@string/category_advanced">
@@ -81,7 +86,17 @@
             android:key="singlepaste"
             android:title="@string/singlepaste"
             android:summary="@string/singlepaste_summary"/>
-   
+   <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="monitorservice"
+            android:title="@string/monitorservice"
+            android:summary="@string/monitorservice_summary"/>
+   <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification"
+            android:title="@string/notification_title"
+            android:summary="@string/notification_summary"
+            android:dependency="monitorservice"/>
     </PreferenceScreen>
     
     <Preference
