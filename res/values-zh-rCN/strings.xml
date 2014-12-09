@@ -3,7 +3,6 @@
 <!-- App -->
     <string name="app_name">原生剪贴板</string>
     <string name="xposed_desc">添加系统级别的剪贴板管理器</string>  
-
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">取色器</string>
@@ -13,7 +12,7 @@
     <string name="bgcolor">背景色</string>
     <string name="clpcolor">便签色</string>
     <string name="clpcolor_summary">文字背景色</string>
-    <string name="pinnedcolor">置顶便签色</string>
+    <string name="pinnedcolor">已钉住便签色</string>
     <string name="txtcolor">文本颜色</string>
     <string name="history_summary">选择保留在历史中的项目数</string>
     <string name="history_title">历史数量</string>
@@ -36,9 +35,19 @@
     <string name="cbbutton_summary">将CB按钮添加到选择菜单中\n*需要重启</string>
     <string name="singlepaste">单次粘贴</string>
     <string name="singlepaste_summary">粘贴完成后马上关闭剪贴板\n*需要重启</string>
+    
+    <string name="monitorservice">兼容模式</string>
+    <string name="monitorservice_summary">使用一个后台服务来监控复制的文本，适用于MIUI和三星系统\n*会禁用黑名单功能</string>
+    <string name="notification_title">显示通知</string>
+    <string name="notification_summary">可能需要启用该选项来保持服务运行（尤其在小内存设备上）</string>
+    <string name="sort">排序便签</string>
+    <string name="newfirst">最新的最先</string>
+	<string name="pinnedfirst">钉住的最先</string>
+	<string name="pinnedlast">钉住的最后</string>
      <!-- Clip Board -->
     <string name="clear_all">全清</string>
     <string name="clear_all_conf">清除所有项目？</string>
+    <string name="title_hint">为便签设置一个标题</string>
     
      <!-- Toast Messages -->
     <string name="undo">撤销</string>
