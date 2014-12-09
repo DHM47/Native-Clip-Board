@@ -1,6 +1,20 @@
 package com.dhm47.nativeclipboard;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.dhm47.nativeclipboard.comparators.NewFirst;
+import com.dhm47.nativeclipboard.comparators.PinnedFirst;
+import com.dhm47.nativeclipboard.comparators.PinnedLast;
+
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -14,20 +28,24 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class SettingFragment extends PreferenceFragment {
+	private List<Clip> mClip = new ArrayList<Clip>();
+	private static Context ctx;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.layout.preference_headers);
+        ctx=getActivity();
 		findPreference("test").setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent intent = new Intent(getActivity(), ClipBoard.class);
-				getActivity().startActivity(intent);
+				ctx.startActivity(intent);
 				return true;
 			}
 		});
@@ -36,7 +54,7 @@ public class SettingFragment extends PreferenceFragment {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent intent = new Intent(getActivity(), Blacklist.class);
-				getActivity().startActivity(intent);
+				ctx.startActivity(intent);
 				return true;
 			}
 		});
@@ -45,9 +63,83 @@ public class SettingFragment extends PreferenceFragment {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				findPreference("blacklist").setEnabled(!((Boolean) newValue));
+				if((Boolean) newValue)ctx.startService(new Intent(ctx, ClipMonitorLegacy.class));
 				return true;
 			}
 		});
+		findPreference("sort").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				
+				try {//Read Clips
+					FileInputStream fis = ctx.openFileInput("Clips2.9");
+					ObjectInputStream is = new ObjectInputStream(fis);
+					mClip =  (List<Clip>) is.readObject();
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				String sort=(String) newValue;
+				if(sort.equals("newfirst")){
+					Collections.sort(mClip, new NewFirst());
+				}else if(sort.equals("pinnedfirst")){
+					Collections.sort(mClip, new PinnedFirst());
+				}else if(sort.equals("pinnedlast")){
+					Collections.sort(mClip, new PinnedLast());
+				}
+				Toast.makeText(getActivity(), "Sorting by " +sort, Toast.LENGTH_SHORT).show();
+		    	try {//Write
+		              FileOutputStream fos = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
+		              ObjectOutputStream os = new ObjectOutputStream(fos);
+		              os.writeObject(mClip);
+		              os.close();
+				} catch (Exception e) {}
+				return true;
+			}
+		});
+		/*getActivity().getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {
+			
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+					String key) {
+				if(key.equals("sort")){
+					
+					try {//Read Clips
+						FileInputStream fis = getActivity().openFileInput("Clips2.9");
+						ObjectInputStream is = new ObjectInputStream(fis);
+						mClip =  (List<Clip>) is.readObject();
+						is.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					String sort=sharedPreferences.getString("sort", "newfirst");
+					if(sort.equals("newlast")){
+						Collections.sort(mClip, new NewLast());
+					}else if(sort.equals("pinnedfirst")){
+						Collections.sort(mClip, new PinnedFirst());
+					}else if(sort.equals("pinnedlast")){
+						Collections.sort(mClip, new PinnedLast());
+					}else{
+						Collections.sort(mClip, new NewFirst());
+					}
+					Toast.makeText(getActivity(), "Sorting by " +sort, Toast.LENGTH_SHORT).show();
+			    	try {//Write
+			              FileOutputStream fos = getActivity().openFileOutput("Clips2.9", Context.MODE_PRIVATE);
+			              ObjectOutputStream os = new ObjectOutputStream(fos);
+			              os.writeObject(mClip);
+			              os.close();
+					} catch (Exception e) {}
+				}
+			}
+		});
+		*/
     }
     
     /*

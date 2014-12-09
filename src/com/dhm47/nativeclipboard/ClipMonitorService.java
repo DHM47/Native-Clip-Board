@@ -20,22 +20,24 @@ import android.os.IBinder;
 public class ClipMonitorService extends Service{
 
 	String pkg;
-	String Clip;
-	private static List<String> mClip = new ArrayList<String>();
+	String clip;
+	long time;
+	private static List<Clip> mClip = new ArrayList<Clip>();
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    pkg=intent.getStringExtra("Package");
-		Clip=intent.getStringExtra("Clip");
+		clip=intent.getStringExtra("Clip");
+		time=intent.getLongExtra("Time", 0);
 		Context ctx =this;
-
+		Clip nClip=new Clip(time, clip, "", false);
 		if(!isBlacklisted(pkg, ctx)){
 			
     	try {//Read Clips
-			FileInputStream fis = ctx.openFileInput("Clips");
+			FileInputStream fis = ctx.openFileInput("Clips2.9");
 			ObjectInputStream is = new ObjectInputStream(fis);
-			mClip =  (List<String>) is.readObject();
+			mClip =  (List<Clip>) is.readObject();
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -43,12 +45,13 @@ public class ClipMonitorService extends Service{
 			e.printStackTrace();
 		}
     	try {//Write
-			if( !(mClip.contains(Clip)) && !(Clip.equals("//NATIVECLIPBOARDCLOSE//")) && !(Clip.equals("")) ){
-		      mClip.add(0,Clip);
+			if( !(Clip.contains(mClip, nClip)) && !(clip.equals("//NATIVECLIPBOARDCLOSE//")) && !(clip.equals("")) ){
+		      mClip.add(0,nClip);
               int history =ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).getInt("history", 25);
-              for (int x=mClip.size();x>history;x--){
-  				mClip.remove(x-1);} 
-              FileOutputStream fos = ctx.openFileOutput("Clips", Context.MODE_PRIVATE);
+              for (int x=mClip.size();mClip.size()>history;x--){
+  				if(!mClip.get(x-1).isPinned())mClip.remove(x-1);
+  					} 
+              FileOutputStream fos = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
               ObjectOutputStream os = new ObjectOutputStream(fos);
               os.writeObject(mClip);
               os.close();

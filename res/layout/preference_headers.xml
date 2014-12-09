@@ -61,6 +61,11 @@
    <Preference
             android:key="blacklist"
             android:title="@string/blacklist"/>
+   <ListPreference
+            android:key="sort"
+            android:title="@string/sort"
+            android:entries="@array/sortby"
+            android:entryValues="@array/sortvalues" />
     
     <PreferenceScreen
             android:title="@string/category_advanced">
