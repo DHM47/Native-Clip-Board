@@ -4,8 +4,7 @@ package com.dhm47.nativeclipboard.xposed;
 
 
 
-import java.util.Locale;
-
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -54,10 +53,11 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	private  Context CSctx;
 	private  Context CPctx;
-	
+		
 	private  static TextView htcTextView;
 	private static Object htcObject;
 	private static Drawable htcDrawable;
+	private static boolean htcisPasteWindow;
 	
 	static Menu menu;
 	final int id=1259;
@@ -69,7 +69,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
 		pref=new XSharedPreferences("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard_preferences");
-		
+		XposedBridge.log(Build.MANUFACTURER);
 		if(!(pref.getBoolean("monitorservice", false))){
 		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
 			@Override
@@ -190,6 +190,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	}
 	
 	
+	@SuppressLint("DefaultLocale")
 	public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
 		
 		XposedHelpers.findAndHookMethod(TextView.class, "onFocusChanged", boolean.class, int.class,	Rect.class, new XC_MethodHook() {
@@ -211,16 +212,16 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 		
 		//Trying to make it work on HTC Sense
-		XposedBridge.log(Build.BRAND);
-		if (Build.BRAND.toLowerCase(Locale.US).contains("htc")) {
+		if (Build.MANUFACTURER.toLowerCase().contains("htc")) {
 			XposedBridge.hookAllMethods(XposedHelpers.findClass("com.htc.textselection.HtcTextSelectionManager",lpparam.classLoader), "showQuickAction", new XC_MethodHook() {
 	            
 				@Override	
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					TextView mTextView =(TextView) param.args[0];
-	            	Toast.makeText(mTextView.getContext(),"Successfully hooked 'showQuickAction'",Toast.LENGTH_LONG).show();
 	            	XposedBridge.log("Hooked showQuickAction");
 	            	htcTextView=mTextView;
+	            	Object[] args ={};
+	            	htcisPasteWindow=(Boolean) XposedHelpers.callMethod(param.thisObject, "isPasteWindow", args);
 	            }
 			});
 			
@@ -231,7 +232,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 					//XposedBridge.log("Hooked addButton");
 					String mString=(String)param.args[3];
 					XposedBridge.log("added"+mString);
-					if(Resources.getSystem().getString(android.R.string.paste).equals(mString)){
+					if(htcisPasteWindow){
 						final Context htcctx=htcTextView.getContext();
 						//Toast.makeText(htcctx, "Hooked 'addButton' ", Toast.LENGTH_LONG).show();
 						htcObject=param.args[0];
@@ -240,6 +241,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 							
 							@Override
 							public void onClick(View v) {
+								Open(htcctx);
 								start=htcTextView.getSelectionStart();
 			        			end=htcTextView.getSelectionEnd();
 			        			mClipboardManager =(ClipboardManager) htcctx.getSystemService(Context.CLIPBOARD_SERVICE);

@@ -1,24 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item  
         android:id="@+id/pin"  
-        android:title="Pin"/>  
+        android:title="@string/pin"/>  
     <item 
         android:id="@+id/unpin"
-        android:title="Unpin"/>
+        android:title="@string/unpin"/>
 
     <item  
         android:id="@+id/edit"  
-        android:title="Edit"/> 
+        android:title="@string/edit"/> 
     
     <item
         android:id="@+id/save"
-        android:title="Save"/>
+        android:title="@string/save"/>
 
     <item  
         android:id="@+id/del"  
-        android:title="Delete"/>
+        android:title="@string/delete"/>
     
     <item  
         android:id="@+id/shrink"  
-        android:title="Shrink"/>  
+        android:title="@string/shrink"/>  
 </menu>

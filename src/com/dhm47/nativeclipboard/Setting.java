@@ -7,6 +7,8 @@ package com.dhm47.nativeclipboard;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 
 
@@ -23,7 +25,12 @@ public class Setting extends Activity{
 	public void onDestroy (){
 		super.onDestroy();
 	}
-	public static Context getContext(){
-		return ctx;
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.setting_actions, menu);
+	    return super.onCreateOptionsMenu(menu);
 	}
 }
