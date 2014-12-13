@@ -48,6 +48,12 @@
     <string name="clear_all">全清</string>
     <string name="clear_all_conf">清除所有项目？</string>
     <string name="title_hint">为便签设置一个标题</string>
+    <string name="pin">钉住</string>
+    <string name="unpin">卸钉</string>
+    <string name="edit">编辑</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="shrink">缩小</string>
     
      <!-- Toast Messages -->
     <string name="undo">撤销</string>
