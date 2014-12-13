@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/action_test"
+          android:icon="@drawable/test"
+          android:title="@string/test"
+          android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_support"
+          android:icon="@drawable/support"
+          android:title="@string/xda"
+          android:showAsAction="ifRoom" />
+</menu>
+   

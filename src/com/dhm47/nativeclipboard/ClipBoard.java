@@ -13,10 +13,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import com.dhm47.nativeclipboard.R;
-import com.dhm47.nativeclipboard.comparators.PinnedFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedLast;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -35,6 +31,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,12 +43,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.GridView;
+
+import com.dhm47.nativeclipboard.comparators.PinnedFirst;
+import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
 
 @SuppressLint({ "InflateParams", "ClickableViewAccessibility" })
@@ -282,8 +282,6 @@ public class ClipBoard extends Activity{
 				bottomBar=(RelativeLayout)mainLayout.findViewById(R.id.BottomBar);
 				bottomBar.setBackgroundColor(ClipAdapter.mClips.get(position).isPinned() ? pinnedclipColor : clipColor);
 				editLayout=(LinearLayout) mainLayout.findViewById(R.id.EditView);
-				final EditText text = (EditText) editLayout.findViewById(R.id.clipEdit);
-                final EditText title =(EditText) editLayout.findViewById(R.id.clipTitleEdit);
 				editLayout.setBackgroundColor(ClipAdapter.mClips.get(position).isPinned() ? pinnedclipColor : clipColor);
                 
 				/*
@@ -378,112 +376,7 @@ public class ClipBoard extends Activity{
 					
 					@Override
 					public void onClick(View v) {
-						final PopupMenu popup = new PopupMenu(ctx, overflow);
-   		                popup.getMenuInflater().inflate(R.menu.overflow, popup.getMenu());
-   		                
-   		                if(ClipAdapter.mClips.get(position).isPinned()){popup.getMenu().findItem(R.id.pin).setVisible(false);popup.getMenu().findItem(R.id.del).setEnabled(false);}
-   		                else popup.getMenu().findItem(R.id.unpin).setVisible(false);
-			            
-   		                if (textView.getVisibility()==View.VISIBLE)popup.getMenu().findItem(R.id.save).setVisible(false);
-   		                else popup.getMenu().findItem(R.id.edit).setVisible(false);
-   		                
-   		                text.setMovementMethod(new ScrollingMovementMethod());
-   		                text.setTextColor(textColor);
-   		                text.setTextSize(textSize);
-   		                //text.setWidth(gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft());
-   		                title.setTextColor(textColor);
-   		                title.setTextSize(textSize);
-   		                title.setHintTextColor(textColor);
-   		                //title.setWidth(gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft());
-   		                //text.setHeight(gridView.getHeight()-2*gridView.getPaddingBottom()-title.getHeight());
-   		                
-   		                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-			                    public boolean onMenuItemClick(MenuItem item) {
-									switch (item.getItemId()) {
-									case R.id.pin :
-										ClipAdapter.mClips.get(position).setPinned(true);
-										textView.setBackgroundColor(pinnedclipColor);
-										editLayout.setBackgroundColor(pinnedclipColor);
-										bottomBar.setBackgroundColor(pinnedclipColor);
-										gridView.getChildAt(position-gridView.getFirstVisiblePosition()).setBackgroundColor(pinnedclipColor);
-										if(isColorDark(pinnedclipColor))overflow.setImageResource(R.drawable.ic_action_overflow_dark);
-										else overflow.setImageResource(R.drawable.ic_action_overflow_light);
-										break;
-									case R.id.unpin:
-										ClipAdapter.mClips.get(position).setPinned(false);
-										textView.setBackgroundColor(clipColor);
-										editLayout.setBackgroundColor(clipColor);
-										bottomBar.setBackgroundColor(clipColor);
-										gridView.getChildAt(position-gridView.getFirstVisiblePosition()).setBackgroundColor(clipColor);
-										if(isColorDark(clipColor))overflow.setImageResource(R.drawable.ic_action_overflow_dark);
-										else overflow.setImageResource(R.drawable.ic_action_overflow_light);
-										break;
-									
-									case R.id.del:
-										backupClip=ClipAdapter.mClips.get(position);
-										backupP=position;
-										backupS=ClipAdapter.mClips.get(position).getText();
-										backupX=gridView.getChildAt(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()).getX();
-										backupY=gridView.getChildAt(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()).getY();
-										toGrid();
-										final float xx=gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getX();
-										final float yy=gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getY();
-										
-										gridView.getChildAt(position-gridView.getFirstVisiblePosition()).animate()
-								         .translationX(gridView.getChildAt(position-gridView.getFirstVisiblePosition()).getWidth())
-								         .alpha(0)
-								         .setDuration(300)
-								         .setStartDelay(405)
-								         .setListener(new AnimatorListenerAdapter() {
-								             @Override
-								             public void onAnimationEnd(Animator animation) {
-								                 animRearrange(position, xx, yy, ctx);
-								             }
-								         });
-										break;
-
-									case R.id.edit :
-										textView.setVisibility(View.INVISIBLE);
-										RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) editLayout.getLayoutParams();
-										params.height=textView.getHeight();
-										params.width=textView.getWidth();
-										editLayout.setLayoutParams(params);
-										editLayout.setVisibility(View.VISIBLE);
-										text.setText(ClipAdapter.mClips.get(position).getText());
-										title.setText(ClipAdapter.mClips.get(position).getTitle());
-										//text.setHeight(gridView.getHeight()-2*gridView.getPaddingBottom()-Util.px(42, ctx)-title.getHeight());
-										getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-										break;
-									case R.id.save:
-										ClipAdapter.mClips.get(position).setText(text.getText().toString());
-										ClipAdapter.mClips.get(position).setTitle(title.getText().toString());
-										if(!title.getText().toString().equals("")){
-											((TextView) gridView.getChildAt(position-gridView.getFirstVisiblePosition())).setText(title.getText());
-											textView.setText(title.getText());
-											clipText.setText(text.getText());
-											clipText.setX(textView.getX());
-							        		clipText.setY(textView.getY()+textView.getLineBounds(textView.getLineCount()-1, null));
-										}else {
-											((TextView) gridView.getChildAt(position-gridView.getFirstVisiblePosition())).setText(text.getText());
-											textView.setText(text.getText());
-										}
-										editLayout.setVisibility(View.INVISIBLE);
-										textView.setVisibility(View.VISIBLE);
-						        		clipText.setVisibility(View.VISIBLE);
-										getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-										InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-										imm.hideSoftInputFromWindow(title.getWindowToken(), 0);										
-										break;
-									case R.id.shrink:
-										toGrid();
-										break;
-									default:
-										break;
-									}
-			                    	return clearall;}
-			                });
-
-			                popup.show();
+						OpenMenu();
 					}
 				});
 				timeStamp =(TextView) bottomBar.findViewById(R.id.timestamp);
@@ -621,6 +514,15 @@ public class ClipBoard extends Activity{
 		}
 		
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keycode, KeyEvent e) {
+	    if(keycode==KeyEvent.KEYCODE_MENU && close.getVisibility()==View.INVISIBLE){
+	        	OpenMenu();
+	            return true;
+	    }
+	    return super.onKeyDown(keycode, e);
 	}
 		
 	@Override
@@ -827,5 +729,118 @@ public class ClipBoard extends Activity{
 					clipAdapter.notifyDataSetChanged();
 				}
 		
+	}
+	
+	public void OpenMenu(){
+
+		final PopupMenu popup = new PopupMenu(ctx, overflow);
+           popup.getMenuInflater().inflate(R.menu.overflow, popup.getMenu());
+           
+           if(ClipAdapter.mClips.get(lPosition).isPinned()){popup.getMenu().findItem(R.id.pin).setVisible(false);popup.getMenu().findItem(R.id.del).setEnabled(false);}
+           else popup.getMenu().findItem(R.id.unpin).setVisible(false);
+        
+           if (textView.getVisibility()==View.VISIBLE)popup.getMenu().findItem(R.id.save).setVisible(false);
+           else popup.getMenu().findItem(R.id.edit).setVisible(false);
+
+           final EditText text = (EditText) editLayout.findViewById(R.id.clipEdit);
+           final EditText title =(EditText) editLayout.findViewById(R.id.clipTitleEdit);
+           text.setMovementMethod(new ScrollingMovementMethod());
+           text.setTextColor(textColor);
+           text.setTextSize(textSize);
+           //text.setWidth(gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft());
+           title.setTextColor(textColor);
+           title.setTextSize(textSize);
+           title.setHintTextColor(textColor);
+           //title.setWidth(gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft());
+           //text.setHeight(gridView.getHeight()-2*gridView.getPaddingBottom()-title.getHeight());
+           
+           popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+					switch (item.getItemId()) {
+					case R.id.pin :
+						ClipAdapter.mClips.get(lPosition).setPinned(true);
+						textView.setBackgroundColor(pinnedclipColor);
+						editLayout.setBackgroundColor(pinnedclipColor);
+						bottomBar.setBackgroundColor(pinnedclipColor);
+						gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition()).setBackgroundColor(pinnedclipColor);
+						if(isColorDark(pinnedclipColor))overflow.setImageResource(R.drawable.ic_action_overflow_dark);
+						else overflow.setImageResource(R.drawable.ic_action_overflow_light);
+						break;
+					case R.id.unpin:
+						ClipAdapter.mClips.get(lPosition).setPinned(false);
+						textView.setBackgroundColor(clipColor);
+						editLayout.setBackgroundColor(clipColor);
+						bottomBar.setBackgroundColor(clipColor);
+						gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition()).setBackgroundColor(clipColor);
+						if(isColorDark(clipColor))overflow.setImageResource(R.drawable.ic_action_overflow_dark);
+						else overflow.setImageResource(R.drawable.ic_action_overflow_light);
+						break;
+					
+					case R.id.del:
+						backupClip=ClipAdapter.mClips.get(lPosition);
+						backupP=lPosition;
+						backupS=ClipAdapter.mClips.get(lPosition).getText();
+						backupX=gridView.getChildAt(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()).getX();
+						backupY=gridView.getChildAt(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()).getY();
+						toGrid();
+						final float xx=gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition()).getX();
+						final float yy=gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition()).getY();
+						
+						gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition()).animate()
+				         .translationX(gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition()).getWidth())
+				         .alpha(0)
+				         .setDuration(300)
+				         .setStartDelay(405)
+				         .setListener(new AnimatorListenerAdapter() {
+				             @Override
+				             public void onAnimationEnd(Animator animation) {
+				                 animRearrange(lPosition, xx, yy, ctx);
+				             }
+				         });
+						break;
+
+					case R.id.edit :
+						textView.setVisibility(View.INVISIBLE);
+						RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) editLayout.getLayoutParams();
+						params.height=textView.getHeight();
+						params.width=textView.getWidth();
+						editLayout.setLayoutParams(params);
+						editLayout.setVisibility(View.VISIBLE);
+						text.setText(ClipAdapter.mClips.get(lPosition).getText());
+						title.setText(ClipAdapter.mClips.get(lPosition).getTitle());
+						//text.setHeight(gridView.getHeight()-2*gridView.getPaddingBottom()-Util.px(42, ctx)-title.getHeight());
+						getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+						break;
+					case R.id.save:
+						ClipAdapter.mClips.get(lPosition).setText(text.getText().toString());
+						ClipAdapter.mClips.get(lPosition).setTitle(title.getText().toString());
+						if(!title.getText().toString().equals("")){
+							((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(title.getText());
+							textView.setText(title.getText());
+							clipText.setText(text.getText());
+							clipText.setX(textView.getX());
+			        		clipText.setY(textView.getY()+textView.getLineBounds(textView.getLineCount()-1, null));
+						}else {
+							((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(text.getText());
+							textView.setText(text.getText());
+						}
+						editLayout.setVisibility(View.INVISIBLE);
+						textView.setVisibility(View.VISIBLE);
+		        		clipText.setVisibility(View.VISIBLE);
+						getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(title.getWindowToken(), 0);										
+						break;
+					case R.id.shrink:
+						toGrid();
+						break;
+					default:
+						break;
+					}
+                	return clearall;}
+            });
+
+            popup.show();
+	
 	}
 }

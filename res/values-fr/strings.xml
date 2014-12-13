@@ -39,10 +39,21 @@
     <string name="monitorservice_summary">Utiliser un service en tâche de fond pour le suivi du texte copié pour les Roms MIUI et Samsung\n*Désactive la liste noire</string>
     <string name="notification_title">Afficher une notification</string>
     <string name="notification_summary">Peut être nécessaire pour maintenir le service en exécution (en particulier sur les appareils de faible RAM)</string>    
-
+    <string name="sort">Ordre de tri</string>
+    <string name="newfirst">Plus récent en premier</string>
+    <string name="pinnedfirst">Épinglé en premier</string>
+    <string name="pinnedlast">Épinglé en dernier</string>
+	
      <!-- Clip Board -->
     <string name="clear_all">Tout effacer</string>
     <string name="clear_all_conf">Effacer tous les presse-papiers ?</string>
+    <string name="title_hint">Définir un titre</string>
+    <string name="pin">Épinglé</string>
+    <string name="unpin">Non épinglé</string>
+    <string name="edit">Éditer</string>
+    <string name="save">Sauvegarder</string>
+    <string name="delete">Supprimer</string>
+    <string name="shrink">Réduire</string>    
     
      <!-- Toast Messages -->
     <string name="undo">Annuler</string>
