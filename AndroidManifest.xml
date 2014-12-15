@@ -34,6 +34,7 @@
             android:name="com.dhm47.nativeclipboard.Blacklist"
             android:label="@string/blacklist"
             android:parentActivityName="com.dhm47.nativeclipboard.Setting"
+            android:theme="@style/Setting"
             android:process=":setting">
         </activity>
         

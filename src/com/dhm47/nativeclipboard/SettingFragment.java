@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class SettingFragment extends PreferenceFragment {
 	private List<Clip> mClip = new ArrayList<Clip>();
@@ -36,19 +35,9 @@ public class SettingFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.layout.preference_headers);
         ctx=getActivity();
-		findPreference("test").setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(getActivity(), ClipBoard.class);
-				ctx.startActivity(intent);
-				return true;
-			}
-		});
 		findPreference("blacklist").setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
 			@Override
@@ -91,7 +80,6 @@ public class SettingFragment extends PreferenceFragment {
 				}else if(sort.equals("pinnedlast")){
 					Collections.sort(mClip, new PinnedLast());
 				}
-				Toast.makeText(getActivity(), "Sorting by " +sort, Toast.LENGTH_SHORT).show();
 		    	try {//Write
 		              FileOutputStream fos = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
 		              ObjectOutputStream os = new ObjectOutputStream(fos);
@@ -164,6 +152,7 @@ public class SettingFragment extends PreferenceFragment {
         if (dialog != null) {
             // Inialize the action bar
             dialog.getActionBar().setDisplayHomeAsUpEnabled(true);
+    		//dialog.getActionBar().setIcon(new ColorDrawable(ctx.getResources().getColor(android.R.color.transparent)));
 
             // Apply custom home button area click listener to close the PreferenceScreen because PreferenceScreens are dialogs which swallow
             // events instead of passing to the activity

@@ -23,6 +23,7 @@ import java.util.List;
 import com.dhm47.nativeclipboard.ApplicationsDialog.AppAdapter;
 import com.dhm47.nativeclipboard.ApplicationsDialog.AppItem;
 
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -82,6 +83,7 @@ public class Blacklist extends PreferenceActivity {
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(this));
         mRoot = getPreferenceScreen();
         loadPreferenceItems();
+		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
     }
     
 

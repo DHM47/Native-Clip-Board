@@ -23,6 +23,7 @@
     <style name="ActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/deep_purple</item>
+        <item name="android:icon">@android:color/transparent</item>
     </style>
     
     

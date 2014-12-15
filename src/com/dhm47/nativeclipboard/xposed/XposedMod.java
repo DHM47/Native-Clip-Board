@@ -50,6 +50,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	private  TextView Etextview;
 	private int start;
 	private int end;
+	//private boolean WindowFocus;
 	
 	private  Context CSctx;
 	private  Context CPctx;
@@ -57,7 +58,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	private  static TextView htcTextView;
 	private static Object htcObject;
 	private static Drawable htcDrawable;
-	private static boolean htcisPasteWindow;
+	private boolean htcCBadded=false;
 	
 	static Menu menu;
 	final int id=1259;
@@ -69,7 +70,6 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
 		pref=new XSharedPreferences("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard_preferences");
-		XposedBridge.log(Build.MANUFACTURER);
 		if(!(pref.getBoolean("monitorservice", false))){
 		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
 			@Override
@@ -218,10 +218,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 				@Override	
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					TextView mTextView =(TextView) param.args[0];
-	            	XposedBridge.log("Hooked showQuickAction");
+	            	//XposedBridge.log("Hooked showQuickAction");
 	            	htcTextView=mTextView;
-	            	Object[] args ={};
-	            	htcisPasteWindow=(Boolean) XposedHelpers.callMethod(param.thisObject, "isPasteWindow", args);
 	            }
 			});
 			
@@ -231,8 +229,11 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 			    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 					//XposedBridge.log("Hooked addButton");
 					String mString=(String)param.args[3];
-					XposedBridge.log("added"+mString);
-					if(htcisPasteWindow){
+					//XposedBridge.log("added"+mString);
+
+					if(Resources.getSystem().getString(android.R.string.paste).equals(mString) && !htcCBadded){
+						//XposedBridge.log("added"+"ClipBoard");
+						htcCBadded=true;
 						final Context htcctx=htcTextView.getContext();
 						//Toast.makeText(htcctx, "Hooked 'addButton' ", Toast.LENGTH_LONG).show();
 						htcObject=param.args[0];
@@ -306,6 +307,8 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 						} catch (Exception e) {
 							XposedBridge.log(e);
 						}
+					}else if(Resources.getSystem().getString(android.R.string.paste).equals(mString)){
+						htcCBadded=false;
 					}
 			    }
 			});
@@ -420,11 +423,28 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             	CBButton(menu);
             }
         });
-    	
+    	/*Attempt to fix the overflow bug
+    	XposedHelpers.findAndHookMethod("android.widget.Editor", lpparam.classLoader, "onWindowFocusChanged",boolean.class, new XC_MethodHook() {
+            @Override	
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            	WindowFocus = (Boolean) param.args[0];
+            }
+        });
+    	XposedHelpers.findAndHookMethod("android.widget.Editor", lpparam.classLoader, "hideControllers", new XC_MethodHook() {
+            @Override	
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            	if(!WindowFocus){
+            		WindowFocus=true;
+            		param.setResult(null);
+            		return;
+            	}
+            }
+        });*/
     	XposedHelpers.findAndHookMethod("android.widget.Editor.SelectionActionModeCallback", lpparam.classLoader, "onActionItemClicked",ActionMode.class,MenuItem.class,  new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
             	MenuItem item =(MenuItem)param.args[1];
+            	
             	switch(item.getItemId()) {
             		case id:
             			Open(Ectx);
