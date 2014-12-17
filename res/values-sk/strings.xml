@@ -40,10 +40,21 @@
     <string name="monitorservice_summary">Použiť službu na pozadí na sledovanie skopírovaného textu pre MIUI a Samsung ROM\n*Zakáže sa čierna listina</string>
     <string name="notification_title">Zobraziť oznámenie</string>
     <string name="notification_summary">Povoliť zobrazenie oznámenia pre udržanie behu služby (najmä na zariadeniach s malou RAM pamäťou)</string>
-
-     <!-- Clip Board -->
+    <string name="sort">Zoradiť záznamy</string>
+    <string name="newfirst">Najnovšie ako prvé</string>
+    <string name="pinnedfirst">Pripnuté ako prvé</string>
+    <string name="pinnedlast">Pripnuté ako posledné</string>
+    
+    <!-- Clip Board -->
     <string name="clear_all">Vymazať všetky</string>
     <string name="clear_all_conf">Vymazať všetky záznamy?</string>
+    <string name="title_hint">Nastaviť názov pre záznam</string>
+    <string name="pin">Pripnúť</string>
+    <string name="unpin">Odopnúť</string>
+    <string name="edit">Upraviť</string>
+    <string name="save">Uložiť</string>
+    <string name="delete">Vymazať</string>
+    <string name="shrink">Zmenšiť</string>
     
      <!-- Toast Messages -->
     <string name="undo">Späť</string>
