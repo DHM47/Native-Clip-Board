@@ -97,16 +97,20 @@ public class ClipBoard extends Activity{
 	int textColor;
 	float textSize;
 	
+	boolean isUp;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+    	isUp=getIntent().getDoubleExtra("Keyheight", 0)>0.5;
+    	overridePendingTransition(isUp? R.anim.open_slide_up : R.anim.open_slide_down,0); 
+    	
 		ctx=this;
 		mClipboardManager =(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-		setting = ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4);
+		setting = ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", Context.MODE_MULTI_PROCESS);
 		clipAdapter = new ClipAdapter(ctx);
 		
 		windowSize=Util.px(setting.getInt("windowsize",280), ctx);
@@ -192,7 +196,7 @@ public class ClipBoard extends Activity{
         gridView.setBackgroundColor(backgroundColor);
 		gridView.setAdapter(clipAdapter);
 		
-		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+		if(isUp){
 	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
 	    	params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 	    	gridView.setLayoutParams(params); 
@@ -528,12 +532,7 @@ public class ClipBoard extends Activity{
 		}else {
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));	    
 		super.onBackPressed();
-		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
-			overridePendingTransition(0, R.anim.slide_up); 
-	    }else {
-	    	overridePendingTransition(0, R.anim.slide_down); 
-		}
-		
+		overridePendingTransition(0,isUp? R.anim.slide_up :R.anim.slide_down); 
 		}
 	}
 	
@@ -574,11 +573,7 @@ public class ClipBoard extends Activity{
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
 		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		ClipBoard.this.finish();
-		if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
-			overridePendingTransition(0, R.anim.slide_up); 
-	    }else {
-	    	overridePendingTransition(0, R.anim.slide_down); 
-		}
+		overridePendingTransition(0,isUp? R.anim.slide_up :R.anim.slide_down);
 	}
 	
 	public void Select(int position){
@@ -586,11 +581,7 @@ public class ClipBoard extends Activity{
 		prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position).getText());
 		if(setting.getBoolean("singlepaste", false)){
 			finish();
-			if(getIntent().getDoubleExtra("Keyheight", 0)>0.5){
-				overridePendingTransition(0, R.anim.slide_up); 
-		    }else {
-		    	overridePendingTransition(0, R.anim.slide_down); 
-			}					
+			overridePendingTransition(0,isUp? R.anim.slide_up :R.anim.slide_down);					
 		}
 	}
 	
