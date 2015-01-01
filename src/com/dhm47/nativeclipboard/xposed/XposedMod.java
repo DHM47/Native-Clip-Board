@@ -1,9 +1,6 @@
 package com.dhm47.nativeclipboard.xposed;
 
 
-
-
-
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -108,7 +105,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 							if(pref.getBoolean("pastefunction", false))
 								Etextview.onTextContextMenuItem(android.R.id.paste);
 							else {
-								Open(text.getContext());
+								Open(text.getContext(),Etextview);
 				    			WaitforClip(text.getContext(), Etextview);
 				    			}
 							return true;
@@ -210,7 +207,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 								View.OnClickListener mClick=new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-										Open(htcctx);
+										Open(htcctx,htcTextView);
 					        			WaitforClip(htcctx, htcTextView);
 									}
 								};
@@ -255,18 +252,18 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
 		                @Override
 		                public void onPrimaryClipChanged() {
-		                	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CPctx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+		                	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CSctx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
 	    	            		try {
 		    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 		    					} catch (Exception e1) {
-		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+		    						Toast.makeText(CSctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 		    						e1.printStackTrace();
 		    					}	
 	    	            	}else if(pref.getBoolean("singlepaste", false)){
             	            	try {
 		    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 		    					} catch (Exception e1) {
-		    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+		    						Toast.makeText(CSctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 		    						e1.printStackTrace();
 		    					}	
             	            	try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
@@ -308,14 +305,14 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		    	            		try {
 			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 			    					} catch (Exception e1) {
-			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						Toast.makeText(CPctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
 		    	            	}else if(pref.getBoolean("singlepaste", false)){
 	            	            	try {
 			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
 			    					} catch (Exception e1) {
-			    						Toast.makeText(Ectx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						Toast.makeText(CPctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 			    						e1.printStackTrace();
 			    					}	
 
@@ -347,16 +344,21 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 		menu2.findItem(id).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 	
-	
 	private void Open(Context mctx) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
+		mctx.startActivity(intent);
+	}
+	
+	private void Open(Context mctx , TextView mTextview) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard.ClipBoard"));
 		int[] location = new int[2];
 		Rect r = new Rect();
-		Etextview.getLocationOnScreen(location);
-		Etextview.getWindowVisibleDisplayFrame(r);
+		mTextview.getLocationOnScreen(location);
+		mTextview.getWindowVisibleDisplayFrame(r);
 		double Precentage =((double)location[1])/(r.bottom-r.top);
-		intent.putExtra("Keyheight",Precentage );
+		intent.putExtra("Keyheight",Precentage);
 		mctx.startActivity(intent);
 	}
 	
@@ -371,7 +373,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	private void WaitforClip(final Context ctx,final TextView mTextview){
 		
-		mClipboardManager =(ClipboardManager) Ectx.getSystemService(Context.CLIPBOARD_SERVICE);
+		mClipboardManager =(ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
 		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
             @Override
             public void onPrimaryClipChanged() {
@@ -408,7 +410,6 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	            		Toast.makeText(ctx, "pasting went wrong", Toast.LENGTH_SHORT).show();
 	            		e.printStackTrace();
 	            	}
-	            	
 	            }
         		else{
         			try {   mTextview.setText(mTextview.getText().subSequence(0, start).toString()
@@ -432,7 +433,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
         	TextView text =(TextView) param.args[0];
         	if(Resources.getSystem().getString(android.R.string.paste).equals(text.getText().toString())){
-        		Open(Ectx);
+        		Open(Ectx,Etextview);
 				WaitforClip(Ectx, Etextview);
             	param.setResult(null);
 				return ;
@@ -448,7 +449,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
         	MenuItem item =(MenuItem)param.args[1];
         	switch(item.getItemId()) {
         		case id:
-        			Open(Ectx);
+        			Open(Ectx,Etextview);
         			WaitforClip(Ectx, Etextview);
         			param.setResult(true);
     				return;

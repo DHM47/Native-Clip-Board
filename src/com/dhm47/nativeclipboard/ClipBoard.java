@@ -56,7 +56,7 @@ import com.dhm47.nativeclipboard.comparators.PinnedFirst;
 import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
 
-@SuppressLint({ "InflateParams", "ClickableViewAccessibility" })
+@SuppressLint({ "ClickableViewAccessibility", "InflateParams" })
 public class ClipBoard extends Activity{
 	
 	private WindowManager windowManager;
@@ -340,8 +340,6 @@ public class ClipBoard extends Activity{
 					@Override
 					public boolean onDoubleTap(MotionEvent e) {
 						Edit();
-						//Toast.makeText(ctx, "onDoubleTap", Toast.LENGTH_LONG).show();
-						// TODO Edit text
 						return true;
 					}
 
