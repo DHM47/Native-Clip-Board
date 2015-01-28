@@ -2,10 +2,10 @@
     <item android:id="@+id/action_test"
           android:icon="@drawable/test_a"
           android:title="@string/test"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="always" />
     <item android:id="@+id/action_support"
           android:icon="@drawable/support_a"
           android:title="@string/xda"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="always" />
 </menu>
    

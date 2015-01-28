@@ -89,45 +89,6 @@ public class SettingFragment extends PreferenceFragment {
 				return true;
 			}
 		});
-		/*getActivity().getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {
-			
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-					String key) {
-				if(key.equals("sort")){
-					
-					try {//Read Clips
-						FileInputStream fis = getActivity().openFileInput("Clips2.9");
-						ObjectInputStream is = new ObjectInputStream(fis);
-						mClip =  (List<Clip>) is.readObject();
-						is.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					}
-					String sort=sharedPreferences.getString("sort", "newfirst");
-					if(sort.equals("newlast")){
-						Collections.sort(mClip, new NewLast());
-					}else if(sort.equals("pinnedfirst")){
-						Collections.sort(mClip, new PinnedFirst());
-					}else if(sort.equals("pinnedlast")){
-						Collections.sort(mClip, new PinnedLast());
-					}else{
-						Collections.sort(mClip, new NewFirst());
-					}
-					Toast.makeText(getActivity(), "Sorting by " +sort, Toast.LENGTH_SHORT).show();
-			    	try {//Write
-			              FileOutputStream fos = getActivity().openFileOutput("Clips2.9", Context.MODE_PRIVATE);
-			              ObjectOutputStream os = new ObjectOutputStream(fos);
-			              os.writeObject(mClip);
-			              os.close();
-					} catch (Exception e) {}
-				}
-			}
-		});
-		*/
     }
     
     /*

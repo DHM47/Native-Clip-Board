@@ -43,7 +43,7 @@ public class Setting extends Activity{
 	        case R.id.action_test:
 	        	Intent intent = new Intent(ctx, ClipBoard.class);
 				ctx.startActivity(intent);
-	            return true;
+				return true;
 	        case R.id.action_support:
 	        	Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
 				ctx.startActivity(intent1);

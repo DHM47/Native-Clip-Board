@@ -20,6 +20,7 @@ package com.dhm47.nativeclipboard;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.app.ListFragment;
 import android.view.MotionEvent;
@@ -119,7 +120,8 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
         mCallbacks = callbacks;
     }
 
-    @Override
+    @SuppressLint("ClickableViewAccessibility")
+	@Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         // offset because the view is translated during swipe
         motionEvent.offsetLocation(mTranslationX, 0);
@@ -135,10 +137,10 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 				y=view.getY();
                 mDownX = motionEvent.getRawX();
                 mDownY = motionEvent.getRawY();
-                if (mCallbacks.canDismiss(mToken)) {
+                //if (mCallbacks.canDismiss(mToken)) {
                     mVelocityTracker = VelocityTracker.obtain();
                     mVelocityTracker.addMovement(motionEvent);
-                }
+                //}
                 return false;
             }
 
@@ -165,7 +167,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                     dismiss = (velocityX < 0) == (deltaX < 0);
                     dismissRight = mVelocityTracker.getXVelocity() > 0;
                 }
-                if (dismiss) {
+                if (dismiss && mCallbacks.canDismiss(mToken)) {
                     // dismiss
                     mView.animate()
                             .translationX(dismissRight ? mViewWidth : -mViewWidth)
@@ -222,6 +224,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                 mVelocityTracker.addMovement(motionEvent);
                 float deltaX = motionEvent.getRawX() - mDownX;
                 float deltaY = motionEvent.getRawY() - mDownY;
+                
                 if (Math.abs(deltaX) > mSlop && Math.abs(deltaY) < Math.abs(deltaX) / 2) {
                     mSwiping = true;
                     mSwipingSlop = (deltaX > 0 ? mSlop : -mSlop);
@@ -235,8 +238,18 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                     mView.onTouchEvent(cancelEvent);
                     cancelEvent.recycle();
                 }
-
-                if (mSwiping) {
+                if (!mCallbacks.canDismiss(mToken) && mSwiping) {//From the systemUI notification code
+                    float size = mViewWidth;
+                    float maxScrollDistance = 0.15f * size;
+                    if (Math.abs(deltaX) >= size) {
+                        deltaX = deltaX > 0 ? maxScrollDistance : -maxScrollDistance;
+                    } else {
+                        deltaX = maxScrollDistance * (float) Math.sin((deltaX/size)*(Math.PI/2));
+                    }
+                
+                mView.setTranslationX(deltaX);
+                return true;
+                }else if (mSwiping) {
                     mTranslationX = deltaX;
                     mView.setTranslationX(deltaX - mSwipingSlop);
                     // TODO: use an ease-out interpolator or such
