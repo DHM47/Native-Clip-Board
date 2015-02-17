@@ -64,7 +64,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
 		pref=new XSharedPreferences("com.dhm47.nativeclipboard","com.dhm47.nativeclipboard_preferences");
-		
+				
 		if(!(pref.getBoolean("monitorservice", false))){
 		XposedHelpers.findAndHookConstructor(ClipboardManager.class,Context.class,Handler.class, new XC_MethodHook(){
 			@Override
@@ -122,6 +122,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	@SuppressLint("DefaultLocale")
 	public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
+		
 		
 		XposedHelpers.findAndHookMethod(TextView.class, "onFocusChanged", boolean.class, int.class,	Rect.class, new XC_MethodHook() {
 			@Override
@@ -340,7 +341,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     }
 	
 	private void CBButton(Menu menu2){
-		menu2.add(android.view.Menu.NONE, id,android.view.Menu.NONE, "CB");
+		menu2.add(android.view.Menu.NONE, id,android.view.Menu.NONE, "Clip Board");
 		menu2.findItem(id).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 	

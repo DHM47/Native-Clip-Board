@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layoutDirection="ltr" >
+    android:layoutDirection="ltr">
     
    <!--  Main Layout  -->
         		<GridView
@@ -19,8 +19,8 @@
     				android:numColumns="auto_fit"
     				android:paddingLeft="14dp"
     				android:paddingRight="14dp"
-    				android:paddingBottom="7dp"
     				android:paddingTop="40dp"
+    				android:paddingBottom="7dp"
     				android:stretchMode="columnWidth"/>
     				
         		
@@ -32,7 +32,14 @@
     				android:layout_alignTop="@+id/grid_view"
    					android:layout_marginTop="2dp"
     				android:src="@drawable/ic_close_light" />
-
+				<ImageView 
+				    android:id="@+id/add"
+    				android:layout_width="wrap_content"
+    				android:layout_height="wrap_content"
+    				android:layout_alignParentLeft="true"
+    				android:layout_alignTop="@+id/grid_view"
+    				android:layout_marginLeft="5dp"
+    				android:src="@drawable/ic_add_light"/>
 				<Button
     				android:id="@+id/clear"
     				android:layout_width="wrap_content"
@@ -128,7 +135,7 @@
 					    android:maxLines="2"
 					    android:visibility="visible"
 					    android:hint="@string/title_hint"/>
-					<EditText 
+					<EditText
 					    android:id="@+id/clipEdit"
 					    android:layout_width="match_parent"
 					    android:layout_height="wrap_content"

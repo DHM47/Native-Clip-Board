@@ -17,6 +17,7 @@ public class WidgetNumberPicker extends DialogPreference {
 	int mDefaultValue;
 	int mMinValue;
 	int mMaxValue;
+	String[] values = new String[21];
 	SharedPreferences mPref;
 	
 	public WidgetNumberPicker(Context context, AttributeSet attrs) {
@@ -34,7 +35,13 @@ public class WidgetNumberPicker extends DialogPreference {
 		picker = (NumberPicker) view.findViewById(R.id.number_picker);
 		picker.setMaxValue(mMaxValue);
 		picker.setMinValue(mMinValue);
-		
+		if(mMaxValue==21){
+			for(int i = 0; i < 20; i++){
+				values[i]=""+((i+1)*5);
+			}
+			values[20]=""+9999;
+		picker.setDisplayedValues(values);
+		}
 		return view;
 	}
 	
@@ -46,14 +53,16 @@ public class WidgetNumberPicker extends DialogPreference {
 	@Override
 	protected void onBindDialogView(View view) {
 		super.onBindDialogView(view);
-		picker.setValue(mPref.getInt(getKey(), mDefaultValue));
+		if(mPref.getInt(getKey(), mDefaultValue)==9999)
+		picker.setValue(21);
+		else picker.setValue(mPref.getInt(getKey(), mDefaultValue)/5); 
 	}
 	
 	@Override
 	protected void onDialogClosed(boolean positiveResult) {
 		super.onDialogClosed(positiveResult);
 		if (positiveResult) {
-			mPref.edit().putInt(getKey(), picker.getValue()).commit();
+			mPref.edit().putInt(getKey(), Integer.parseInt(values[picker.getValue()-1]) ).commit();
 		}
 	}
 }

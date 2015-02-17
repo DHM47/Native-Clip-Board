@@ -40,8 +40,8 @@
             android:icon="@drawable/ic_size">
     
     <com.dhm47.nativeclipboard.WidgetNumberPicker
-                defaultValue="25"
-                maximum="50"
+                defaultValue="5"
+                maximum="21"
                 minimum="1"
                 android:key="history"
                 android:summary="@string/history_summary"
