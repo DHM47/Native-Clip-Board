@@ -53,16 +53,20 @@ public class WidgetNumberPicker extends DialogPreference {
 	@Override
 	protected void onBindDialogView(View view) {
 		super.onBindDialogView(view);
+		if(mMaxValue==21){
 		if(mPref.getInt(getKey(), mDefaultValue)==9999)
 		picker.setValue(21);
-		else picker.setValue(mPref.getInt(getKey(), mDefaultValue)/5); 
+		else picker.setValue(mPref.getInt(getKey(), mDefaultValue)/5);
+		}else picker.setValue(mPref.getInt(getKey(), mDefaultValue));
 	}
 	
 	@Override
 	protected void onDialogClosed(boolean positiveResult) {
 		super.onDialogClosed(positiveResult);
 		if (positiveResult) {
+			if(mMaxValue==21){
 			mPref.edit().putInt(getKey(), Integer.parseInt(values[picker.getValue()-1]) ).commit();
+			}else mPref.edit().putInt(getKey(), picker.getValue()).commit();
 		}
 	}
 }

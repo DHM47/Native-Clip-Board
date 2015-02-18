@@ -46,7 +46,6 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -70,7 +69,7 @@ public class ClipBoard extends Activity{
 	private LinearLayout editLayout;
 	private RelativeLayout bottomBar;
 	private Context ctx;
-	private Button clear;
+	private ImageView clear;
 	private ImageView close;
 	private ImageView add;
 	private boolean adding;
@@ -189,7 +188,7 @@ public class ClipBoard extends Activity{
         super.onStart();
         mainLayout=(RelativeLayout) findViewById(R.id.mainlayout);
 		gridView =(GridView) mainLayout.findViewById(R.id.grid_view);
-		clear= (Button) mainLayout.findViewById(R.id.clear);
+		clear= (ImageView) mainLayout.findViewById(R.id.clear);
 		close= (ImageView) mainLayout.findViewById(R.id.close);
 		add=(ImageView) mainLayout.findViewById(R.id.add);
         textView =(TextView) mainLayout.findViewById(R.id.textViewB);
@@ -236,12 +235,14 @@ public class ClipBoard extends Activity{
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						clearall=true;
+						
 						List<Clip> temp = new ArrayList<Clip>();
 						for (Clip clip : ClipAdapter.mClips) {
 					        if(clip.isPinned())temp.add(clip);
 						}
-						ClipAdapter.mClips=temp;
-						clipAdapter.notifyDataSetChanged();
+						
+						animateClearAll(temp);
+						
 					}
 				});
 				confirm.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -267,7 +268,8 @@ public class ClipBoard extends Activity{
 		
 		if(isColorDark(backgroundColor)){
 			close.setImageResource(R.drawable.ic_close_dark);
-			clear.setTextColor(0xFFCCCCCC);
+			clear.setImageResource(R.drawable.ic_clear_all_dark);
+			add.setImageResource(R.drawable.ic_add_dark);
 		}
 		add.setOnClickListener(new OnClickListener() {
 			
@@ -623,6 +625,7 @@ public class ClipBoard extends Activity{
 	    }
 	}
 	private void Cancel() {
+		if(ClipAdapter.mClips.get(0).getText().equals(""))ClipAdapter.mClips.remove(0);
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
 		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		ClipBoard.this.finish();
@@ -972,4 +975,38 @@ public class ClipBoard extends Activity{
 		
 		
 	}
+	
+	public void animateClearAll(final List<Clip> temp){
+		int lastDismissed = 0;
+		for(int x=(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition());x>=0;x--){
+
+			if(!ClipAdapter.mClips.get(x).isPinned()){
+				lastDismissed=(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()-x);
+				gridView.getChildAt(x).animate()
+	         .translationX(gridView.getChildAt(x).getWidth())
+	         .alpha(0)
+	         .setDuration(300).setStartDelay((gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()-x)*100);
+			}
+			if(x==0){
+				long dely =300+lastDismissed*100;
+				CountDownTimer time=new CountDownTimer(dely, dely) {
+
+					@Override
+					public void onTick(long millisUntilFinished) {
+					}
+					
+					@Override
+					public void onFinish() {
+						ClipAdapter.mClips=temp;
+						clipAdapter.notifyDataSetChanged();
+						
+					}
+				};
+				time.start();
+			}
+			
+		}
+		
+	}
+	
 }
