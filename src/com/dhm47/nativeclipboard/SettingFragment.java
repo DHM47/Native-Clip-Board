@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class SettingFragment extends PreferenceFragment {
 	private List<Clip> mClip = new ArrayList<Clip>();
@@ -36,19 +35,9 @@ public class SettingFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.layout.preference_headers);
         ctx=getActivity();
-		findPreference("test").setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(getActivity(), ClipBoard.class);
-				ctx.startActivity(intent);
-				return true;
-			}
-		});
 		findPreference("blacklist").setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
 			@Override
@@ -91,7 +80,6 @@ public class SettingFragment extends PreferenceFragment {
 				}else if(sort.equals("pinnedlast")){
 					Collections.sort(mClip, new PinnedLast());
 				}
-				Toast.makeText(getActivity(), "Sorting by " +sort, Toast.LENGTH_SHORT).show();
 		    	try {//Write
 		              FileOutputStream fos = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
 		              ObjectOutputStream os = new ObjectOutputStream(fos);
@@ -101,45 +89,6 @@ public class SettingFragment extends PreferenceFragment {
 				return true;
 			}
 		});
-		/*getActivity().getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {
-			
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-					String key) {
-				if(key.equals("sort")){
-					
-					try {//Read Clips
-						FileInputStream fis = getActivity().openFileInput("Clips2.9");
-						ObjectInputStream is = new ObjectInputStream(fis);
-						mClip =  (List<Clip>) is.readObject();
-						is.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					}
-					String sort=sharedPreferences.getString("sort", "newfirst");
-					if(sort.equals("newlast")){
-						Collections.sort(mClip, new NewLast());
-					}else if(sort.equals("pinnedfirst")){
-						Collections.sort(mClip, new PinnedFirst());
-					}else if(sort.equals("pinnedlast")){
-						Collections.sort(mClip, new PinnedLast());
-					}else{
-						Collections.sort(mClip, new NewFirst());
-					}
-					Toast.makeText(getActivity(), "Sorting by " +sort, Toast.LENGTH_SHORT).show();
-			    	try {//Write
-			              FileOutputStream fos = getActivity().openFileOutput("Clips2.9", Context.MODE_PRIVATE);
-			              ObjectOutputStream os = new ObjectOutputStream(fos);
-			              os.writeObject(mClip);
-			              os.close();
-					} catch (Exception e) {}
-				}
-			}
-		});
-		*/
     }
     
     /*
@@ -164,6 +113,7 @@ public class SettingFragment extends PreferenceFragment {
         if (dialog != null) {
             // Inialize the action bar
             dialog.getActionBar().setDisplayHomeAsUpEnabled(true);
+    		//dialog.getActionBar().setIcon(new ColorDrawable(ctx.getResources().getColor(android.R.color.transparent)));
 
             // Apply custom home button area click listener to close the PreferenceScreen because PreferenceScreens are dialogs which swallow
             // events instead of passing to the activity

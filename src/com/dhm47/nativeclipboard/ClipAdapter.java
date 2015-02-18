@@ -27,7 +27,10 @@ public class ClipAdapter extends BaseAdapter {
 	
 	public ClipAdapter(Context c){
 		mContext = c;
-		
+		inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mClipboardManager =(ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+		setting = mContext.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4);
+ 		
 		}
 
 	@Override
@@ -44,14 +47,13 @@ public class ClipAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return 0;
 	}
+	/*private static class ViewHolder {
+	    public TextView textView;
+	}*/
 	
 	@SuppressLint({ "InflateParams", "ViewHolder" })
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {			
-		inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mClipboardManager =(ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-		setting = mContext.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4);
-		textView=new TextView(mContext);
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		textView=(TextView) inflater.inflate(R.layout.textview,null);
 		if(mClips.get(position).isPinned())textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 		else textView.setBackgroundColor(setting.getInt("clpcolor",0xFFFFBB22));
@@ -104,6 +106,65 @@ public class ClipAdapter extends BaseAdapter {
 			textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 		
 		return textView;
+	//Recycling the view is causing problems with the re arrange animation 
+	    /*ViewHolder holder;
+		if (convertView == null) {
+		        convertView = inflater.inflate(R.layout.textview,null);
+		        holder = new ViewHolder();
+		        holder.textView=(TextView) convertView.findViewById(R.id.textViewC);
+		        holder.textView.setTextColor(setting.getInt("txtcolor",0xffffffff));
+		        holder.textView.setTextSize((float)(setting.getInt("txtsize",  20)));
+		        holder.textView.setOnLongClickListener(new OnLongClickListener() {@Override public boolean onLongClick(View v) {return false;}});
+		        
+		        convertView.setTag(holder);
+		}else{
+			holder=(ViewHolder) convertView.getTag();
+		}
+		holder.textView.setBackgroundColor(mClips.get(position).isPinned()? setting.getInt("pincolor",0xFFCF5300) :setting.getInt("clpcolor",0xFFFFBB22));
+		holder.textView.setOnTouchListener(new SwipeDismissTouchListener(holder.textView,
+                null,
+                new SwipeDismissTouchListener.DismissCallbacks() {
+                    @Override
+                    public boolean canDismiss(Object token) {
+                    	if(mClips.get(position).isPinned())return false;
+                        else return true;
+                    }
+
+                    @Override
+                    public void onDismiss(View view, Object token,float xx,float yy) {
+                    	ClipBoard.backupS=ClipAdapter.mClips.get(position).getText();
+        				ClipBoard.backupP=position;
+        				ClipBoard.backupClip=mClips.get(position);
+        				ClipBoard.backupX=ClipBoard.gridView.getChildAt(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()).getX();
+        				ClipBoard.backupY=ClipBoard.gridView.getChildAt(ClipBoard.gridView.getLastVisiblePosition()-ClipBoard.gridView.getFirstVisiblePosition()).getY();
+						ClipBoard.animRearrange(position,xx,yy,mContext);			
+        				
+        					
+        				  				
+                    }
+                }));
+		if(mClips.get(position).getTitle().equals(""))holder.textView.setText(mClips.get(position).getText());
+		else holder.textView.setText(mClips.get(position).getTitle());
+		
+		holder.textView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", ClipAdapter.mClips.get(position).getText()));
+				ClipBoard.prevClip=ClipData.newPlainText("Text", ClipAdapter.mClips.get(position).getText());
+				if(setting.getBoolean("singlepaste", false)){
+					((Activity)mContext).finish();
+					if(((Activity)mContext).getIntent().getDoubleExtra("Keyheight", 0)>0.5){
+						((Activity)mContext).overridePendingTransition(0, R.anim.slide_up); 
+					}else {
+						((Activity)mContext).overridePendingTransition(0, R.anim.slide_down); 
+					}					
+				}
+					
+				
+				}
+		});
+		
+		return convertView;*/
 	}
 
 }

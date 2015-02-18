@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:title="@string/app_name" >
 	<PreferenceScreen
-	     android:title="@string/category_theme">
+	     android:title="@string/category_theme"
+	     android:icon="@drawable/ic_theme">
 	     
     <net.margaritov.preference.colorpicker.ColorPickerPreference
     	android:key="bgcolor"
@@ -35,11 +36,12 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-            android:title="@string/category_sizes">
+            android:title="@string/category_sizes"
+            android:icon="@drawable/ic_size">
     
     <com.dhm47.nativeclipboard.WidgetNumberPicker
-                defaultValue="25"
-                maximum="50"
+                defaultValue="5"
+                maximum="21"
                 minimum="1"
                 android:key="history"
                 android:summary="@string/history_summary"
@@ -60,15 +62,18 @@
    
    <Preference
             android:key="blacklist"
-            android:title="@string/blacklist"/>
+            android:title="@string/blacklist"
+            android:icon="@drawable/ic_blacklist"/>
    <ListPreference
             android:key="sort"
             android:title="@string/sort"
             android:entries="@array/sortby"
-            android:entryValues="@array/sortvalues" />
+            android:entryValues="@array/sortvalues" 
+            android:icon="@drawable/ic_sort"/>
     
     <PreferenceScreen
-            android:title="@string/category_advanced">
+            android:title="@string/category_advanced"
+            android:icon="@drawable/ic_advanced">
    
    <CheckBoxPreference
             android:defaultValue="false"
@@ -99,13 +104,4 @@
             android:dependency="monitorservice"/>
     </PreferenceScreen>
     
-    <Preference
-            android:key="test"
-            android:title="@string/test" />
-   <Preference
-            android:key="xda"
-            android:title="@string/xda">
-   <intent android:action="android.intent.action.VIEW"
-            android:data="http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682" />
-   </Preference>
 </PreferenceScreen>
