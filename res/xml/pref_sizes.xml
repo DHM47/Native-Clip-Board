@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:title="@string/category_sizes">
+    
+    <com.dhm47.nativeclipboard.WidgetNumberPicker
+                defaultValue="5"
+                maximum="21"
+                minimum="1"
+                android:key="history"
+                android:summary="@string/history_summary"
+                android:title="@string/history_title" />
+   <com.dhm47.nativeclipboard.WidgetNumberPicker
+                defaultValue="20"
+                maximum="40"
+                minimum="1"
+                android:key="txtsize"
+               	android:title="@string/txtsize" />
+   <com.dhm47.nativeclipboard.WidgetNumberPicker
+                defaultValue="280"
+                maximum="600"
+                minimum="100"
+                android:key="windowsize"
+               	android:title="@string/uisize" />
+   
+</PreferenceScreen>

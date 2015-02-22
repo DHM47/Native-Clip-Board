@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhm47.nativeclipboard"
     android:versionCode="29"
-    android:versionName="2.9" >
+    android:versionName="2.9.4" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -34,7 +34,7 @@
             android:name="com.dhm47.nativeclipboard.Blacklist"
             android:label="@string/blacklist"
             android:parentActivityName="com.dhm47.nativeclipboard.Setting"
-            android:theme="@style/Setting"
+            android:theme="@style/SettingOld"
             android:process=":setting">
         </activity>
         

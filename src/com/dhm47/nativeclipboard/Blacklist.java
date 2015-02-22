@@ -83,7 +83,8 @@ public class Blacklist extends PreferenceActivity {
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(this));
         mRoot = getPreferenceScreen();
         loadPreferenceItems();
-		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+		//getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
     }
     
 

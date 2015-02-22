@@ -1,0 +1,5 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+      <style name="Setting" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:navigationBarColor">@color/dark_deep_purple</item>
+    </style>
+</resources>

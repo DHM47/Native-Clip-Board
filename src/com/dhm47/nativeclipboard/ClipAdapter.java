@@ -106,7 +106,7 @@ public class ClipAdapter extends BaseAdapter {
 			textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 		
 		return textView;
-	
+	//Recycling the view is causing problems with the re arrange animation 
 	    /*ViewHolder holder;
 		if (convertView == null) {
 		        convertView = inflater.inflate(R.layout.textview,null);

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layoutDirection="ltr" >
+    android:layoutDirection="ltr">
     
    <!--  Main Layout  -->
         		<GridView
@@ -19,32 +19,37 @@
     				android:numColumns="auto_fit"
     				android:paddingLeft="14dp"
     				android:paddingRight="14dp"
-    				android:paddingBottom="7dp"
     				android:paddingTop="40dp"
+    				android:paddingBottom="7dp"
     				android:stretchMode="columnWidth"/>
     				
         		
-    			<ImageView
+    			 <ImageView
     				android:id="@+id/close"
     				android:layout_width="wrap_content"
     				android:layout_height="wrap_content"
     				android:layout_centerHorizontal="true"
     				android:layout_alignTop="@+id/grid_view"
-   					android:layout_marginTop="2dp"
+   					android:layout_marginTop="3dp"
     				android:src="@drawable/ic_close_light" />
-
-				<Button
+				<ImageView 
+				    android:id="@+id/add"
+    				android:layout_width="wrap_content"
+    				android:layout_height="25dp"
+    				android:layout_alignParentLeft="true"
+    				android:layout_alignTop="@+id/grid_view"
+    				android:layout_marginTop="7dp"
+    				android:layout_marginLeft="7dp"
+    				android:src="@drawable/ic_add_light"/>
+				<ImageView
     				android:id="@+id/clear"
     				android:layout_width="wrap_content"
-    				android:layout_height="35dp"
+    				android:layout_height="wrap_content"
     				android:layout_alignParentRight="true"
     				android:layout_alignTop="@+id/grid_view"
+    				android:layout_marginTop="2dp"
     				android:layout_marginRight="10dp"
-    				android:padding="7dp"
-    				android:text="@string/clear_all"
-    				android:textSize="17dp"
-    				style="@android:style/Holo.ButtonBar"
-    				android:textColor="#FF7B7B7B"/>
+    				android:src="@drawable/ic_clear_all_light"/>
 				
 	<!--  Expanded Layout  -->
 				
@@ -59,7 +64,8 @@
         				android:paddingRight="9dp"
         				android:paddingTop="9dp"
         				android:paddingBottom="9dp"
-        				android:overScrollMode="ifContentScrolls"/>
+        				android:overScrollMode="ifContentScrolls"
+        				/>
 				
 				<TextView
         				android:id="@+id/clipText"
@@ -128,7 +134,7 @@
 					    android:maxLines="2"
 					    android:visibility="visible"
 					    android:hint="@string/title_hint"/>
-					<EditText 
+					<EditText
 					    android:id="@+id/clipEdit"
 					    android:layout_width="match_parent"
 					    android:layout_height="wrap_content"

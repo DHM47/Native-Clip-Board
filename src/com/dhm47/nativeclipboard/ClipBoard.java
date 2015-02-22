@@ -18,11 +18,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
@@ -40,10 +38,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -52,6 +52,8 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.MaterialDialog.Builder;
 import com.dhm47.nativeclipboard.comparators.PinnedFirst;
 import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
@@ -67,8 +69,10 @@ public class ClipBoard extends Activity{
 	private LinearLayout editLayout;
 	private RelativeLayout bottomBar;
 	private Context ctx;
-	private Button clear;
+	private ImageView clear;
 	private ImageView close;
+	private ImageView add;
+	private boolean adding;
 	private ImageView overflow;
 	private TextView textView;
 	private TextView clipText;
@@ -183,6 +187,20 @@ public class ClipBoard extends Activity{
     protected void onStart() {
         super.onStart();
         mainLayout=(RelativeLayout) findViewById(R.id.mainlayout);
+		gridView =(GridView) mainLayout.findViewById(R.id.grid_view);
+		clear= (ImageView) mainLayout.findViewById(R.id.clear);
+		close= (ImageView) mainLayout.findViewById(R.id.close);
+		add=(ImageView) mainLayout.findViewById(R.id.add);
+        textView =(TextView) mainLayout.findViewById(R.id.textViewB);
+		clipText=(TextView) mainLayout.findViewById(R.id.clipText);
+		bottomBar=(RelativeLayout)mainLayout.findViewById(R.id.BottomBar);
+		editLayout=(LinearLayout) mainLayout.findViewById(R.id.EditView);
+		text = (EditText) editLayout.findViewById(R.id.clipEdit);
+        title =(EditText) editLayout.findViewById(R.id.clipTitleEdit);
+		overflow =(ImageView) bottomBar.findViewById(R.id.overflow);
+		timeStamp =(TextView) bottomBar.findViewById(R.id.timestamp);
+
+        
         mainLayout.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -191,7 +209,6 @@ public class ClipBoard extends Activity{
 		});
         
          
-		gridView =(GridView) mainLayout.findViewById(R.id.grid_view);
 		gridView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, windowSize));
         gridView.setBackgroundColor(backgroundColor);
 		gridView.setAdapter(clipAdapter);
@@ -199,47 +216,45 @@ public class ClipBoard extends Activity{
 		if(isUp){
 	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
 	    	params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-	    	gridView.setLayoutParams(params); 
+	    	gridView.setLayoutParams(params);
+	    	close.setRotation(180);
 	    }else {
 	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
 	    	params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 	    	gridView.setLayoutParams(params); 
 		}
 		
-		clear= (Button) mainLayout.findViewById(R.id.clear);
 		clear.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				AlertDialog dialog ;
-				AlertDialog.Builder confirm =new AlertDialog.Builder(ctx);
-				confirm.setTitle(R.string.clear_all_conf);
-				confirm.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-					
+				Builder dialog=new MaterialDialog.Builder(ctx);
+				dialog.content(R.string.clear_all_conf);
+				dialog.positiveText(android.R.string.yes);
+				dialog.negativeText(android.R.string.cancel);
+				dialog.callback(new MaterialDialog.ButtonCallback() {
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+		            public void onPositive(MaterialDialog dialog) {
 						clearall=true;
+						
 						List<Clip> temp = new ArrayList<Clip>();
 						for (Clip clip : ClipAdapter.mClips) {
 					        if(clip.isPinned())temp.add(clip);
 						}
-						ClipAdapter.mClips=temp;
-						clipAdapter.notifyDataSetChanged();
+						
+						animateClearAll(temp);
 					}
-				});
-				confirm.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 					
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+			        public void onNegative(MaterialDialog dialog) {
 						dialog.cancel();
 					}
 				});
-				dialog = confirm.create();
+				
 				dialog.show();
 							
 			}
 		});
 		
-		close= (ImageView) mainLayout.findViewById(R.id.close);
 		close.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -250,16 +265,21 @@ public class ClipBoard extends Activity{
 		
 		if(isColorDark(backgroundColor)){
 			close.setImageResource(R.drawable.ic_close_dark);
-			clear.setTextColor(0xFFCCCCCC);
+			clear.setImageResource(R.drawable.ic_clear_all_dark);
+			add.setImageResource(R.drawable.ic_add_dark);
 		}
-				
+		add.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Add();
+				}
+		});
 		gridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					final int position, long id) {
 				lPosition=position;
-				textView =(TextView) mainLayout.findViewById(R.id.textViewB);
-				clipText=(TextView) mainLayout.findViewById(R.id.clipText);
 				if(ClipAdapter.mClips.get(position).getTitle().equals("")){
 				textView.setText(ClipAdapter.mClips.get(position).getText());
                 }else{
@@ -275,17 +295,13 @@ public class ClipBoard extends Activity{
 				clipText.setTextSize(textSize);
 				clipText.setMovementMethod(new ScrollingMovementMethod());
 
-				bottomBar=(RelativeLayout)mainLayout.findViewById(R.id.BottomBar);
 				bottomBar.setBackgroundColor(ClipAdapter.mClips.get(position).isPinned() ? pinnedclipColor : clipColor);
-				editLayout=(LinearLayout) mainLayout.findViewById(R.id.EditView);
 				editLayout.setBackgroundColor(ClipAdapter.mClips.get(position).isPinned() ? pinnedclipColor : clipColor);
                 
-				text = (EditText) editLayout.findViewById(R.id.clipEdit);
 		        text.setMovementMethod(new ScrollingMovementMethod());
 		        text.setTextColor(textColor);
 		        text.setTextSize(textSize);
 
-		        title =(EditText) editLayout.findViewById(R.id.clipTitleEdit);
 		        title.setTextColor(textColor);
 		        title.setTextSize(textSize);
 		        title.setHintTextColor(textColor);
@@ -363,7 +379,6 @@ public class ClipBoard extends Activity{
 					}
 				});
 				
-				overflow =(ImageView) bottomBar.findViewById(R.id.overflow);
 				int color=ClipAdapter.mClips.get(position).isPinned() ? pinnedclipColor : clipColor;
 				overflow.setImageResource(isColorDark(color) ? R.drawable.ic_action_overflow_dark : R.drawable.ic_action_overflow_light);
 				overflow.setOnClickListener(new OnClickListener() {
@@ -373,7 +388,6 @@ public class ClipBoard extends Activity{
 						OpenMenu();
 					}
 				});
-				timeStamp =(TextView) bottomBar.findViewById(R.id.timestamp);
 				timeStamp.setTextColor(textColor);
 				DateFormat date = new SimpleDateFormat("dd/MM HH:mm",Locale.getDefault());
 				timeStamp.setText(""+date.format(ClipAdapter.mClips.get(position).getTime()));
@@ -421,6 +435,7 @@ public class ClipBoard extends Activity{
 		clipAdapter.registerDataSetObserver(new DataSetObserver() {
 			public void onChanged() {
 				try {windowManager.removeView(Undo);} catch (Exception e) {}
+				if(adding)return;
 				if(ClipAdapter.mClips.size()<size && !clearall){//ClipAdapter.mClips.size()<size &&  && (ClipAdapter.mClips.size()!=0 || size==1)
 					Undo = inflater.inflate(R.layout.undo,null);
 					final CountDownTimer timeout=new CountDownTimer(3000, 3000) {
@@ -496,24 +511,62 @@ public class ClipBoard extends Activity{
 	}
 	@Override
 	public void onBackPressed() {
-		if (clear.getVisibility()==View.INVISIBLE && textView.getVisibility()==View.VISIBLE){
+		if(adding){
+			if(title.getText().toString().equals("") && text.getText().toString().equals("")){
+				editLayout.setVisibility(View.INVISIBLE);
+				bottomBar.setVisibility(View.INVISIBLE);
+				clear.setVisibility(View.VISIBLE);
+				ClipAdapter.mClips.remove(0);
+				clipAdapter.notifyDataSetChanged();
+				getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+				adding=false;
+			}else{
+				Builder dialog=new MaterialDialog.Builder(ctx);
+				String dialogtitle=getResources().getString(R.string.save);
+				dialog.content(dialogtitle+" ?");
+				dialog.positiveText(android.R.string.yes);
+				dialog.negativeText(android.R.string.no);
+				dialog.callback(new MaterialDialog.ButtonCallback() {
+					@Override
+		            public void onPositive(MaterialDialog dialog) {
+						Save();
+					}
+					
+					@Override
+			        public void onNegative(MaterialDialog dialog) {
+						editLayout.setVisibility(View.INVISIBLE);
+						bottomBar.setVisibility(View.INVISIBLE);
+						clear.setVisibility(View.VISIBLE);
+						ClipAdapter.mClips.remove(0);
+						clipAdapter.notifyDataSetChanged();
+						getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+						adding=false;
+					}
+				});
+				
+				dialog.show();
+				}
+		}else if (clear.getVisibility()==View.INVISIBLE && textView.getVisibility()==View.VISIBLE){
 			toGrid();
 		}else if(clear.getVisibility()==View.INVISIBLE 
 				&& (!text.getText().toString().equals(ClipAdapter.mClips.get(lPosition).getText()) || !title.getText().toString().equals(ClipAdapter.mClips.get(lPosition).getTitle()))){
-			AlertDialog dialog ;
-			AlertDialog.Builder confirm =new AlertDialog.Builder(ctx);
+			Builder dialog=new MaterialDialog.Builder(ctx);
 			String dialogtitle=getResources().getString(R.string.save);
-			confirm.setTitle(dialogtitle+" ?");
-			confirm.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			dialog.content(dialogtitle+" ?");
+			dialog.positiveText(android.R.string.yes);
+			dialog.negativeText(android.R.string.no);
+			dialog.callback(new MaterialDialog.ButtonCallback() {
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
+	            public void onPositive(MaterialDialog dialog) {
 					Save();
-					}
-			});
-			confirm.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+				}
 				
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
+		        public void onNegative(MaterialDialog dialog) {
 					editLayout.setVisibility(View.INVISIBLE);
 					textView.setVisibility(View.VISIBLE);
 					clipText.setVisibility(View.VISIBLE);
@@ -522,8 +575,9 @@ public class ClipBoard extends Activity{
 					imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
 				}
 			});
-			dialog = confirm.create();
 			dialog.show();
+			
+			
 						
 		}else if(clear.getVisibility()==View.INVISIBLE){
 			Save();
@@ -568,6 +622,7 @@ public class ClipBoard extends Activity{
 	    }
 	}
 	private void Cancel() {
+		if(adding)if(ClipAdapter.mClips.get(0).getText().equals(""))ClipAdapter.mClips.remove(0);
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
 		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		ClipBoard.this.finish();
@@ -751,8 +806,10 @@ public class ClipBoard extends Activity{
            if(ClipAdapter.mClips.get(lPosition).isPinned()){popup.getMenu().findItem(R.id.pin).setVisible(false);popup.getMenu().findItem(R.id.del).setEnabled(false);}
            else popup.getMenu().findItem(R.id.unpin).setVisible(false);
         
-           if (textView.getVisibility()==View.VISIBLE)popup.getMenu().findItem(R.id.save).setVisible(false);
+           if (textView.getVisibility()==View.VISIBLE && !adding)popup.getMenu().findItem(R.id.save).setVisible(false);
            else popup.getMenu().findItem(R.id.edit).setVisible(false);
+           
+           if(adding)popup.getMenu().findItem(R.id.shrink).setVisible(false);
            
            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
@@ -832,21 +889,121 @@ public class ClipBoard extends Activity{
 	public void Save(){
 		ClipAdapter.mClips.get(lPosition).setText(text.getText().toString());
 		ClipAdapter.mClips.get(lPosition).setTitle(title.getText().toString());
-		if(!title.getText().toString().equals("")){
+		if(adding){
+			bottomBar.setVisibility(View.INVISIBLE);
+			clear.setVisibility(View.VISIBLE);
+			if(title.getText().toString().equals(""))((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(text.getText());
+			else((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(title.getText());
+			
+		}else if(!title.getText().toString().equals("")){
 			((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(title.getText());
 			textView.setText(title.getText());
 			clipText.setText(text.getText());
 			clipText.setX(textView.getX());
     		clipText.setY(textView.getY()+textView.getLineBounds(textView.getLineCount()-1, null));
+    		clipText.setVisibility(View.VISIBLE);
+    		textView.setVisibility(View.VISIBLE);
 		}else {
 			((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(text.getText());
 			textView.setText(text.getText());
+			clipText.setText("");
+			textView.setVisibility(View.VISIBLE);
 		}
 		editLayout.setVisibility(View.INVISIBLE);
-		textView.setVisibility(View.VISIBLE);
-		clipText.setVisibility(View.VISIBLE);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(title.getWindowToken(), 0);										
+		imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+		adding=false;
 	}
+	public void Add(){
+		adding=true;
+		clear.setVisibility(View.INVISIBLE);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+		bottomBar.setBackgroundColor(clipColor);
+		editLayout.setBackgroundColor(clipColor);
+        
+		text.setText("");
+        text.setMovementMethod(new ScrollingMovementMethod());
+        text.setTextColor(textColor);
+        text.setTextSize(textSize);
+        text.setHint("Type Clip text");
+        text.setHintTextColor(textColor);
+
+        title.setText("");
+        title.setTextColor(textColor);
+        title.setTextSize(textSize);
+        title.setHintTextColor(textColor);
+
+		overflow.setImageResource(isColorDark(clipColor) ? R.drawable.ic_action_overflow_dark : R.drawable.ic_action_overflow_light);
+		overflow.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				OpenMenu();
+			}
+		});
+		
+		timeStamp.setTextColor(textColor);
+		DateFormat date = new SimpleDateFormat("dd/MM HH:mm",Locale.getDefault());
+		timeStamp.setText(""+date.format(System.currentTimeMillis()));
+		
+		RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) editLayout.getLayoutParams();
+		params.height=gridView.getHeight()-2*gridView.getPaddingBottom()-Util.px(35, ctx);
+		params.width=gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft();
+		editLayout.setLayoutParams(params);
+		editLayout.setVisibility(View.VISIBLE);
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.grow);
+		anim.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {}
+			@Override
+			public void onAnimationRepeat(Animation animation) {}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				bottomBar.setVisibility(View.VISIBLE);
+				ClipAdapter.mClips.add(0, new Clip(System.currentTimeMillis(), "", "", false));
+				lPosition=0;
+				clipAdapter.notifyDataSetChanged();
+			}
+		});
+		editLayout.startAnimation(anim);
+		
+		
+	}
+	
+	public void animateClearAll(final List<Clip> temp){
+		int lastDismissed = 0;
+		for(int x=(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition());x>=0;x--){
+
+			if(!ClipAdapter.mClips.get(x).isPinned()){
+				lastDismissed=(gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()-x);
+				gridView.getChildAt(x).animate()
+	         .translationX(gridView.getChildAt(x).getWidth())
+	         .alpha(0)
+	         .setDuration(300).setStartDelay((gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition()-x)*100);
+			}
+			if(x==0){
+				long dely =300+lastDismissed*100;
+				CountDownTimer time=new CountDownTimer(dely, dely) {
+
+					@Override
+					public void onTick(long millisUntilFinished) {
+					}
+					
+					@Override
+					public void onFinish() {
+						ClipAdapter.mClips=temp;
+						clipAdapter.notifyDataSetChanged();
+						
+					}
+				};
+				time.start();
+			}
+			
+		}
+		
+	}
+	
 }
