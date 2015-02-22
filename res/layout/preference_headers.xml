@@ -1,107 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:title="@string/app_name" >
-	<PreferenceScreen
-	     android:title="@string/category_theme"
-	     android:icon="@drawable/ic_theme">
-	     
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
-    	android:key="bgcolor"
-        android:title="@string/bgcolor"
-    	android:defaultValue="0xFFE6E6E6"    
-    	alphaSlider="true"
-    	hexValue="true"/>
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
-    	android:key="clpcolor"
-        android:title="@string/clpcolor"
-        android:summary="@string/clpcolor_summary"
-    	android:defaultValue="0xFFFFBB22"    
-    	alphaSlider="true"
-    	hexValue="true" />
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
-    	android:key="pincolor"
-        android:title="@string/pinnedcolor"
-        android:defaultValue="0xFFCF5300"    
-    	alphaSlider="true"
-    	hexValue="true" />
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
-    	android:key="txtcolor"
-        android:title="@string/txtcolor" 
-    	android:defaultValue="0xFF664B0E"    
-    	alphaSlider="true"
-    	hexValue="true" />
-   
-    </PreferenceScreen>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header
+        android:title="@string/category_theme"
+	    android:icon="@drawable/ic_theme"
+	    android:fragment="com.dhm47.nativeclipboard.SettingFragment" >
+            <extra
+                android:name="category"
+                android:value="category_theme" />
+    </header>
+    <header
+        android:title="@string/category_sizes"
+        android:icon="@drawable/ic_size"
+        android:fragment="com.dhm47.nativeclipboard.SettingFragment" >
+            <extra
+                android:name="category"
+                android:value="category_sizes" />
+    </header>
+    
+    <header
+        android:title="@string/blacklist"
+        android:icon="@drawable/ic_blacklist">
+    </header>
+    <header
+        android:title="@string/sort"
+        android:icon="@drawable/ic_sort">
+    </header>
 
-    <PreferenceScreen
-            android:title="@string/category_sizes"
-            android:icon="@drawable/ic_size">
-    
-    <com.dhm47.nativeclipboard.WidgetNumberPicker
-                defaultValue="5"
-                maximum="21"
-                minimum="1"
-                android:key="history"
-                android:summary="@string/history_summary"
-                android:title="@string/history_title" />
-   <com.dhm47.nativeclipboard.WidgetNumberPicker
-                defaultValue="20"
-                maximum="40"
-                minimum="1"
-                android:key="txtsize"
-               	android:title="@string/txtsize" />
-   <com.dhm47.nativeclipboard.WidgetNumberPicker
-                defaultValue="280"
-                maximum="600"
-                minimum="100"
-                android:key="windowsize"
-               	android:title="@string/uisize" />
-   </PreferenceScreen>
-   
-   <Preference
-            android:key="blacklist"
-            android:title="@string/blacklist"
-            android:icon="@drawable/ic_blacklist"/>
-   <ListPreference
-            android:key="sort"
-            android:title="@string/sort"
-            android:entries="@array/sortby"
-            android:entryValues="@array/sortvalues" 
-            android:icon="@drawable/ic_sort"/>
-    
-    <PreferenceScreen
-            android:title="@string/category_advanced"
-            android:icon="@drawable/ic_advanced">
-   
-   <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pastefunction"
-            android:title="@string/pastefunction"
-            android:summaryOff="@string/pastefunction_summary_off"
-            android:summaryOn="@string/pastefunction_summary_on"/>
-   <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="cbbutton"
-            android:title="@string/cbbutton"
-            android:summary="@string/cbbutton_summary"/>
-   <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="singlepaste"
-            android:title="@string/singlepaste"
-            android:summary="@string/singlepaste_summary"/>
-   <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="monitorservice"
-            android:title="@string/monitorservice"
-            android:summary="@string/monitorservice_summary"/>
-   <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="notification"
-            android:title="@string/notification_title"
-            android:summary="@string/notification_summary"
-            android:dependency="monitorservice"/>
-    </PreferenceScreen>
-    
-</PreferenceScreen>
+    <header
+        android:title="@string/category_advanced"
+        android:icon="@drawable/ic_advanced"
+        android:fragment="com.dhm47.nativeclipboard.SettingFragment" >
+            <extra
+                android:name="category"
+                android:value="category_advanced" />
+    </header>
+</preference-headers>
