@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.method.ScrollingMovementMethod;
@@ -42,8 +44,10 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -58,7 +62,7 @@ import com.dhm47.nativeclipboard.comparators.PinnedFirst;
 import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
 
-@SuppressLint({ "ClickableViewAccessibility", "InflateParams" })
+@SuppressLint({ "ClickableViewAccessibility", "InflateParams", "NewApi" })
 public class ClipBoard extends Activity{
 	
 	private WindowManager windowManager;
@@ -69,6 +73,7 @@ public class ClipBoard extends Activity{
 	private LinearLayout editLayout;
 	private RelativeLayout bottomBar;
 	private Context ctx;
+	private RelativeLayout actionBar;
 	private ImageView clear;
 	private ImageView close;
 	private ImageView add;
@@ -183,23 +188,29 @@ public class ClipBoard extends Activity{
 		prevClip=mClipboardManager.getPrimaryClip();
 	}
 		
+	@SuppressLint("NewApi")
 	@Override
     protected void onStart() {
         super.onStart();
         mainLayout=(RelativeLayout) findViewById(R.id.mainlayout);
 		gridView =(GridView) mainLayout.findViewById(R.id.grid_view);
-		clear= (ImageView) mainLayout.findViewById(R.id.clear);
-		close= (ImageView) mainLayout.findViewById(R.id.close);
-		add=(ImageView) mainLayout.findViewById(R.id.add);
-        textView =(TextView) mainLayout.findViewById(R.id.textViewB);
+		
+		actionBar=(RelativeLayout) findViewById(R.id.actionBar);
+		clear= (ImageView) actionBar.findViewById(R.id.clear);
+		close= (ImageView) actionBar.findViewById(R.id.close);
+		add=(ImageView) actionBar.findViewById(R.id.add);
+        
+		textView =(TextView) mainLayout.findViewById(R.id.textViewB);
 		clipText=(TextView) mainLayout.findViewById(R.id.clipText);
-		bottomBar=(RelativeLayout)mainLayout.findViewById(R.id.BottomBar);
+		
 		editLayout=(LinearLayout) mainLayout.findViewById(R.id.EditView);
 		text = (EditText) editLayout.findViewById(R.id.clipEdit);
         title =(EditText) editLayout.findViewById(R.id.clipTitleEdit);
-		overflow =(ImageView) bottomBar.findViewById(R.id.overflow);
+		
+        bottomBar=(RelativeLayout)mainLayout.findViewById(R.id.BottomBar);
+        overflow =(ImageView) bottomBar.findViewById(R.id.overflow);
 		timeStamp =(TextView) bottomBar.findViewById(R.id.timestamp);
-
+    	
         
         mainLayout.setOnClickListener(new OnClickListener() {			
 			@Override
@@ -208,7 +219,8 @@ public class ClipBoard extends Activity{
 			}
 		});
         
-         
+        actionBar.setBackgroundColor(clipColor);
+        
 		gridView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, windowSize));
         gridView.setBackgroundColor(backgroundColor);
 		gridView.setAdapter(clipAdapter);
@@ -221,9 +233,36 @@ public class ClipBoard extends Activity{
 	    }else {
 	    	RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)gridView.getLayoutParams();
 	    	params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-	    	gridView.setLayoutParams(params); 
+	    	gridView.setLayoutParams(params);
 		}
-		
+
+		if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+			if(isUp){
+		        getWindow().setStatusBarColor(darkenColor(clipColor, 0.8f));
+		        getWindow().setNavigationBarColor(0x00ffffff);
+			}else{
+				getWindow().setStatusBarColor(0x00ffffff);
+		        getWindow().setNavigationBarColor(darkenColor(clipColor, 0.8f));
+			}
+		EdgeEffect edgeEffectTop = new EdgeEffect(this);
+		edgeEffectTop.setColor(clipColor);
+
+		EdgeEffect edgeEffectBottom = new EdgeEffect(this);
+		edgeEffectBottom.setColor(clipColor);
+
+		try {
+		    Field f1 = AbsListView.class.getDeclaredField("mEdgeGlowTop");
+		    f1.setAccessible(true);
+		    f1.set(gridView, edgeEffectTop);
+
+		    Field f2 = AbsListView.class.getDeclaredField("mEdgeGlowBottom");
+		    f2.setAccessible(true);
+		    f2.set(gridView, edgeEffectBottom);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		}
 		clear.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -250,7 +289,13 @@ public class ClipBoard extends Activity{
 					}
 				});
 				
-				dialog.show();
+				MaterialDialog mDialog = dialog.build();
+				WindowManager.LayoutParams wlp = mDialog.getWindow().getAttributes();
+				//wlp.gravity = (isUp?Gravity.TOP:Gravity.BOTTOM);
+				wlp.dimAmount=0.7f;
+				mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+				mDialog.getWindow().setAttributes(wlp);
+				mDialog.show();
 							
 			}
 		});
@@ -263,7 +308,7 @@ public class ClipBoard extends Activity{
 				}
 		});
 		
-		if(isColorDark(backgroundColor)){
+		if(isColorDark(clipColor)){
 			close.setImageResource(R.drawable.ic_close_dark);
 			clear.setImageResource(R.drawable.ic_clear_all_dark);
 			add.setImageResource(R.drawable.ic_add_dark);
@@ -513,15 +558,29 @@ public class ClipBoard extends Activity{
 	public void onBackPressed() {
 		if(adding){
 			if(title.getText().toString().equals("") && text.getText().toString().equals("")){
-				editLayout.setVisibility(View.INVISIBLE);
+				actionBar.setVisibility(View.VISIBLE);
 				bottomBar.setVisibility(View.INVISIBLE);
-				clear.setVisibility(View.VISIBLE);
 				ClipAdapter.mClips.remove(0);
 				clipAdapter.notifyDataSetChanged();
 				getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
 				adding=false;
+				
+				Animation anim = AnimationUtils.loadAnimation(this, R.anim.grow_in);
+				anim.setAnimationListener(new AnimationListener() {
+					@Override
+					public void onAnimationStart(Animation animation) {}
+					@Override
+					public void onAnimationRepeat(Animation animation) {}
+					
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						editLayout.setVisibility(View.INVISIBLE);
+					}
+				});
+				editLayout.startAnimation(anim);
+				
 			}else{
 				Builder dialog=new MaterialDialog.Builder(ctx);
 				String dialogtitle=getResources().getString(R.string.save);
@@ -537,8 +596,8 @@ public class ClipBoard extends Activity{
 					@Override
 			        public void onNegative(MaterialDialog dialog) {
 						editLayout.setVisibility(View.INVISIBLE);
+						actionBar.setVisibility(View.VISIBLE);
 						bottomBar.setVisibility(View.INVISIBLE);
-						clear.setVisibility(View.VISIBLE);
 						ClipAdapter.mClips.remove(0);
 						clipAdapter.notifyDataSetChanged();
 						getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
@@ -547,12 +606,17 @@ public class ClipBoard extends Activity{
 						adding=false;
 					}
 				});
-				
-				dialog.show();
+				MaterialDialog mDialog = dialog.build();
+				WindowManager.LayoutParams wlp = mDialog.getWindow().getAttributes();
+				//wlp.gravity = (isUp?Gravity.TOP:Gravity.BOTTOM);
+				wlp.dimAmount=0.7f;
+				mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+				mDialog.getWindow().setAttributes(wlp);
+				mDialog.show();
 				}
-		}else if (clear.getVisibility()==View.INVISIBLE && textView.getVisibility()==View.VISIBLE){
+		}else if (actionBar.getVisibility()==View.INVISIBLE && textView.getVisibility()==View.VISIBLE){
 			toGrid();
-		}else if(clear.getVisibility()==View.INVISIBLE 
+		}else if(actionBar.getVisibility()==View.INVISIBLE 
 				&& (!text.getText().toString().equals(ClipAdapter.mClips.get(lPosition).getText()) || !title.getText().toString().equals(ClipAdapter.mClips.get(lPosition).getTitle()))){
 			Builder dialog=new MaterialDialog.Builder(ctx);
 			String dialogtitle=getResources().getString(R.string.save);
@@ -575,11 +639,16 @@ public class ClipBoard extends Activity{
 					imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
 				}
 			});
-			dialog.show();
-			
+			MaterialDialog mDialog = dialog.build();
+			WindowManager.LayoutParams wlp = mDialog.getWindow().getAttributes();
+			//wlp.gravity = (isUp?Gravity.TOP:Gravity.BOTTOM);
+			wlp.dimAmount=0.7f;
+			mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			mDialog.getWindow().setAttributes(wlp);
+			mDialog.show();
 			
 						
-		}else if(clear.getVisibility()==View.INVISIBLE){
+		}else if(actionBar.getVisibility()==View.INVISIBLE){
 			Save();
 		}else {
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));	    
@@ -615,7 +684,7 @@ public class ClipBoard extends Activity{
 
 	public boolean isColorDark(int color){
 	    double a = 1-(0.299*Color.red(color) + 0.587*Color.green(color) + 0.114*Color.blue(color))/255;
-	    if(a<0.5){
+	    if(a<0.25){
 	        return false; // It's a light color
 	    }else{
 	        return true; // It's a dark color
@@ -639,8 +708,8 @@ public class ClipBoard extends Activity{
 	}
 	
 	public void toBig(){
-		close.setVisibility(View.INVISIBLE);
-		clear.setVisibility(View.INVISIBLE);
+		bottomBar.setVisibility(View.VISIBLE);
+		actionBar.setVisibility(View.INVISIBLE);
 		textView.setVisibility(View.VISIBLE);
 		
 		int mPosition=lPosition-gridView.getFirstVisiblePosition();
@@ -650,11 +719,23 @@ public class ClipBoard extends Activity{
     	final float originalX=gridView.getChildAt(mPosition).getX();
     	final float originalY=gridView.getChildAt(mPosition).getY()+gridView.getY();
     	
-    	final int finalHeight = gridView.getHeight()-2*gridView.getPaddingBottom()-Util.px(35, ctx);
+    	final int finalHeight = gridView.getHeight()-gridView.getPaddingBottom()-gridView.getPaddingTop();
     	final int finalWidth = gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft();
     	final float finalX=gridView.getX()+gridView.getPaddingLeft();
-    	final float finalY=gridView.getY()+gridView.getPaddingBottom()	;
+    	final float finalY=gridView.getY()+gridView.getPaddingTop();
     	
+		if (Build.VERSION.SDK_INT >= 21) {
+    		final float originalZ=gridView.getElevation();
+    		final float finalZ=actionBar.getElevation();
+    		ValueAnimator animatorZ = ValueAnimator.ofFloat(originalZ,finalZ).setDuration(400);
+    		animatorZ.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    			@Override
+    			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+    				textView.setElevation((Float) valueAnimator.getAnimatedValue());
+    			}
+    		});	
+    		animatorZ.start();
+		}
 	        ValueAnimator animatorH = ValueAnimator.ofInt(originalHeight,finalHeight).setDuration(400);
 	        animatorH.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 	            @Override	
@@ -686,7 +767,6 @@ public class ClipBoard extends Activity{
 	        animatorY.addListener(new AnimatorListenerAdapter() {
 	            @Override
 	            public void onAnimationEnd(Animator animation) {
-	        		bottomBar.setVisibility(View.VISIBLE);
 	        		if(!ClipAdapter.mClips.get(lPosition).getTitle().equals("")){
 	        		clipText.setX(textView.getX());
 	        		clipText.setY(textView.getY()+textView.getLineBounds(textView.getLineCount()-1, null));
@@ -699,10 +779,10 @@ public class ClipBoard extends Activity{
 	        animatorW.start();
 	        animatorX.start();
 	        animatorY.start();
+	        
 	}
 	public void toGrid(){
-		close.setVisibility(View.VISIBLE);
-		clear.setVisibility(View.VISIBLE);
+		actionBar.setVisibility(View.VISIBLE);
 		bottomBar.setVisibility(View.INVISIBLE);
 		editLayout.setVisibility(View.INVISIBLE);
 		clipText.setVisibility(View.INVISIBLE);
@@ -713,10 +793,23 @@ public class ClipBoard extends Activity{
     	final float originalX=gridView.getChildAt(mPosition).getX();
     	final float originalY=gridView.getChildAt(mPosition).getY()+gridView.getY();
     	
-    	final int finalHeight = gridView.getHeight()-2*gridView.getPaddingBottom();
+    	final int finalHeight = gridView.getHeight()-gridView.getPaddingBottom()-gridView.getPaddingTop();
     	final int finalWidth = gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft();
     	final float finalX=gridView.getX()+gridView.getPaddingLeft();
-    	final float finalY=gridView.getY()+gridView.getPaddingBottom()	;
+    	final float finalY=gridView.getY()+gridView.getPaddingTop();
+    	
+		if (Build.VERSION.SDK_INT >= 21) {
+			final float originalZ=gridView.getElevation();
+			final float finalZ=actionBar.getElevation();
+			ValueAnimator animatorZ = ValueAnimator.ofFloat(finalZ,originalZ).setDuration(400);
+	        animatorZ.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+	            @Override
+	            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+	            	textView.setElevation((Float) valueAnimator.getAnimatedValue());
+	            }
+	        });
+	        animatorZ.start();
+		}
     	
 	        ValueAnimator animatorH = ValueAnimator.ofInt(finalHeight,originalHeight).setDuration(400);
 	        animatorH.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -890,10 +983,21 @@ public class ClipBoard extends Activity{
 		ClipAdapter.mClips.get(lPosition).setText(text.getText().toString());
 		ClipAdapter.mClips.get(lPosition).setTitle(title.getText().toString());
 		if(adding){
-			bottomBar.setVisibility(View.INVISIBLE);
-			clear.setVisibility(View.VISIBLE);
-			if(title.getText().toString().equals(""))((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(text.getText());
-			else((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(title.getText());
+			textView.setHeight(editLayout.getHeight());
+			textView.setWidth(editLayout.getWidth());
+			textView.setX(editLayout.getX());
+			textView.setY(editLayout.getY());
+			if(title.getText().toString().equals("")){
+				((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(text.getText());
+				textView.setText(text.getText());
+			}else{
+				((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(title.getText());
+				textView.setText(title.getText());
+			}
+			textView.setBackgroundColor(clipColor);
+			textView.setTextColor(textColor);
+			textView.setVisibility(View.VISIBLE);
+			toGrid();
 			
 		}else if(!title.getText().toString().equals("")){
 			((TextView) gridView.getChildAt(lPosition-gridView.getFirstVisiblePosition())).setText(title.getText());
@@ -917,7 +1021,6 @@ public class ClipBoard extends Activity{
 	}
 	public void Add(){
 		adding=true;
-		clear.setVisibility(View.INVISIBLE);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 		bottomBar.setBackgroundColor(clipColor);
@@ -935,12 +1038,12 @@ public class ClipBoard extends Activity{
         title.setTextSize(textSize);
         title.setHintTextColor(textColor);
 
-		overflow.setImageResource(isColorDark(clipColor) ? R.drawable.ic_action_overflow_dark : R.drawable.ic_action_overflow_light);
+		overflow.setImageResource(isColorDark(clipColor) ? R.drawable.ic_save_dark: R.drawable.ic_save_light);
 		overflow.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				OpenMenu();
+				Save();
 			}
 		});
 		
@@ -949,11 +1052,14 @@ public class ClipBoard extends Activity{
 		timeStamp.setText(""+date.format(System.currentTimeMillis()));
 		
 		RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams) editLayout.getLayoutParams();
-		params.height=gridView.getHeight()-2*gridView.getPaddingBottom()-Util.px(35, ctx);
+		params.height=gridView.getHeight()-gridView.getPaddingBottom()-gridView.getPaddingTop();
 		params.width=gridView.getWidth()-gridView.getPaddingRight()-gridView.getPaddingLeft();
 		editLayout.setLayoutParams(params);
 		editLayout.setVisibility(View.VISIBLE);
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.grow);
+		bottomBar.setVisibility(View.VISIBLE);
+		actionBar.setVisibility(View.INVISIBLE);
+
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.grow_out);
 		anim.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {}
@@ -962,7 +1068,6 @@ public class ClipBoard extends Activity{
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				bottomBar.setVisibility(View.VISIBLE);
 				ClipAdapter.mClips.add(0, new Clip(System.currentTimeMillis(), "", "", false));
 				lPosition=0;
 				clipAdapter.notifyDataSetChanged();
@@ -1004,6 +1109,13 @@ public class ClipBoard extends Activity{
 			
 		}
 		
+	}
+	
+	public static int darkenColor(int color, float factor) {
+		float[] hsv = new float[3];
+		Color.colorToHSV(color, hsv);
+		hsv[2] *= factor;
+		return Color.HSVToColor(hsv);
 	}
 	
 }

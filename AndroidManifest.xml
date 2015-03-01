@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhm47.nativeclipboard"
     android:versionCode="29"
-    android:versionName="2.9.4" >
+    android:versionName="2.9.9" >
 
     <uses-sdk
         android:minSdkVersion="15"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
 	
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -33,7 +33,6 @@
         <activity
             android:name="com.dhm47.nativeclipboard.Blacklist"
             android:label="@string/blacklist"
-            android:parentActivityName="com.dhm47.nativeclipboard.Setting"
             android:theme="@style/SettingOld"
             android:process=":setting">
         </activity>

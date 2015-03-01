@@ -41,9 +41,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="start"
             android:text="@string/press_color_to_apply"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/hex_val"
@@ -55,7 +55,8 @@
             android:maxLength="7"
             android:singleLine="true"
             android:inputType="textCapCharacters"
-            android:visibility="gone" >
+            android:visibility="gone" 
+            android:gravity="end">
         </EditText>
     </LinearLayout>
 
@@ -69,7 +70,8 @@
             android:id="@+id/old_color_panel"
             android:layout_width="0px"
             android:layout_height="fill_parent"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:gravity="start" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,14 +79,41 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:text="→"
+            android:text="@string/arrow"
             android:textSize="20sp" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPanelView
             android:id="@+id/new_color_panel"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:gravity="end" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/actionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:padding="15dp" >
+
+        <TextView
+            android:id="@+id/color_dialog_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_weight="1"
+            android:text="Use Default"/>
+
+        <TextView
+            android:id="@+id/color_dialog_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_weight="2"
+            android:text="@android:string/ok" />
+
+    </LinearLayout>
 </LinearLayout>

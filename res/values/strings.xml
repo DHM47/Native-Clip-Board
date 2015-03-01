@@ -58,4 +58,6 @@
     <string name="undo">Undo</string>
     <string name="deleted">Deleted: </string>
     
+    <string name="arrow">→</string>
+    
 </resources>

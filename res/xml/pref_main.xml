@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:title="@string/app_name" >
+	<Preference
+	    android:key="theme"
+	    android:title="@string/category_theme"
+	    android:icon="@drawable/ic_theme"/>
+	     
+    <Preference
+        android:key="size"
+        android:title="@string/category_sizes"
+        android:icon="@drawable/ic_size"/>
+   
+   <Preference
+        android:key="blacklist"
+        android:title="@string/blacklist"
+        android:icon="@drawable/ic_blacklist"/>
+
+   <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        android:key="sort"
+        android:title="@string/sort"
+        android:entries="@array/sortby"
+        android:entryValues="@array/sortvalues" 
+        android:icon="@drawable/ic_sort"/>
+    
+    <Preference
+        android:key="advanced"
+        android:title="@string/category_advanced"
+        android:icon="@drawable/ic_advanced"/>
+   
+       
+</PreferenceScreen>

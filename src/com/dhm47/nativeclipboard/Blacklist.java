@@ -20,16 +20,6 @@ package com.dhm47.nativeclipboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dhm47.nativeclipboard.ApplicationsDialog.AppAdapter;
-import com.dhm47.nativeclipboard.ApplicationsDialog.AppItem;
-
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -38,16 +28,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.dhm47.nativeclipboard.ApplicationsDialog.AppAdapter;
+import com.dhm47.nativeclipboard.ApplicationsDialog.AppItem;
 
 @SuppressLint("WorldReadableFiles")
 public class Blacklist extends PreferenceActivity {
@@ -84,7 +87,38 @@ public class Blacklist extends PreferenceActivity {
         mRoot = getPreferenceScreen();
         loadPreferenceItems();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
-		//getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		getActionBar().setIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+		getActionBar().setHomeButtonEnabled(true);
+		
+		View homeBtn = findViewById(android.R.id.home);
+
+        if (homeBtn != null) {
+            OnClickListener dismissDialogClickListener = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            };
+
+            // Prepare yourselves for some hacky programming
+            ViewParent homeBtnContainer = homeBtn.getParent();
+
+            // The home button is an ImageView inside a FrameLayout
+            if (homeBtnContainer instanceof FrameLayout) {
+                ViewGroup containerParent = (ViewGroup) homeBtnContainer.getParent();
+
+                if (containerParent instanceof LinearLayout) {
+                    // This view also contains the title text, set the whole view as clickable
+                    ((LinearLayout) containerParent).setOnClickListener(dismissDialogClickListener);
+                } else {
+                    // Just set it on the home button
+                    ((FrameLayout) homeBtnContainer).setOnClickListener(dismissDialogClickListener);
+                }
+            } else {
+                // The 'If all else fails' default case
+                homeBtn.setOnClickListener(dismissDialogClickListener);
+            }
+        }
     }
     
 
@@ -217,5 +251,20 @@ public class Blacklist extends PreferenceActivity {
             app.setOnPreferenceClickListener(mOnItemClickListener);
             mRoot.addPreference(app);
         }
+    }
+    @Override
+    protected void onPause() {
+    	overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+    	super.onPause();
+    }
+    @Override
+    protected void onStop() {
+    	overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+    	super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+    	overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+    	super.onDestroy();
     }
 }

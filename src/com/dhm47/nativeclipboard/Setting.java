@@ -4,18 +4,10 @@ package com.dhm47.nativeclipboard;
 
 
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActivityManager.TaskDescription;
 import android.content.Context;
 import android.content.Intent;
@@ -25,36 +17,77 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.dhm47.nativeclipboard.comparators.NewFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedLast;
+import android.widget.Toast;
 
 
 
 
-public class Setting extends PreferenceActivity {
+public class Setting extends ActionBarActivity implements SettingsListFragment.Callbacks{
     static Context ctx;
     Toolbar mToolbar;
-    RelativeLayout toolbarContainer;
+    //RelativeLayout toolbarContainer;
     SharedPreferences pref;
-	private List<Clip> mClip = new ArrayList<Clip>();
-
+    boolean isCatagory;
+	boolean mTwoPane;
+	FloatingActionButton fab;
+	ImageView support;
+	
 	@SuppressLint({ "InlinedApi", "NewApi" })
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ctx=this;
-		if(!getTitle().equals(getResources().getString(R.string.app_name))){
+		setContentView(R.layout.preference_activity);
+		if (findViewById(R.id.prefrence_catagory_container) != null) {
+			mTwoPane = true;
+			onCatagorySelected("theme");
+		}else{
+			getFragmentManager().beginTransaction().replace(R.id.container, new SettingsListFragment()).commit();
+			
+		}
+		mToolbar = (Toolbar) findViewById(R.id.toolbar);
+	    mToolbar.setTitle(getTitle());
+	    
+		isCatagory=false;
+		
+		
+		support= (ImageView) findViewById(R.id.support);
+		support.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
+				ctx.startActivity(intent1);
+	            
+			}
+		});
+		fab= (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ctx, ClipBoard.class);
+				ctx.startActivity(intent);
+			}
+		});
+        
+		
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //getWindow().setStatusBarColor(getResources().getColor(R.color.dark_deep_purple));
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
+    		TaskDescription taskDescription = new TaskDescription(getResources().getString(R.string.app_name), icon, getResources().getColor(R.color.deep_purple));
+    		setTaskDescription(taskDescription);
+        }
+
+/*		if(!getTitle().equals(getResources().getString(R.string.app_name))){
 			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
 		}
 
@@ -123,23 +156,20 @@ public class Setting extends PreferenceActivity {
 		getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingFragment()).commit();*/
 		
 	}
+	
+
 	@Override
-	protected void onStart() {
-		if(!getTitle().equals(getResources().getString(R.string.app_name))){
-			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-			mToolbar.setNavigationOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					onBackPressed();
-					
-				}
-			});
-		}else{
-		overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);}
-		super.onStart();
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		RelativeLayout.LayoutParams paramsbar = (RelativeLayout.LayoutParams)mToolbar.getLayoutParams();
+		RelativeLayout.LayoutParams paramssupport = (RelativeLayout.LayoutParams)support.getLayoutParams();
+		int marignTop= (paramsbar.height-support.getHeight())/2;
+		paramssupport.setMargins(paramssupport.leftMargin , marignTop , paramssupport.rightMargin, paramssupport.bottomMargin);
+		//paramssupport.height=paramsbar.height/2;
+        support.setLayoutParams(paramssupport);
+		
 	}
-	@Override
+	/*@Override
     public void onBuildHeaders(List<Header> target) {
         super.onBuildHeaders(target);
         loadHeadersFromResource(R.layout.preference_headers, target);
@@ -213,6 +243,56 @@ public class Setting extends PreferenceActivity {
     @Override
     protected boolean isValidFragment(String fragmentName) {
         return fragmentName.equals(SettingFragment.class.getName());
-    }
-	
+    }*/
+	@Override
+	public void onBackPressed() {
+		if(isCatagory){
+			Back();
+		}else{
+		super.onBackPressed();
+		}
+	}
+	@Override
+	public void onCatagorySelected(String key) {
+		//Toast.makeText(ctx, "Got Click", Toast.LENGTH_SHORT).show();
+		Bundle arguments = new Bundle();
+		arguments.putString("category", key);
+		SettingFragment settings= new SettingFragment();
+		settings.setArguments(arguments);
+		
+		if (mTwoPane) {
+			getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,settings).commit();
+		}else{
+			getFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.container,settings).commit();
+			isCatagory=true	;
+			if (key.equals("theme")) {
+                mToolbar.setTitle(R.string.category_theme);
+                support.setVisibility(View.GONE);
+            } else if (key.equals("size")) {
+                mToolbar.setTitle(R.string.category_sizes);
+                support.setVisibility(View.GONE);
+            }else if (key.equals("advanced")){
+                mToolbar.setTitle(R.string.category_advanced);
+                support.setVisibility(View.GONE);
+                fab.hide();
+            }
+			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+			mToolbar.setNavigationOnClickListener(new OnClickListener() {
+			
+				@Override
+				public void onClick(View v) {
+					overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+					Back();
+			}
+		});
+		}
+	}
+	public void Back(){
+		getFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.container, new SettingsListFragment()).commit();
+		isCatagory=false;
+		mToolbar.setNavigationIcon(null);
+		mToolbar.setTitle(getTitle());
+		support.setVisibility(View.VISIBLE);
+		fab.show();
+	}
 }

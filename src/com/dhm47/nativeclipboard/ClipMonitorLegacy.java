@@ -28,8 +28,9 @@ public class ClipMonitorLegacy extends Service {
         Toast.makeText(mctx, "Clip Monitor Started", Toast.LENGTH_SHORT).show();
         if(mctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).getBoolean("notification", true)){
         Notification.Builder mBuilder = new Notification.Builder(this)
-		.setSmallIcon(R.drawable.ic_action_paste)
+		.setSmallIcon(R.drawable.ic_clipboard)
 		.setContentTitle("ClipBoard Monitor")
+		.setOngoing(true)
 		.setWhen(System.currentTimeMillis());
         Notification notification ;//=mBuilder.build(); //new Notification(R.drawable.ic_launcher, "ClipBoard Monitor",System.currentTimeMillis());
 		if (Build.VERSION.SDK_INT<16)notification=mBuilder.getNotification();
