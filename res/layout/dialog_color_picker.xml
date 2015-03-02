@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:layout_weight="1"
-            android:text="Use Default"/>
+            android:text="@string/usedefault"/>
 
         <TextView
             android:id="@+id/color_dialog_ok"

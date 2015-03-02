@@ -1030,7 +1030,6 @@ public class ClipBoard extends Activity{
         text.setMovementMethod(new ScrollingMovementMethod());
         text.setTextColor(textColor);
         text.setTextSize(textSize);
-        text.setHint("Type Clip text");
         text.setHintTextColor(textColor);
 
         title.setText("");
