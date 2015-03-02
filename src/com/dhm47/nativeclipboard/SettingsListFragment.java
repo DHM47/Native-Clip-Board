@@ -49,7 +49,6 @@ public class SettingsListFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         ctx=getActivity();
         addPreferencesFromResource(R.xml.pref_main);
-        
         findPreference("sort").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			
 			@SuppressWarnings("unchecked")

@@ -220,8 +220,8 @@ public class ClipBoard extends Activity{
 		});
         
         actionBar.setBackgroundColor(clipColor);
-        
-		gridView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, windowSize));
+        gridView.getLayoutParams().height=windowSize;
+		//gridView.setLayoutParams();
         gridView.setBackgroundColor(backgroundColor);
 		gridView.setAdapter(clipAdapter);
 		
@@ -308,10 +308,10 @@ public class ClipBoard extends Activity{
 				}
 		});
 		
-		if(isColorDark(clipColor)){
-			close.setImageResource(R.drawable.ic_close_dark);
-			clear.setImageResource(R.drawable.ic_clear_all_dark);
-			add.setImageResource(R.drawable.ic_add_dark);
+		if(!isColorDark(clipColor)){
+			close.setImageResource(R.drawable.ic_close_light);
+			clear.setImageResource(R.drawable.ic_clear_all_light);
+			add.setImageResource(R.drawable.ic_add_light);
 		}
 		add.setOnClickListener(new OnClickListener() {
 			

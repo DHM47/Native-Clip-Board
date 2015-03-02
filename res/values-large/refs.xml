@@ -8,5 +8,6 @@
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
     <item name="preference_activity" type="layout">@layout/preference_twopane</item>
-
+    <item name="clip_board" type="layout">@layout/clip_board_big</item>
+    
 </resources>

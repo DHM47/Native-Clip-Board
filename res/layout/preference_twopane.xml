@@ -16,7 +16,9 @@
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:theme="@style/ToolbarTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="10dp"/>
+    
      <ImageView 
         android:id="@+id/support"
         android:layout_height="wrap_content"
@@ -59,6 +61,8 @@
         	android:layout_width="0dp"
         	android:layout_height="match_parent"
         	android:layout_weight="5"
+        	android:layout_marginTop="20dp"
+        	android:layout_marginBottom="20dp"
         	tools:layout="@android:layout/preference_category" />
 	
     	<FrameLayout
@@ -66,8 +70,10 @@
         	android:layout_width="0dp"
         	android:layout_height="match_parent"
         	android:layout_weight="9" 
-        	android:layout_marginTop="5dp"
-        	android:background="@drawable/pref_shadow"/>
+        	android:layout_marginTop="10dp"
+        	android:layout_marginBottom="10dp"
+        	android:background="#FFFFFFFF"
+			android:elevation="10dp"/>
     	<FrameLayout
         	android:layout_width="0dp"
         	android:layout_height="match_parent"
