@@ -5,10 +5,10 @@ package com.dhm47.nativeclipboard;
 
 
 
-import com.melnykov.fab.FloatingActionButton;
-
 import android.annotation.SuppressLint;
 import android.app.ActivityManager.TaskDescription;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,24 +19,44 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import com.melnykov.fab.FloatingActionButton;
 
 
 
 
-public class Setting extends ActionBarActivity implements SettingsListFragment.Callbacks{
+public class Setting extends ActionBarActivity implements SettingsListFragment.Callbacks {
     static Context ctx;
     Toolbar mToolbar;
     //RelativeLayout toolbarContainer;
     SharedPreferences pref;
     boolean isCatagory;
 	boolean mTwoPane;
+	boolean isBlacklist;
 	FloatingActionButton fab;
-	ImageView support;
+	
+	public static Dialog dialog = null;
+    private static final int MENU_ADD = 0;
+    private static final int MENU_HELP = 1;
+    
+    private Callbacks mCallbacks = sDummyCallbacks;
+
+	public interface Callbacks {
+		/**
+		 * Callback for when an item has been selected.
+		 */
+		public void onAddSelected();
+	}
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+		@Override
+		public void onAddSelected() {
+		}
+	};
 	
 	@SuppressLint({ "InlinedApi", "NewApi" })
 	@Override
@@ -56,17 +76,8 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 	    
 		isCatagory=false;
 		
+		setSupportActionBar(mToolbar);
 		
-		support= (ImageView) findViewById(R.id.support);
-		support.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
-				ctx.startActivity(intent1);
-	            
-			}
-		});
 		fab= (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new OnClickListener() {
 			
@@ -157,17 +168,6 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 	}
 	
 
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		RelativeLayout.LayoutParams paramsbar = (RelativeLayout.LayoutParams)mToolbar.getLayoutParams();
-		RelativeLayout.LayoutParams paramssupport = (RelativeLayout.LayoutParams)support.getLayoutParams();
-		int marignTop= (paramsbar.height-support.getHeight())/2;
-		paramssupport.setMargins(paramssupport.leftMargin , marignTop , paramssupport.rightMargin, paramssupport.bottomMargin);
-		//paramssupport.height=paramsbar.height/2;
-        support.setLayoutParams(paramssupport);
-		
-	}
 	/*@Override
     public void onBuildHeaders(List<Header> target) {
         super.onBuildHeaders(target);
@@ -258,21 +258,40 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		arguments.putString("category", key);
 		SettingFragment settings= new SettingFragment();
 		settings.setArguments(arguments);
+		Blacklist blacklist= new Blacklist();
+		mCallbacks = (Callbacks) blacklist;
 		
 		if (mTwoPane) {
-			getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,settings).commit();
+			if(key.equals("blacklist")){		
+				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,blacklist).commit();
+				isBlacklist=true;
+				invalidateOptionsMenu();
+			}else{
+				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,settings).commit();
+				isBlacklist=false;
+				invalidateOptionsMenu();
+			}
 		}else{
-			getFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.container,settings).commit();
+			if(key.equals("blacklist")){		
+				getFragmentManager().beginTransaction().replace(R.id.container,blacklist).commit();
+            	isBlacklist=true;
+            	invalidateOptionsMenu();
+			}else{
+				getFragmentManager().beginTransaction().replace(R.id.container,settings).commit();
+				isBlacklist=false;
+				invalidateOptionsMenu();
+			}
 			isCatagory=true	;
+			//MenuItem item = menu.findItem(R.id.addAction);
 			if (key.equals("theme")) {
                 mToolbar.setTitle(R.string.category_theme);
-                support.setVisibility(View.GONE);
             } else if (key.equals("size")) {
                 mToolbar.setTitle(R.string.category_sizes);
-                support.setVisibility(View.GONE);
             }else if (key.equals("advanced")){
                 mToolbar.setTitle(R.string.category_advanced);
-                support.setVisibility(View.GONE);
+                fab.hide();
+            }else if(key.equals("blacklist")){
+            	mToolbar.setTitle(R.string.blacklist);
                 fab.hide();
             }
 			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
@@ -287,11 +306,53 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		}
 	}
 	public void Back(){
-		getFragmentManager().beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.container, new SettingsListFragment()).commit();
+		getFragmentManager().beginTransaction().replace(R.id.container, new SettingsListFragment()).commit();
 		isCatagory=false;
+		isBlacklist=false;
+		mCallbacks=sDummyCallbacks;
 		mToolbar.setNavigationIcon(null);
 		mToolbar.setTitle(getTitle());
-		support.setVisibility(View.VISIBLE);
+		invalidateOptionsMenu();
 		fab.show();
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		if(isBlacklist){
+			menu.add(Menu.NONE, 0, 0, R.string.add)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
+			menu.add(Menu.NONE, 1, 1, R.string.help)
+        	.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
+			return true;
+		}else if(mToolbar.getTitle().equals(getTitle())){
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.setting_actions, menu);
+		}
+	    return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	       case R.id.action_support:
+	        	Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
+				ctx.startActivity(intent1);
+	            return true;
+	       case MENU_HELP:
+	        	AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
+	        	alertDialog.setTitle(R.string.help);
+	        	alertDialog.setMessage(getString(R.string.blacklist_help));
+	        	alertDialog.show();
+	        	return true;
+	        case MENU_ADD:
+	        	mCallbacks.onAddSelected();
+	        	return true;
+	    
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+
+
+	
 }

@@ -33,7 +33,9 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.provider.Contacts.SettingsColumns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,15 +53,18 @@ import android.widget.ListView;
 
 import com.dhm47.nativeclipboard.ApplicationsDialog.AppAdapter;
 import com.dhm47.nativeclipboard.ApplicationsDialog.AppItem;
+import com.dhm47.nativeclipboard.SettingsListFragment.Callbacks;
 
 @SuppressLint("WorldReadableFiles")
-public class Blacklist extends PreferenceActivity {
+public class Blacklist extends PreferenceFragment implements Setting.Callbacks{
     // TODO : Rearrange + Cleanup code.
 	
 	public static Dialog dialog = null;
     private static final int MENU_ADD = 0;
     private static final int MENU_HELP = 1;
     
+	
+	
     private PreferenceScreen mRoot;
     private List<ResolveInfo> mInstalledApps;
     private AppAdapter mAppAdapter;
@@ -68,25 +73,24 @@ public class Blacklist extends PreferenceActivity {
     	public boolean onPreferenceClick(Preference arg0) {
     		mRoot.removePreference(arg0);
     		savePreferenceItems(false);
-    		invalidateOptionsMenu();
+    		//invalidateOptionsMenu();
     		return false;
     	}
     };
 
-    @SuppressWarnings("deprecation")
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        mInstalledApps = this.getPackageManager().queryIntentActivities(mainIntent, 0);
+        mInstalledApps = getActivity().getPackageManager().queryIntentActivities(mainIntent, 0);
         ApplicationsDialog appDialog = new ApplicationsDialog();
-        mAppAdapter = appDialog.createAppAdapter(this, mInstalledApps);
+        mAppAdapter = appDialog.createAppAdapter(getActivity(), mInstalledApps);
         mAppAdapter.update();
-        setPreferenceScreen(getPreferenceManager().createPreferenceScreen(this));
+        setPreferenceScreen(getPreferenceManager().createPreferenceScreen(getActivity()));
         mRoot = getPreferenceScreen();
         loadPreferenceItems();
-        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+        /*overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
 		getActionBar().setIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
 		getActionBar().setHomeButtonEnabled(true);
 		
@@ -118,11 +122,11 @@ public class Blacklist extends PreferenceActivity {
                 // The 'If all else fails' default case
                 homeBtn.setOnClickListener(dismissDialogClickListener);
             }
-        }
+        }*/
     }
     
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, MENU_ADD, 0, R.string.add)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -136,14 +140,14 @@ public class Blacklist extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case MENU_HELP:
-        	AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        	AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         	alertDialog.setTitle(R.string.help);
         	alertDialog.setMessage(getString(R.string.blacklist_help));
         	alertDialog.show();
         	break;
         case MENU_ADD:
             	
-        	dialog = new Dialog(this);
+        	dialog = new Dialog(getActivity());
         	dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         	dialog.setContentView(R.layout.pref_app_picker);
         	
@@ -159,14 +163,14 @@ public class Blacklist extends PreferenceActivity {
         					return;
         				}
         			}
-        			Preference item = new Preference(getBaseContext());
+        			Preference item = new Preference(getActivity());
         			item.setTitle(info.title);
         			item.setSummary(info.packageName);
         			item.setIcon(info.icon);
         			item.setOnPreferenceClickListener(mOnItemClickListener);
         			mRoot.addPreference(item);
         			savePreferenceItems(true);
-        			invalidateOptionsMenu();
+        			//invalidateOptionsMenu();
         			dialog.cancel();
         		}
         	});
@@ -186,7 +190,7 @@ public class Blacklist extends PreferenceActivity {
         	break;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
     
     private void savePreferenceItems(boolean create){
         ArrayList<String> items = new ArrayList<String>();
@@ -195,7 +199,7 @@ public class Blacklist extends PreferenceActivity {
                     .getSummary().toString();
             items.add(packageName);
         }
-        saveArray(items.toArray(new String[items.size()]), "items", this);
+        saveArray(items.toArray(new String[items.size()]), "items", getActivity());
     }
     
     private static boolean saveArray(String[] array, String arrayName, Context context) {
@@ -241,30 +245,61 @@ public class Blacklist extends PreferenceActivity {
     }
     
     private void loadPreferenceItems(){
-        String[] packages = loadArray("items", this);
+        String[] packages = loadArray("items", getActivity());
         if(packages == null) return;
         for(String packageName : packages){
-            Preference app = new Preference(this);
-            app.setTitle(getApplicationName(packageName, this));
+            Preference app = new Preference(getActivity());
+            app.setTitle(getApplicationName(packageName, getActivity()));
             app.setSummary(packageName);
-            app.setIcon(getApplicationIconDrawable(packageName, this));
+            app.setIcon(getApplicationIconDrawable(packageName, getActivity()));
             app.setOnPreferenceClickListener(mOnItemClickListener);
             mRoot.addPreference(app);
         }
     }
-    @Override
-    protected void onPause() {
-    	overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-    	super.onPause();
-    }
-    @Override
-    protected void onStop() {
-    	overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-    	super.onStop();
-    }
-    @Override
-    protected void onDestroy() {
-    	overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-    	super.onDestroy();
-    }
+
+
+	@Override
+	public void onAddSelected() {
+		dialog = new Dialog(getActivity());
+    	dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    	dialog.setContentView(R.layout.pref_app_picker);
+    	
+    	final ListView list = (ListView) dialog.findViewById(R.id.listView1);
+    	list.setAdapter(mAppAdapter);
+    	list.setOnItemClickListener(new OnItemClickListener() {
+    		@Override
+    		public void onItemClick(AdapterView<?> v, View arg1, int pos, long arg3) {
+    			AppItem info = (AppItem) v.getItemAtPosition(pos);
+    			for(int i = 0; i < mRoot.getPreferenceCount(); i++){
+    				if(mRoot.getPreference(i).getSummary()
+    						.equals(info.packageName)){
+    					return;
+    				}
+    			}
+    			Preference item = new Preference(getActivity());
+    			item.setTitle(info.title);
+    			item.setSummary(info.packageName);
+    			item.setIcon(info.icon);
+    			item.setOnPreferenceClickListener(mOnItemClickListener);
+    			mRoot.addPreference(item);
+    			savePreferenceItems(true);
+    			//invalidateOptionsMenu();
+    			dialog.cancel();
+    		}
+    	});
+    	
+    	final Button searchButton = (Button) dialog.findViewById(R.id.searchButton);
+    	final EditText inputSearch = (EditText) dialog.findViewById(R.id.search);
+    	searchButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				dialog.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+				mAppAdapter.getFilter().filter(inputSearch.getText().toString());
+			}
+    	});
+    	           
+    	dialog.show();
+    	mAppAdapter.getFilter().filter("");		
+	}
+    
 }

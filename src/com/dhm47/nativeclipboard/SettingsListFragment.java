@@ -245,12 +245,8 @@ public class SettingsListFragment extends PreferenceFragment {
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
     		Preference preference) {
-    	if(!preference.getKey().equals("blacklist") && !preference.getKey().equals("sort"))
+    	if(!preference.getKey().equals("sort"))
     	mCallbacks.onCatagorySelected(preference.getKey());
-    	if(preference.getKey().equals("blacklist")){
-    		Intent intent = new Intent(ctx, Blacklist.class);
-			ctx.startActivity(intent);
-    	}
     	return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
     
