@@ -44,11 +44,13 @@
     <string name="newfirst">Najnovšie ako prvé</string>
     <string name="pinnedfirst">Pripnuté ako prvé</string>
     <string name="pinnedlast">Pripnuté ako posledné</string>
+    <string name="usedefault">Použiť predvolenú</string>
     
     <!-- Clip Board -->
     <string name="clear_all">Vymazať všetky</string>
     <string name="clear_all_conf">Vymazať všetky záznamy?</string>
     <string name="title_hint">Nastaviť názov pre záznam</string>
+    <string name="clip_text_hint">Text záznamu</string>
     <string name="pin">Pripnúť</string>
     <string name="unpin">Odopnúť</string>
     <string name="edit">Upraviť</string>
