@@ -25,9 +25,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,8 @@ public class ColorPickerDialog
 	private ColorPickerPanelView mOldColor;
 	private ColorPickerPanelView mNewColor;
 	
+	private TextView mOk;
+	private TextView mDefault;
 	private EditText mHexVal;
 	private boolean mHexValueEnabled = false;
 	private ColorStateList mHexDefaultTextColor;
@@ -86,6 +90,25 @@ public class ColorPickerDialog
 		mColorPicker = (ColorPickerView) layout.findViewById(R.id.color_picker_view);
 		mOldColor = (ColorPickerPanelView) layout.findViewById(R.id.old_color_panel);
 		mNewColor = (ColorPickerPanelView) layout.findViewById(R.id.new_color_panel);
+		
+		mOk = (TextView) layout.findViewById(R.id.color_dialog_ok);
+		mDefault = (TextView) layout.findViewById(R.id.color_dialog_default);
+		mOk.setTypeface(Typeface.createFromAsset(getContext().getAssets(), String.format("fonts/%s.ttf", "Roboto-Medium")));
+		mDefault.setTypeface(Typeface.createFromAsset(getContext().getAssets(), String.format("fonts/%s.ttf", "Roboto-Medium")));
+		mOk.setOnClickListener(this);
+		mDefault.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mListener.onColorChanged(0);
+				dismiss();
+			}
+		});
+		TypedValue value = new TypedValue();
+		getContext().getTheme().resolveAttribute(R.attr.colorAccent, value, true);
+		int mColor = value.data;
+		mOk.setTextColor(mColor);
+		mDefault.setTextColor(mColor);
 		
 		mHexVal = (EditText) layout.findViewById(R.id.hex_val);
 		mHexVal.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -205,7 +228,7 @@ public class ColorPickerDialog
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.new_color_panel) {
+		if (v.getId() == R.id.new_color_panel || v.getId() == R.id.color_dialog_ok) {
 			if (mListener != null) {
 				mListener.onColorChanged(mNewColor.getColor());
 			}

@@ -1,43 +1,46 @@
 package com.dhm47.nativeclipboard;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.dhm47.nativeclipboard.comparators.NewFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedLast;
-
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceScreen;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.support.v7.widget.Toolbar;
 
 public class SettingFragment extends PreferenceFragment {
-	private List<Clip> mClip = new ArrayList<Clip>();
 	private static Context ctx;
+    Toolbar mToolbar;
+
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Load the preferences from an XML resource
-        addPreferencesFromResource(R.layout.preference_headers);
         ctx=getActivity();
+
+        // Load the preferences from an XML resource
+        String category = getArguments().getString("category");
+        if (category != null) {
+            if (category.equals("theme")) {
+                addPreferencesFromResource(R.xml.pref_theme);
+            } else if (category.equals("size")) {
+                addPreferencesFromResource(R.xml.pref_sizes);
+            }else if (category.equals("advanced")){
+            	addPreferencesFromResource(R.xml.pref_advanced);
+            	findPreference("monitorservice").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+        			
+        			@Override
+        			public boolean onPreferenceChange(Preference preference, Object newValue) {
+        				//findPreference("blacklist").setEnabled(!((Boolean) newValue));
+        				if((Boolean) newValue)ctx.startService(new Intent(ctx, ClipMonitorLegacy.class));
+        				else ctx.stopService(new Intent(ctx, ClipMonitorLegacy.class));
+        				return true;
+        			}
+        		});
+            }
+        }
+        /*addPreferencesFromResource(R.layout.preference_fragment);
 		findPreference("blacklist").setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
 			@Override
@@ -95,19 +98,22 @@ public class SettingFragment extends PreferenceFragment {
      * Adding Up (carrot) button in setting sub-menus
      * Thanks to jimmithy
      * http://stackoverflow.com/a/16800527
-     */
+     *
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         super.onPreferenceTreeClick(preferenceScreen, preference);
 
         // If the user has clicked on a preference screen, set up the action bar
         if (preference instanceof PreferenceScreen) {
-            initializeActionBar((PreferenceScreen) preference);
+        	
+    		getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, this).commit();
+
+        	//initializeActionBar((PreferenceScreen) preference);
         }
 
         return false;
     } 
-    public static void initializeActionBar(PreferenceScreen preferenceScreen) {
+    /*public static void initializeActionBar(PreferenceScreen preferenceScreen) {
         final Dialog dialog = preferenceScreen.getDialog();
 
         if (dialog != null) {
@@ -147,6 +153,6 @@ public class SettingFragment extends PreferenceFragment {
                     homeBtn.setOnClickListener(dismissDialogClickListener);
                 }
             }    
-        }
+        }*/
     }
 }

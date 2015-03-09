@@ -43,13 +43,14 @@
     <string name="newfirst">Plus récent en premier</string>
     <string name="pinnedfirst">Épinglé en premier</string>
     <string name="pinnedlast">Épinglé en dernier</string>
-	
+    <string name="usedefault">Par défaut</string>	
      <!-- Clip Board -->
-    <string name="clear_all">Tout effacer</string>
-    <string name="clear_all_conf">Effacer tous les presse-papiers ?</string>
+    <string name="clear_all">Tout supprimer</string>
+    <string name="clear_all_conf">Supprimer tous les presse-papiers ?</string>
     <string name="title_hint">Définir un titre</string>
-    <string name="pin">Épinglé</string>
-    <string name="unpin">Non épinglé</string>
+    <string name="clip_text_hint">Saisir texte</string>    
+    <string name="pin">Épingler</string>
+    <string name="unpin">Non épingler</string>
     <string name="edit">Éditer</string>
     <string name="save">Sauvegarder</string>
     <string name="delete">Supprimer</string>
@@ -57,6 +58,8 @@
     
      <!-- Toast Messages -->
     <string name="undo">Annuler</string>
-    <string name="deleted">Effacer : </string>
+    <string name="deleted">Supprimer : </string>
+
+    <string name="arrow">→</string>
     
 </resources>

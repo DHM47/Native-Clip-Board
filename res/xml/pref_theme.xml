@@ -1,0 +1,32 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:title="@string/category_theme">
+	     
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="bgcolor"
+        android:title="@string/bgcolor"
+    	android:defaultValue="0xFFFFFFFF"    
+    	alphaSlider="true"
+    	hexValue="true"/>
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="clpcolor"
+        android:title="@string/clpcolor"
+        android:summary="@string/clpcolor_summary"
+    	android:defaultValue="0xFFFFBB22"    
+    	alphaSlider="true"
+    	hexValue="true" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="pincolor"
+        android:title="@string/pinnedcolor"
+        android:defaultValue="0xFFCF5300"    
+    	alphaSlider="true"
+    	hexValue="true" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    	android:key="txtcolor"
+        android:title="@string/txtcolor" 
+    	android:defaultValue="0xFF664B0E"    
+    	alphaSlider="true"
+    	hexValue="true" />
+   
+</PreferenceScreen>

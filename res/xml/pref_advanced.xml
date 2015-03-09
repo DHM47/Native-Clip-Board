@@ -1,0 +1,34 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:title="@string/category_advanced">
+    
+    <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pastefunction"
+            android:title="@string/pastefunction"
+            android:summaryOff="@string/pastefunction_summary_off"
+            android:summaryOn="@string/pastefunction_summary_on"/>
+   <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="cbbutton"
+            android:title="@string/cbbutton"
+            android:summary="@string/cbbutton_summary"/>
+   <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="singlepaste"
+            android:title="@string/singlepaste"
+            android:summary="@string/singlepaste_summary"/>
+   <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="monitorservice"
+            android:title="@string/monitorservice"
+            android:summary="@string/monitorservice_summary"/>
+   <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification"
+            android:title="@string/notification_title"
+            android:summary="@string/notification_summary"
+            android:dependency="monitorservice"/>
+   
+</PreferenceScreen>

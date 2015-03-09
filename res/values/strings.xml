@@ -43,10 +43,12 @@
     <string name="newfirst">Newest first</string>
 	<string name="pinnedfirst">Pinned first</string>
 	<string name="pinnedlast">Pinned last</string>
+	<string name="usedefault">Use Default</string>
      <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>
     <string name="title_hint">Set a Title for Clip</string>
+    <string name="clip_text_hint">Clip Text</string>
     <string name="pin">Pin</string>
     <string name="unpin">Unpin</string>
     <string name="edit">Edit</string>
@@ -57,5 +59,7 @@
      <!-- Toast Messages -->
     <string name="undo">Undo</string>
     <string name="deleted">Deleted: </string>
+    
+    <string name="arrow">→</string>
     
 </resources>
