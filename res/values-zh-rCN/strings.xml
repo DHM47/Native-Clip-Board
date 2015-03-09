@@ -35,7 +35,6 @@
     <string name="cbbutton_summary">将CB按钮添加到选择菜单中\n*需要重启</string>
     <string name="singlepaste">单次粘贴</string>
     <string name="singlepaste_summary">粘贴完成后马上关闭剪贴板\n*需要重启</string>
-    
     <string name="monitorservice">兼容模式</string>
     <string name="monitorservice_summary">使用一个后台服务来监控复制的文本，适用于MIUI和三星系统\n*会禁用黑名单功能</string>
     <string name="notification_title">显示通知</string>
