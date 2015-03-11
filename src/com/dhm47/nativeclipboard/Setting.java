@@ -25,6 +25,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.TextView;
+
 import com.melnykov.fab.FloatingActionButton;
 
 
@@ -271,13 +273,23 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 				isBlacklist=false;
 				invalidateOptionsMenu();
 			}
+			TextView title=(TextView) findViewById(R.id.prefrence_catagory).findViewById(R.id.prefrence_catagory_title);
+			if (key.equals("theme")) {
+                title.setText(R.string.category_theme);
+            } else if (key.equals("size")) {
+            	title.setText(R.string.category_sizes);
+            }else if (key.equals("advanced")){
+            	title.setText(R.string.category_advanced);
+            }else if(key.equals("blacklist")){
+            	title.setText(R.string.blacklist);
+            }
 		}else{
 			if(key.equals("blacklist")){		
-				getFragmentManager().beginTransaction().replace(R.id.container,blacklist).commit();
+				getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_left_in, R.animator.slide_left_out).replace(R.id.container,blacklist).commit();
             	isBlacklist=true;
             	invalidateOptionsMenu();
 			}else{
-				getFragmentManager().beginTransaction().replace(R.id.container,settings).commit();
+				getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_left_in, R.animator.slide_left_out).replace(R.id.container,settings).commit();
 				isBlacklist=false;
 				invalidateOptionsMenu();
 			}
@@ -306,7 +318,7 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		}
 	}
 	public void Back(){
-		getFragmentManager().beginTransaction().replace(R.id.container, new SettingsListFragment()).commit();
+		getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_right_in, R.animator.slide_right_out).replace(R.id.container, new SettingsListFragment()).commit();
 		isCatagory=false;
 		isBlacklist=false;
 		mCallbacks=sDummyCallbacks;

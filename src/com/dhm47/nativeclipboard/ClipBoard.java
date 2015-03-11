@@ -58,6 +58,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.Builder;
+import com.afollestad.materialdialogs.Theme;
 import com.dhm47.nativeclipboard.comparators.PinnedFirst;
 import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
@@ -270,6 +271,7 @@ public class ClipBoard extends Activity{
 				dialog.content(R.string.clear_all_conf);
 				dialog.positiveText(android.R.string.yes);
 				dialog.negativeText(android.R.string.cancel);
+				dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
 				dialog.callback(new MaterialDialog.ButtonCallback() {
 					@Override
 		            public void onPositive(MaterialDialog dialog) {
@@ -433,7 +435,7 @@ public class ClipBoard extends Activity{
 						OpenMenu();
 					}
 				});
-				timeStamp.setTextColor(textColor);
+				timeStamp.setTextColor(isColorDark(color)? 0xffffffff : 0x8c000000);
 				DateFormat date = new SimpleDateFormat("dd/MM HH:mm",Locale.getDefault());
 				timeStamp.setText(""+date.format(ClipAdapter.mClips.get(position).getTime()));
 				toBig();
@@ -587,6 +589,7 @@ public class ClipBoard extends Activity{
 				dialog.content(dialogtitle+" ?");
 				dialog.positiveText(android.R.string.yes);
 				dialog.negativeText(android.R.string.no);
+				dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
 				dialog.callback(new MaterialDialog.ButtonCallback() {
 					@Override
 		            public void onPositive(MaterialDialog dialog) {
@@ -623,6 +626,7 @@ public class ClipBoard extends Activity{
 			dialog.content(dialogtitle+" ?");
 			dialog.positiveText(android.R.string.yes);
 			dialog.negativeText(android.R.string.no);
+			dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
 			dialog.callback(new MaterialDialog.ButtonCallback() {
 				@Override
 	            public void onPositive(MaterialDialog dialog) {
@@ -1046,7 +1050,7 @@ public class ClipBoard extends Activity{
 			}
 		});
 		
-		timeStamp.setTextColor(textColor);
+		timeStamp.setTextColor(isColorDark(clipColor)? 0xffffffff : 0x8c000000);
 		DateFormat date = new SimpleDateFormat("dd/MM HH:mm",Locale.getDefault());
 		timeStamp.setText(""+date.format(System.currentTimeMillis()));
 		

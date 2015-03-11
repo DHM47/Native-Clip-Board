@@ -19,19 +19,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:elevation="10dp"/>
     
-     <ImageView 
-        android:id="@+id/support"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_help"/>
+     
      
      <LinearLayout 
     	android:layout_width="match_parent"
@@ -64,16 +52,35 @@
         	android:layout_marginTop="20dp"
         	android:layout_marginBottom="20dp"
         	tools:layout="@android:layout/preference_category" />
-	
-    	<FrameLayout
-        	android:id="@+id/prefrence_catagory_container"
-        	android:layout_width="0dp"
+		<LinearLayout 
+		    android:id="@+id/prefrence_catagory"
+		    android:layout_width="0dp"
         	android:layout_height="match_parent"
         	android:layout_weight="9" 
         	android:layout_marginTop="10dp"
         	android:layout_marginBottom="10dp"
         	android:background="#FFFFFFFF"
-			android:elevation="10dp"/>
+        	android:orientation="vertical"
+			android:elevation="10dp"
+			android:paddingLeft="40dp"
+			android:paddingRight="40dp"
+			android:divider="@android:drawable/divider_horizontal_textfield"
+   			android:showDividers="middle">
+
+		    <TextView
+		        android:id="@+id/prefrence_catagory_title"
+		        android:layout_width="match_parent"
+		        android:layout_height="60dp"
+		        android:text="Theme"
+		        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+		        android:gravity="center_vertical" />
+			
+		    <FrameLayout
+        		android:id="@+id/prefrence_catagory_container"
+        		android:layout_width="match_parent"
+        		android:layout_height="match_parent"/>
+		</LinearLayout>
+    	
     	<FrameLayout
         	android:layout_width="0dp"
         	android:layout_height="match_parent"

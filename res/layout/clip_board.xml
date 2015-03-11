@@ -24,16 +24,16 @@
     				android:paddingBottom="10dp"
     				android:stretchMode="columnWidth"
     				android:clipToPadding="false"
-    				android:elevation="10dp"/>
+    				android:elevation="1dp"/>
     				
         		<RelativeLayout
         		    android:id="@+id/actionBar"
         		    android:layout_width="match_parent"
         		    android:layout_height="45dp"
         		    android:layout_alignTop="@+id/grid_view"
-        		    android:elevation="12dp"
+        		    android:elevation="4dp"
         		    android:paddingLeft="10dp"
-        		    android:paddingRight="10dp" >
+        		    android:paddingRight="10dp">
         		
     				<ImageView
     					android:id="@+id/close"
@@ -73,7 +73,7 @@
         				android:paddingTop="9dp"
         				android:paddingBottom="9dp"
         				android:overScrollMode="ifContentScrolls"
-        				android:elevation="12dp"/>
+        				android:elevation="3dp"/>
 				
 				<TextView
         				android:id="@+id/clipText"
@@ -88,14 +88,14 @@
         				android:paddingTop="9dp"
         				android:paddingBottom="9dp"
         				android:overScrollMode="ifContentScrolls"
-        				android:elevation="12dp"/>
+        				android:elevation="3dp"/>
 				    
 				<RelativeLayout
 				    android:id="@+id/BottomBar"
 				    android:layout_width="match_parent"
 				    android:layout_height="45dp"
 				    android:layout_alignTop="@+id/grid_view"
-				    android:elevation="12dp"
+				    android:elevation="4dp"
 				    android:paddingLeft="10dp"
 				    android:paddingRight="10dp"
 				    android:visibility="invisible" >
@@ -129,7 +129,7 @@
 					android:layout_centerHorizontal="true"
 					android:scrollbars="vertical"
 				    android:layout_margin="10dp"
-				    android:elevation="12dp">
+				    android:elevation="3dp">
 				    
 					<EditText 
 					    android:id="@+id/clipTitleEdit"
