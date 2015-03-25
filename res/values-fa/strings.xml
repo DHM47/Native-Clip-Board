@@ -27,4 +27,6 @@
     <string name="undo">بازگردانی</string>
     <string name="deleted">پاک شد: </string>
     
+    <string name="arrow">←</string>
+    
 </resources>

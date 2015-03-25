@@ -22,11 +22,11 @@ public class SettingFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         String category = getArguments().getString("category");
         if (category != null) {
-            if (category.equals("category_theme")) {
+            if (category.equals("theme")) {
                 addPreferencesFromResource(R.xml.pref_theme);
-            } else if (category.equals("category_sizes")) {
+            } else if (category.equals("size")) {
                 addPreferencesFromResource(R.xml.pref_sizes);
-            }else if (category.equals("category_advanced")){
+            }else if (category.equals("advanced")){
             	addPreferencesFromResource(R.xml.pref_advanced);
             	findPreference("monitorservice").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
         			
@@ -34,13 +34,12 @@ public class SettingFragment extends PreferenceFragment {
         			public boolean onPreferenceChange(Preference preference, Object newValue) {
         				//findPreference("blacklist").setEnabled(!((Boolean) newValue));
         				if((Boolean) newValue)ctx.startService(new Intent(ctx, ClipMonitorLegacy.class));
+        				else ctx.stopService(new Intent(ctx, ClipMonitorLegacy.class));
         				return true;
         			}
         		});
             }
         }
-        
-        
         /*addPreferencesFromResource(R.layout.preference_fragment);
 		findPreference("blacklist").setOnPreferenceClickListener(new OnPreferenceClickListener(){
 

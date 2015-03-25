@@ -20,7 +20,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -47,6 +52,7 @@ public class ColorPickerPreference
 	private float mDensity = 0;
 	private boolean mAlphaSliderEnabled = false;
 	private boolean mHexValueEnabled = false;
+	private int defaultValue;
 
 	public ColorPickerPreference(Context context) {
 		super(context);
@@ -65,7 +71,8 @@ public class ColorPickerPreference
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
-		return a.getColor(index, Color.BLACK);
+		defaultValue=a.getColor(index, Color.BLACK);
+		return defaultValue;
 	}
 
 	@Override
@@ -89,7 +96,6 @@ public class ColorPickerPreference
 		setPreviewColor();
 	}
 
-	@SuppressWarnings("deprecation")
 	private void setPreviewColor() {
 		if (mView == null) return;
 		ImageView iView = new ImageView(getContext());
@@ -109,32 +115,42 @@ public class ColorPickerPreference
 		}
 		widgetFrameView.addView(iView);
 		widgetFrameView.setMinimumWidth(0);
-		iView.setBackgroundDrawable(new AlphaPatternDrawable((int)(5 * mDensity)));
+		///iView.setBackgroundDrawable(new AlphaPatternDrawable((int)(5 * mDensity)));
 		iView.setImageBitmap(getPreviewBitmap());
 	}
 
 	private Bitmap getPreviewBitmap() {
 		int d = (int) (mDensity * 31); //30dip
 		int color = mValue;
-		Bitmap bm = Bitmap.createBitmap(d, d, Config.ARGB_8888);
-		int w = bm.getWidth();
-		int h = bm.getHeight();
-		int c = color;
-		for (int i = 0; i < w; i++) {
-			for (int j = i; j < h; j++) {
-				c = (i <= 1 || j <= 1 || i >= w-2 || j >= h-2) ? Color.GRAY : color;
-				bm.setPixel(i, j, c);
-				if (i != j) {
-					bm.setPixel(j, i, c);
-				}
-			}
-		}
+		Bitmap bitmap = Bitmap.createBitmap(d, d, Config.ARGB_8888);
+		
+		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+	            bitmap.getHeight(), Config.ARGB_8888);
+	    Canvas canvas = new Canvas(output);
 
-		return bm;
+	    final Paint paint = new Paint();
+	    final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+	    paint.setAntiAlias(true);
+	    canvas.drawARGB(0, 0, 0, 0);
+	    paint.setColor(color);
+	    // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+	    canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
+	            bitmap.getWidth() / 2, paint);
+	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	    canvas.drawBitmap(output, rect, rect, paint);
+	    //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
+	    //return _bmp;
+	    return output;
 	}
 
 	@Override
 	public void onColorChanged(int color) {
+
+		if(color==0){
+			color=defaultValue;
+		}
+		
 		if (isPersistent()) {
 			persistInt(color);
 		}
@@ -145,6 +161,9 @@ public class ColorPickerPreference
 		} catch (NullPointerException e) {
 
 		}
+		
+		
+		
 	}
 
 	public boolean onPreferenceClick(Preference preference) {

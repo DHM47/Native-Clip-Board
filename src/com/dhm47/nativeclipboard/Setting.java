@@ -4,19 +4,11 @@ package com.dhm47.nativeclipboard;
 
 
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActivityManager.TaskDescription;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,36 +17,89 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.dhm47.nativeclipboard.comparators.NewFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedFirst;
-import com.dhm47.nativeclipboard.comparators.PinnedLast;
+import com.melnykov.fab.FloatingActionButton;
 
 
 
 
-public class Setting extends PreferenceActivity {
+public class Setting extends ActionBarActivity implements SettingsListFragment.Callbacks {
     static Context ctx;
     Toolbar mToolbar;
-    RelativeLayout toolbarContainer;
+    //RelativeLayout toolbarContainer;
     SharedPreferences pref;
-	private List<Clip> mClip = new ArrayList<Clip>();
+    boolean isCatagory;
+	boolean mTwoPane;
+	boolean isBlacklist;
+	FloatingActionButton fab;
+	
+	public static Dialog dialog = null;
+    private static final int MENU_ADD = 0;
+    private static final int MENU_HELP = 1;
+    
+    private Callbacks mCallbacks = sDummyCallbacks;
 
+	public interface Callbacks {
+		/**
+		 * Callback for when an item has been selected.
+		 */
+		public void onAddSelected();
+	}
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+		@Override
+		public void onAddSelected() {
+		}
+	};
+	
 	@SuppressLint({ "InlinedApi", "NewApi" })
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ctx=this;
-		if(!getTitle().equals(getResources().getString(R.string.app_name))){
+		setContentView(R.layout.preference_activity);
+		if (findViewById(R.id.prefrence_catagory_container) != null) {
+			mTwoPane = true;
+			onCatagorySelected("theme");
+		}else{
+			getFragmentManager().beginTransaction().replace(R.id.container, new SettingsListFragment()).commit();
+			
+		}
+		mToolbar = (Toolbar) findViewById(R.id.toolbar);
+	    mToolbar.setTitle(getTitle());
+	    
+		isCatagory=false;
+		
+		setSupportActionBar(mToolbar);
+		
+		fab= (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ctx, ClipBoard.class);
+				ctx.startActivity(intent);
+			}
+		});
+        
+		
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //getWindow().setStatusBarColor(getResources().getColor(R.color.dark_deep_purple));
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
+    		TaskDescription taskDescription = new TaskDescription(getResources().getString(R.string.app_name), icon, getResources().getColor(R.color.deep_purple));
+    		setTaskDescription(taskDescription);
+        }
+
+/*		if(!getTitle().equals(getResources().getString(R.string.app_name))){
 			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
 		}
 
@@ -123,23 +168,9 @@ public class Setting extends PreferenceActivity {
 		getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingFragment()).commit();*/
 		
 	}
-	@Override
-	protected void onStart() {
-		if(!getTitle().equals(getResources().getString(R.string.app_name))){
-			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-			mToolbar.setNavigationOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					onBackPressed();
-					
-				}
-			});
-		}else{
-		overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);}
-		super.onStart();
-	}
-	@Override
+	
+
+	/*@Override
     public void onBuildHeaders(List<Header> target) {
         super.onBuildHeaders(target);
         loadHeadersFromResource(R.layout.preference_headers, target);
@@ -213,6 +244,127 @@ public class Setting extends PreferenceActivity {
     @Override
     protected boolean isValidFragment(String fragmentName) {
         return fragmentName.equals(SettingFragment.class.getName());
-    }
+    }*/
+	@Override
+	public void onBackPressed() {
+		if(isCatagory){
+			Back();
+		}else{
+		super.onBackPressed();
+		}
+	}
+	@Override
+	public void onCatagorySelected(String key) {
+		//Toast.makeText(ctx, "Got Click", Toast.LENGTH_SHORT).show();
+		Bundle arguments = new Bundle();
+		arguments.putString("category", key);
+		SettingFragment settings= new SettingFragment();
+		settings.setArguments(arguments);
+		Blacklist blacklist= new Blacklist();
+		mCallbacks = (Callbacks) blacklist;
+		
+		if (mTwoPane) {
+			if(key.equals("blacklist")){		
+				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,blacklist).commit();
+				isBlacklist=true;
+				invalidateOptionsMenu();
+			}else{
+				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,settings).commit();
+				isBlacklist=false;
+				invalidateOptionsMenu();
+			}
+			TextView title=(TextView) findViewById(R.id.prefrence_catagory).findViewById(R.id.prefrence_catagory_title);
+			if (key.equals("theme")) {
+                title.setText(R.string.category_theme);
+            } else if (key.equals("size")) {
+            	title.setText(R.string.category_sizes);
+            }else if (key.equals("advanced")){
+            	title.setText(R.string.category_advanced);
+            }else if(key.equals("blacklist")){
+            	title.setText(R.string.blacklist);
+            }
+		}else{
+			if(key.equals("blacklist")){		
+				getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_left_in, R.animator.slide_left_out).replace(R.id.container,blacklist).commit();
+            	isBlacklist=true;
+            	invalidateOptionsMenu();
+			}else{
+				getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_left_in, R.animator.slide_left_out).replace(R.id.container,settings).commit();
+				isBlacklist=false;
+				invalidateOptionsMenu();
+			}
+			isCatagory=true	;
+			//MenuItem item = menu.findItem(R.id.addAction);
+			if (key.equals("theme")) {
+                mToolbar.setTitle(R.string.category_theme);
+            } else if (key.equals("size")) {
+                mToolbar.setTitle(R.string.category_sizes);
+            }else if (key.equals("advanced")){
+                mToolbar.setTitle(R.string.category_advanced);
+                fab.hide();
+            }else if(key.equals("blacklist")){
+            	mToolbar.setTitle(R.string.blacklist);
+                fab.hide();
+            }
+			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+			mToolbar.setNavigationOnClickListener(new OnClickListener() {
+			
+				@Override
+				public void onClick(View v) {
+					overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+					Back();
+			}
+		});
+		}
+	}
+	public void Back(){
+		getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_right_in, R.animator.slide_right_out).replace(R.id.container, new SettingsListFragment()).commit();
+		isCatagory=false;
+		isBlacklist=false;
+		mCallbacks=sDummyCallbacks;
+		mToolbar.setNavigationIcon(null);
+		mToolbar.setTitle(getTitle());
+		invalidateOptionsMenu();
+		fab.show();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		if(isBlacklist){
+			menu.add(Menu.NONE, 0, 0, R.string.add)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
+			menu.add(Menu.NONE, 1, 1, R.string.help)
+        	.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
+			return true;
+		}else if(mToolbar.getTitle().equals(getTitle())){
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.setting_actions, menu);
+		}
+	    return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	       case R.id.action_support:
+	        	Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
+				ctx.startActivity(intent1);
+	            return true;
+	       case MENU_HELP:
+	        	AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
+	        	alertDialog.setTitle(R.string.help);
+	        	alertDialog.setMessage(getString(R.string.blacklist_help));
+	        	alertDialog.show();
+	        	return true;
+	        case MENU_ADD:
+	        	mCallbacks.onAddSelected();
+	        	return true;
+	    
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+
+
 	
 }

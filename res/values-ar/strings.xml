@@ -39,4 +39,7 @@
   <!-- Toast Messages -->
   <string name="undo">تراجع</string>
   <string name="deleted">مسح</string>
+  
+  <string name="arrow">←</string>
+  
 </resources>

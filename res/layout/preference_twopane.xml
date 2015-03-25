@@ -1,0 +1,106 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/toolbarContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dhm47.nativeclipboard.Setting" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ToolbarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="10dp"/>
+    
+     
+     
+     <LinearLayout 
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:layout_marginLeft="16dp"
+    	android:layout_marginRight="16dp"
+    	android:baselineAligned="false"
+    	android:divider="?android:attr/dividerHorizontal"
+    	android:orientation="horizontal"
+    	android:showDividers="none"
+    	android:layout_below="@+id/toolbar">
+
+    	<!--
+    	This layout is a two-pane layout for the Items
+    	master/detail flow. See res/values-large/refs.xml and
+    	res/values-sw600dp/refs.xml for an example of layout aliases
+    	that replace the single-pane version of the layout with
+    	this two-pane version.
+
+    	For more on layout aliases, see:
+    	http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    	-->
+
+    	<fragment
+        	android:id="@+id/settings_list"
+        	android:name="com.dhm47.nativeclipboard.SettingsListFragment"
+        	android:layout_width="0dp"
+        	android:layout_height="match_parent"
+        	android:layout_weight="5"
+        	android:layout_marginTop="20dp"
+        	android:layout_marginBottom="20dp"
+        	tools:layout="@android:layout/preference_category" />
+		<LinearLayout 
+		    android:id="@+id/prefrence_catagory"
+		    android:layout_width="0dp"
+        	android:layout_height="match_parent"
+        	android:layout_weight="9" 
+        	android:layout_marginTop="10dp"
+        	android:layout_marginBottom="10dp"
+        	android:background="#FFFFFFFF"
+        	android:orientation="vertical"
+			android:elevation="10dp"
+			android:paddingLeft="40dp"
+			android:paddingRight="40dp"
+			android:divider="@android:drawable/divider_horizontal_textfield"
+   			android:showDividers="middle">
+
+		    <TextView
+		        android:id="@+id/prefrence_catagory_title"
+		        android:layout_width="match_parent"
+		        android:layout_height="60dp"
+		        android:text="Theme"
+		        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+		        android:gravity="center_vertical" />
+			
+		    <FrameLayout
+        		android:id="@+id/prefrence_catagory_container"
+        		android:layout_width="match_parent"
+        		android:layout_height="match_parent"/>
+		</LinearLayout>
+    	
+    	<FrameLayout
+        	android:layout_width="0dp"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1"/>
+
+	</LinearLayout>
+	
+     <com.melnykov.fab.FloatingActionButton
+         	android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_clipboard"
+            fab:fab_colorNormal="@color/deep_purple"
+            fab:fab_colorPressed="@color/dark_deep_purple"
+            fab:fab_colorRipple="@color/dark_deep_purple" />
+     
+
+
+</RelativeLayout>

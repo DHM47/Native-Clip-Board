@@ -2,4 +2,8 @@
 <resources>
       <color name="deep_purple">#411955</color>
       <color name="dark_deep_purple">#2f133c</color>
+      <color name="light_deep_purple">#773b94</color>
+      <color name="light_blue">#03A9F4</color>
+      <color name="primary_text">#212121</color>
+      <color name="secondary_text">#727272</color>
 </resources>

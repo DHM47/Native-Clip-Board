@@ -6,7 +6,7 @@
     <net.margaritov.preference.colorpicker.ColorPickerPreference
     	android:key="bgcolor"
         android:title="@string/bgcolor"
-    	android:defaultValue="0xFFE6E6E6"    
+    	android:defaultValue="0xFFFFFFFF"    
     	alphaSlider="true"
     	hexValue="true"/>
     <net.margaritov.preference.colorpicker.ColorPickerPreference

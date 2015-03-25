@@ -26,7 +26,9 @@
     <style name="Setting" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/deep_purple</item>
         <item name="colorPrimaryDark">@color/dark_deep_purple</item>
-        <item name="colorAccent">@android:color/holo_purple</item>
+        <item name="colorAccent">@color/light_deep_purple</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
     </style>
     <style name="SettingOld" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ActionBar</item>
@@ -46,6 +48,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
     
 </resources>
