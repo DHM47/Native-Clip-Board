@@ -10,7 +10,7 @@
   <string name="bgcolor">لون الخلفية </string>
   <string name="clpcolor">لون القصاصه</string>
   <string name="clpcolor_summary">خلفية النص</string>
-  <string name="pinnedcolor">لون القصاصه المحدده (المحفوظه)</string>
+  <string name="pinnedcolor">لون القصاصه المثبته</string>
   <string name="txtcolor">لون النص</string>
   <string name="history_summary">الرجاء اختيار عدد القصاصات المراد حفظها في السجل </string>
   <string name="history_title">حجم السجل</string>
@@ -26,16 +26,34 @@
   <string name="unknown">غير معلوم </string>
   <string name="help">مساعده</string>
   <string name="xda">رابط البرنامج في XDA</string>
-  <string name="category_theme">الموضوع ( نمط الألوان / شكل البرنامج )</string>
+  <string name="category_theme">الموضوع</string>
   <string name="category_sizes">الأحجام </string>
   <string name="category_advanced">متقدم </string>
   <string name="cbbutton">إضافة اختصار للبرنامج</string>
   <string name="cbbutton_summary">إضافة اختصار للبرنامج في القائمة ( قائمة النسخ واللصق ) \n*يجب إعادة تشغيل الجهاز </string>
   <string name="singlepaste">اللصق مره واحده </string>
   <string name="singlepaste_summary">الخروج من البرنامج بعد اللصق مره واحده \n*يجب إعادة تشغيل الجهاز </string>
+  <string name="monitorservice">وضع التوافق</string>
+    <string name="monitorservice_summary">يستعمل خدمة في الخلفية لمراقبة النص المنسوخ لروم+ات سامسونج و MIUI \n*يلغي خاصية اللائحة السوداء</string>
+    <string name="notification_title">إظهار الإشعار</string>
+    <string name="notification_summary">قد تحتاج هذا الخيار لإبقاء البرنامج في وضع التشغيل (خاصة للأجهزة ذات الرام المنخفض)</string>
+    <string name="sort">تنظيم القصاصات</string>
+    <string name="newfirst">الأحدث أولا</string>
+	<string name="pinnedfirst">المثبت أولا</string>
+	<string name="pinnedlast">المثبت أخيرا</string>
+	<string name="usedefault">القيمة الإفتراضية</string>
+	<string name="about">عن البرنامج</string>
   <!-- Clip Board -->
   <string name="clear_all">مسح الكل</string>
   <string name="clear_all_conf">مسح كل القصاصات ؟ </string>
+  <string name="title_hint">عنوان القصاصة</string>
+    <string name="clip_text_hint">نص القصاصة</string>
+    <string name="pin">تثبيت</string>
+    <string name="unpin">إالغاء التثبيت</string>
+    <string name="edit">تعديل</string>
+    <string name="save">حفظ</string>
+    <string name="delete">مسح</string>
+    <string name="shrink">تصغير</string>
   <!-- Toast Messages -->
   <string name="undo">تراجع</string>
   <string name="deleted">مسح</string>

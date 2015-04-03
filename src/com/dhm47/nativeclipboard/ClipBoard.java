@@ -124,10 +124,10 @@ public class ClipBoard extends Activity{
 		clipAdapter = new ClipAdapter(ctx);
 		
 		windowSize=Util.px(setting.getInt("windowsize",280), ctx);
-		backgroundColor=setting.getInt("bgcolor",0x80E6E6E6);
+		backgroundColor=setting.getInt("bgcolor",0xFFFFFFFF);
 		pinnedclipColor=setting.getInt("pincolor",0xFFCF5300);
 		clipColor=setting.getInt("clpcolor",0xFFFFBB22);
-		textColor=setting.getInt("txtcolor",0xffffffff);
+		textColor=setting.getInt("txtcolor",0xFF664B0E);
 		textSize=(float)(setting.getInt("txtsize",  20));
 		
 		try {
@@ -221,9 +221,34 @@ public class ClipBoard extends Activity{
 		});
         
         actionBar.setBackgroundColor(clipColor);
+        actionBar.setOnTouchListener(new OnTouchListener() {
+			float y;
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					y=event.getRawY();
+					break;
+				case MotionEvent.ACTION_UP:
+					if(event.getRawY()-y>actionBar.getHeight()){
+						Cancel();
+						
+					}
+				}
+				return true;
+			}
+		});
+        
+        bottomBar.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				return true;
+			}
+		});
+        
+        
         gridView.getLayoutParams().height=windowSize;
-		//gridView.setLayoutParams();
-        gridView.setBackgroundColor(backgroundColor);
+		gridView.setBackgroundColor(backgroundColor);
 		gridView.setAdapter(clipAdapter);
 		
 		if(isUp){
@@ -264,6 +289,7 @@ public class ClipBoard extends Activity{
 		    e.printStackTrace();
 		}
 		}
+		
 		clear.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -302,6 +328,23 @@ public class ClipBoard extends Activity{
 			}
 		});
 		
+		close.setOnTouchListener(new OnTouchListener() {
+			float y;
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					y=event.getRawY();
+					break;
+				case MotionEvent.ACTION_UP:
+					if(event.getRawY()-y>actionBar.getHeight()){
+						Cancel();
+						return true;
+					}
+				}
+				return false;
+			}
+		});
 		close.setOnClickListener(new OnClickListener() {
 			
 			@Override

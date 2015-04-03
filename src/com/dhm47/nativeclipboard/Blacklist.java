@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -32,36 +31,25 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.provider.Contacts.SettingsColumns;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.dhm47.nativeclipboard.ApplicationsDialog.AppAdapter;
 import com.dhm47.nativeclipboard.ApplicationsDialog.AppItem;
-import com.dhm47.nativeclipboard.SettingsListFragment.Callbacks;
 
 @SuppressLint("WorldReadableFiles")
 public class Blacklist extends PreferenceFragment implements Setting.Callbacks{
     // TODO : Rearrange + Cleanup code.
 	
 	public static Dialog dialog = null;
-    private static final int MENU_ADD = 0;
-    private static final int MENU_HELP = 1;
     
 	
 	

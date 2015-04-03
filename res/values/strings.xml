@@ -44,6 +44,7 @@
 	<string name="pinnedfirst">Pinned first</string>
 	<string name="pinnedlast">Pinned last</string>
 	<string name="usedefault">Use Default</string>
+	<string name="about">About</string>
      <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>

@@ -1,6 +1,10 @@
 package com.dhm47.nativeclipboard.xposed;
 
 
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -12,8 +16,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
-import android.text.Selection;
-import android.text.Spannable;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
@@ -38,28 +41,31 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 
 public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,IXposedHookInitPackageResources{
-
+	//Clip Board
 	private  Context CBMctx;
 	private  String pkg;
-	
+	//Edit Texts
 	private  static Context Ectx;
 	private  TextView Etextview;
 	private boolean shouldWindowFocusWait;
-	
+	//Chrome
 	private  Context CSctx;
 	private  Context CPctx;
-		
+	//FireFox	
+	private int FFindex;
+	//HTC
 	private  static TextView htcTextView;
 	private static Object htcObject;
 	private static Drawable htcDrawable;
 	private boolean htcCBadded=false;
-	
+	//Common
 	static Menu menu;
 	final int id=1259;
 	static MethodHookParam mparam;
 	private ClipboardManager mClipboardManager;	
 	private ClipboardManager.OnPrimaryClipChangedListener mOnPrimaryClipChangedListener;
 	XSharedPreferences pref;
+	private static String clipboard="Clip Board";
 	
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
@@ -122,8 +128,68 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 	
 	@SuppressLint("DefaultLocale")
 	public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
+		if(lpparam.packageName.equals("org.mozilla.firefox") || lpparam.packageName.equals("org.mozilla.firefox_beta") ){
+
+		Class<?> TextSelectionActionModeCallback=XposedHelpers.findClass("org.mozilla.gecko.TextSelection.TextSelectionActionModeCallback", lpparam.classLoader);
+			
+		XposedBridge.hookAllMethods(TextSelectionActionModeCallback, "onPrepareActionMode$1451e89d",new XC_MethodHook() {
+            @Override	
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            	JSONArray array=(JSONArray) XposedHelpers.getObjectField(param.thisObject, "mItems");
+            	FFindex=array.length();
+            	JSONObject obj = new JSONObject();
+            	obj.put("label", "Clip Board");
+            	obj.put("showAsAction", false);
+            	array.put(FFindex, obj);
+            	menu=(Menu) param.args[0];
+            }
+        });
+		XposedBridge.hookAllMethods(TextSelectionActionModeCallback, "onActionItemClicked$139dd3d0",new XC_MethodHook() {
+	        @Override
+	        protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
+            	final Context ctx=((ImageView)XposedHelpers.getObjectField(XposedHelpers.getSurroundingThis(param.thisObject), "anchorHandle")).getContext();
+	    		MenuItem item =(MenuItem)param.args[0];
+	    		mparam=param;
+	    		if(item.getItemId()==FFindex) {
+	        			Open(ctx);
+	        			
+	        			switch (FFindex) {
+						case 2:
+							mparam.args[0]=menu.getItem(0);
+							break;
+						case 3:
+							mparam.args[0]=menu.getItem(1);
+							break;
+						default:
+							mparam.args[0]=menu.getItem(3);
+							break;
+						}
+
+	        			mClipboardManager =(ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+			    		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
+			                @Override
+			                public void onPrimaryClipChanged() {
+	            	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(ctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+	            	            	try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked$139dd3d0", mparam.args);
+		    	            			} catch (Throwable e) {	
+		    	            				Toast.makeText(ctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
+				    					e.printStackTrace();
+				    				}
+			                }};
+			            mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    		
+	        			param.setResult(true);
+	    				return;
+	    		}
+	        }
+	    });
 		
-		
+		}
 		XposedHelpers.findAndHookMethod(TextView.class, "onFocusChanged", boolean.class, int.class,	Rect.class, new XC_MethodHook() {
 			@Override
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -212,7 +278,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 					        			WaitforClip(htcctx, htcTextView);
 									}
 								};
-								Object[] args ={htcObject,htcDrawable,mClick,"ClipBoard"};
+								Object[] args ={htcObject,htcDrawable,mClick,clipboard};
 								try {
 									XposedBridge.invokeOriginalMethod(param.method, param.thisObject, args);
 								} catch (Exception e) {
@@ -227,6 +293,116 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
     	//---------------------------------------------------------------------------------------------------//
     	//-------------------------------------------BROWESR-------------------------------------------------//
     	//---------------------------------------------------------------------------------------------------//
+		if (lpparam.packageName.equals("com.google.android.webview") || lpparam.packageName.equals("com.android.webview")){
+			XposedHelpers.findAndHookMethod("com.android.org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader, "onCreateActionMode",ActionMode.class,Menu.class,  new XC_MethodHook() {
+	            @Override	
+	            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+	            	menu =(Menu) param.args[1];
+	            	CBButton(menu);
+	            }
+	        });
+			XposedHelpers.findAndHookMethod("com.android.org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader, "onActionItemClicked",ActionMode.class,MenuItem.class,  new XC_MethodHook() {
+	            @Override
+	            protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
+	            	Object[] args ={};
+	            	CSctx=(Context) XposedHelpers.findMethodBestMatch(
+	               		 XposedHelpers.findClass("com.android.org.chromium.content.browser.SelectActionModeCallback", lpparam.classLoader), "getContext").invoke(param.thisObject, args);
+	            	MenuItem item =(MenuItem)param.args[1];
+	            	mparam=param;
+	            	switch(item.getItemId()) {
+			        case id:
+			        	Open(CSctx);
+			    		mparam.args[1]=menu.getItem(3);
+			    		mClipboardManager =(ClipboardManager) CSctx.getSystemService(Context.CLIPBOARD_SERVICE);
+			    		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
+			                @Override
+			                public void onPrimaryClipChanged() {
+			                	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CSctx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+		    	            		try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(CSctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+		    	            	}else if(pref.getBoolean("singlepaste", false)){
+	            	            	try {
+			    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    					} catch (Exception e1) {
+			    						Toast.makeText(CSctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+			    						e1.printStackTrace();
+			    					}	
+	            	            	try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
+		    	            			} catch (Throwable e) {
+		    	            				Toast.makeText(CSctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
+				    					e.printStackTrace();
+				    				}
+	            	            	
+	            	            }
+	    	            		else{
+	    	            			try {XposedHelpers.callMethod(mparam.thisObject, "onActionItemClicked", mparam.args);
+	    	            			} catch (Throwable e) {
+	    	            				Toast.makeText(CSctx, "could not call(selection)", Toast.LENGTH_SHORT).show();
+			    					e.printStackTrace();
+			    				}}		    	            	
+		    	        
+			                }};
+			            mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+			    		param.setResult(true);
+			    		return;
+			    		
+					}
+			        
+	            }
+	        });
+			XposedHelpers.findAndHookMethod("com.android.org.chromium.content.browser.input.PastePopupMenu", lpparam.classLoader, "onClick",View.class,new XC_MethodHook() {
+	            @Override	
+	            protected void beforeHookedMethod(final MethodHookParam param) throws Throwable {
+	            			View mview =(View) param.args[0];
+	            			CPctx=mview.getContext();
+	            			Open(CPctx);
+				    		mClipboardManager =(ClipboardManager) CPctx.getSystemService(Context.CLIPBOARD_SERVICE);
+				    		mOnPrimaryClipChangedListener =new ClipboardManager.OnPrimaryClipChangedListener() {
+				                @Override
+				                public void onPrimaryClipChanged() {
+				                	if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(CPctx).toString().equals("//NATIVECLIPBOARDCLOSE//")){
+			    	            		try {
+				    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+				    					} catch (Exception e1) {
+				    						Toast.makeText(CPctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+				    						e1.printStackTrace();
+				    					}	
+			    	            	}else if(pref.getBoolean("singlepaste", false)){
+		            	            	try {
+				    						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+				    					} catch (Exception e1) {
+				    						Toast.makeText(CPctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
+				    						e1.printStackTrace();
+				    					}	
+
+		    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+		    	            			} catch (Throwable e) {
+				    					Toast.makeText(CPctx, "could not call(click)", Toast.LENGTH_SHORT).show();
+				    					e.printStackTrace();
+				    				}
+		            	            	
+		            	            }
+		    	            		else{
+		    	            			try {XposedBridge.invokeOriginalMethod(param.method, param.thisObject, param.args);
+		    	            			} catch (Throwable e) {
+				    					Toast.makeText(CPctx, "could not call(click)", Toast.LENGTH_SHORT).show();
+				    					e.printStackTrace();
+				    				}}		    	            	
+			    	        }};
+				            mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+				            param.setResult(null);
+							return ;
+							
+						}
+					});
+
+			
+		}
+		
 		if (lpparam.packageName.equals("com.chrome.beta") || lpparam.packageName.equals("com.android.chrome")){
             
 		if(pref.getBoolean("cbbutton", true)){
@@ -338,10 +514,12 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 					}
 				});
         }
+		
+		
     }
 	
 	private void CBButton(Menu menu2){
-		menu2.add(android.view.Menu.NONE, id,android.view.Menu.NONE, "Clip Board");
+		menu2.add(android.view.Menu.NONE, id,android.view.Menu.NONE, clipboard);
 		menu2.findItem(id).setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 	
@@ -379,8 +557,7 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
             @Override
             public void onPrimaryClipChanged() {
             	String primaryClip=mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(ctx).toString();
-            	int start = mTextview.getSelectionStart();
-        		int end = mTextview.getSelectionEnd();
+
             	if(primaryClip.equals("//NATIVECLIPBOARDCLOSE//")){
             		try {
 						mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener);
@@ -403,22 +580,14 @@ public class XposedMod implements IXposedHookZygoteInit,IXposedHookLoadPackage ,
 						Toast.makeText(ctx, "Removing listener went wrong", Toast.LENGTH_SHORT).show();
 						e1.printStackTrace();
 					}
-	            	try {   mTextview.setText(mTextview.getText().subSequence(0, start).toString()
-       					 +mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(ctx).toString()
-       					 +mTextview.getText().subSequence(end, mTextview.getText().length()).toString());
-       				Selection.setSelection((Spannable) mTextview.getText(), start+mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(ctx).length());
+	            	try {   mTextview.onTextContextMenuItem(android.R.id.paste);
 	            	} catch (Throwable e) {
 	            		Toast.makeText(ctx, "pasting went wrong", Toast.LENGTH_SHORT).show();
 	            		e.printStackTrace();
 	            	}
 	            }
         		else{
-        			try {   mTextview.setText(mTextview.getText().subSequence(0, start).toString()
-            					 +primaryClip
-            					 +mTextview.getText().subSequence(end, mTextview.getText().length()).toString());
-            				Selection.setSelection((Spannable) mTextview.getText(), start+primaryClip.length());
-	            				start=start+primaryClip.length();
-	            				end=start;
+        			try {   mTextview.onTextContextMenuItem(android.R.id.paste);
         			} catch (Throwable e) {
 					Toast.makeText(ctx, "pasting went wrong", Toast.LENGTH_SHORT).show();
 					e.printStackTrace();

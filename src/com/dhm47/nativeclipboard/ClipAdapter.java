@@ -57,7 +57,7 @@ public class ClipAdapter extends BaseAdapter {
 		textView=(TextView) inflater.inflate(R.layout.textview,null);
 		if(mClips.get(position).isPinned())textView.setBackgroundColor(setting.getInt("pincolor",0xFFCF5300));
 		else textView.setBackgroundColor(setting.getInt("clpcolor",0xFFFFBB22));
-		textView.setTextColor(setting.getInt("txtcolor",0xffffffff));
+		textView.setTextColor(setting.getInt("txtcolor",0xFF664B0E));
 		textView.setTextSize((float)(setting.getInt("txtsize",  20)));
 		textView.setOnLongClickListener(new OnLongClickListener() {@Override public boolean onLongClick(View v) {return false;}});
 		textView.setOnTouchListener(new SwipeDismissTouchListener(textView,

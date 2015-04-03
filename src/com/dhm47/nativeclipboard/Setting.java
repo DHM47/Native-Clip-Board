@@ -35,15 +35,16 @@ import com.melnykov.fab.FloatingActionButton;
 public class Setting extends ActionBarActivity implements SettingsListFragment.Callbacks {
     static Context ctx;
     Toolbar mToolbar;
+    TextView title;
     //RelativeLayout toolbarContainer;
     SharedPreferences pref;
     boolean isCatagory;
 	boolean mTwoPane;
 	boolean isBlacklist;
-	FloatingActionButton fab;
+	FloatingActionButton testFAB;
+	FloatingActionButton addFAB;
 	
 	public static Dialog dialog = null;
-    private static final int MENU_ADD = 0;
     private static final int MENU_HELP = 1;
     
     private Callbacks mCallbacks = sDummyCallbacks;
@@ -66,13 +67,7 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		super.onCreate(savedInstanceState);
 		ctx=this;
 		setContentView(R.layout.preference_activity);
-		if (findViewById(R.id.prefrence_catagory_container) != null) {
-			mTwoPane = true;
-			onCatagorySelected("theme");
-		}else{
-			getFragmentManager().beginTransaction().replace(R.id.container, new SettingsListFragment()).commit();
-			
-		}
+		
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 	    mToolbar.setTitle(getTitle());
 	    
@@ -80,8 +75,8 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		
 		setSupportActionBar(mToolbar);
 		
-		fab= (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new OnClickListener() {
+		testFAB= (FloatingActionButton) findViewById(R.id.fabtest);
+        testFAB.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -90,7 +85,25 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 			}
 		});
         
-		
+		addFAB= (FloatingActionButton) findViewById(R.id.fabadd);
+        addFAB.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mCallbacks.onAddSelected();
+			}
+		});
+        addFAB.hide(false);
+        
+        if (findViewById(R.id.prefrence_catagory_container) != null) {
+			mTwoPane = true;
+			title=(TextView) findViewById(R.id.prefrence_catagory).findViewById(R.id.prefrence_catagory_title);
+			onCatagorySelected("theme");
+		}else{
+			getFragmentManager().beginTransaction().replace(R.id.container, new SettingsListFragment()).commit();
+			
+		}
+        
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //getWindow().setStatusBarColor(getResources().getColor(R.color.dark_deep_purple));
@@ -268,12 +281,16 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,blacklist).commit();
 				isBlacklist=true;
 				invalidateOptionsMenu();
+				addFAB.show();
+				testFAB.hide();
 			}else{
 				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,settings).commit();
 				isBlacklist=false;
 				invalidateOptionsMenu();
+				addFAB.hide();
+				testFAB.show();
 			}
-			TextView title=(TextView) findViewById(R.id.prefrence_catagory).findViewById(R.id.prefrence_catagory_title);
+			
 			if (key.equals("theme")) {
                 title.setText(R.string.category_theme);
             } else if (key.equals("size")) {
@@ -294,17 +311,18 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 				invalidateOptionsMenu();
 			}
 			isCatagory=true	;
-			//MenuItem item = menu.findItem(R.id.addAction);
+
 			if (key.equals("theme")) {
                 mToolbar.setTitle(R.string.category_theme);
             } else if (key.equals("size")) {
                 mToolbar.setTitle(R.string.category_sizes);
             }else if (key.equals("advanced")){
                 mToolbar.setTitle(R.string.category_advanced);
-                fab.hide();
+                testFAB.hide();
             }else if(key.equals("blacklist")){
             	mToolbar.setTitle(R.string.blacklist);
-                fab.hide();
+                testFAB.hide();
+                addFAB.show();
             }
 			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
 			mToolbar.setNavigationOnClickListener(new OnClickListener() {
@@ -325,22 +343,21 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		mToolbar.setNavigationIcon(null);
 		mToolbar.setTitle(getTitle());
 		invalidateOptionsMenu();
-		fab.show();
+		testFAB.show();
+		addFAB.hide();
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		if(isBlacklist){
-			menu.add(Menu.NONE, 0, 0, R.string.add)
+			menu.add(Menu.NONE, MENU_HELP, 0, R.string.help).setIcon(R.drawable.ic_help)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
-			menu.add(Menu.NONE, 1, 1, R.string.help)
-        	.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
-			return true;
-		}else if(mToolbar.getTitle().equals(getTitle())){
-			MenuInflater inflater = getMenuInflater();
-			inflater.inflate(R.menu.setting_actions, menu);
 		}
+		
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.setting_actions, menu);
+		
 	    return super.onCreateOptionsMenu(menu);
 	}
 	@Override
@@ -350,14 +367,31 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 	        	Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/native-clip-board-beta-t2784682"));
 				ctx.startActivity(intent1);
 	            return true;
+	       case R.id.action_about:{
+	    	   if (mTwoPane) {
+	    		   getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,new About()).commit();
+	    		   title.setText(R.string.about);
+	    	   }else{
+	    		   getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_left_in, R.animator.slide_left_out).replace(R.id.container,new About()).commit();
+	    		   mToolbar.setTitle(R.string.about);
+	    		   mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+	   			   mToolbar.setNavigationOnClickListener(new OnClickListener() {
+	   				@Override
+	   				public void onClick(View v) {
+	   					overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+	   					Back();
+	   					}
+	   			   });
+	    	   }
+	    	   testFAB.hide();
+    		   addFAB.hide();
+    		   
+	    	   return true;}
 	       case MENU_HELP:
 	        	AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
 	        	alertDialog.setTitle(R.string.help);
 	        	alertDialog.setMessage(getString(R.string.blacklist_help));
 	        	alertDialog.show();
-	        	return true;
-	        case MENU_ADD:
-	        	mCallbacks.onAddSelected();
 	        	return true;
 	    
 	        default:
