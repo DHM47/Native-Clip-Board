@@ -43,7 +43,8 @@
     <string name="newfirst">Plus récent en premier</string>
     <string name="pinnedfirst">Épinglé en premier</string>
     <string name="pinnedlast">Épinglé en dernier</string>
-    <string name="usedefault">Par défaut</string>	
+    <string name="usedefault">Par défaut</string>
+    <string name="about">À propos</string>    
      <!-- Clip Board -->
     <string name="clear_all">Tout supprimer</string>
     <string name="clear_all_conf">Supprimer tous les presse-papiers ?</string>
