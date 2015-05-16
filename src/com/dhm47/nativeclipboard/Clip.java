@@ -83,10 +83,12 @@ public class Clip implements Serializable{
 	public void setPinned(boolean pinned){
 		this.pinned = pinned;
 	}
-	public static boolean contains(List<Clip> mClip,Clip clip){
+	public static int contains(List<Clip> mClip,Clip clip){
+		int x=-1;
 		for(Clip tClip:mClip){
-			if(clip.getText().equals(tClip.getText()))return true;
+			x++;
+			if(clip.getText().equals(tClip.getText()))return x;
 		}
-		return false;
+		return -1;
 	}
 }

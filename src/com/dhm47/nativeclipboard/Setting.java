@@ -368,6 +368,7 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 				ctx.startActivity(intent1);
 	            return true;
 	       case R.id.action_about:{
+	    	   isCatagory=true;
 	    	   if (mTwoPane) {
 	    		   getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,new About()).commit();
 	    		   title.setText(R.string.about);

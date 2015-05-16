@@ -6,7 +6,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.dhm47.nativeclipboard.comparators.NewFirst;
+import com.dhm47.nativeclipboard.comparators.PinnedFirst;
+import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
 import android.app.Service;
 import android.content.Context;
@@ -45,12 +50,27 @@ public class ClipMonitorService extends Service{
 			e.printStackTrace();
 		}
     	try {//Write
-			if( !(Clip.contains(mClip, nClip)) && !(clip.equals("//NATIVECLIPBOARDCLOSE//")) && !(clip.equals("")) ){
+    		int conatains=Clip.contains(mClip, nClip);
+			if(conatains>=0){
+				mClip.get(conatains).setTime(time);
+				FileOutputStream fos = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
+	            ObjectOutputStream os = new ObjectOutputStream(fos);
+	              os.writeObject(mClip);
+	              os.close();
+			}else if( (conatains==-1) && !(clip.equals("//NATIVECLIPBOARDCLOSE//")) && !(clip.equals("")) ){
 		      mClip.add(0,nClip);
               int history =ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).getInt("history", 25);
               for (int x=mClip.size();mClip.size()>history;x--){
   				if(!mClip.get(x-1).isPinned())mClip.remove(x-1);
   					} 
+              String sort=ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", 4).getString("sort", "newfirst");
+				if(sort.equals("newfirst")){
+					Collections.sort(mClip, new NewFirst());
+				}else if(sort.equals("pinnedfirst")){
+					Collections.sort(mClip, new PinnedFirst());
+				}else if(sort.equals("pinnedlast")){
+					Collections.sort(mClip, new PinnedLast());
+				}
               FileOutputStream fos = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
               ObjectOutputStream os = new ObjectOutputStream(fos);
               os.writeObject(mClip);
