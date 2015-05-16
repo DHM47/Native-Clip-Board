@@ -6,4 +6,5 @@
       <color name="light_blue">#03A9F4</color>
       <color name="primary_text">#212121</color>
       <color name="secondary_text">#727272</color>
+      <color name="clipboard_bg">#e6e6e6</color>
 </resources>
