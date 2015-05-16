@@ -59,7 +59,7 @@
         	android:layout_weight="9" 
         	android:layout_marginTop="10dp"
         	android:layout_marginBottom="10dp"
-        	android:background="#FFFFFFFF"
+        	android:background="@color/background_white"
         	android:orientation="vertical"
 			android:elevation="10dp"
 			android:paddingLeft="40dp"
