@@ -10,4 +10,5 @@
       <color name="clipboard_bg">#e6e6e6</color>
       <color name="clipboard_preference_bg">#ffeeeeee</color>
       <color name="background_white">#ffffffff</color>
+      <color name="textview_textcolor">#ff664B0E</color>
 </resources>
