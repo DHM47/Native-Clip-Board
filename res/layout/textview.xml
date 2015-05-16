@@ -8,7 +8,7 @@
     android:minLines="3"
     android:padding="9dp"
     android:gravity="top"
-    android:textColor="#FF664B0E"
+    android:textColor="@color/textview_textcolor"
     android:elevation="2dp">
 </TextView>
 
