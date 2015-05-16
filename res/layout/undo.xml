@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/undotxt"
         android:layout_width="wrap_content"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/text_white"
         android:gravity="center_vertical"
         android:layout_height="wrap_content"
         android:maxLength="25"
@@ -23,7 +23,7 @@
        android:layout_width="1.0dip" 
        android:layout_height="match_parent"  
        android:layout_marginLeft="6dp" 
-       android:src="#ffaaaaaa" />
+       android:src="@color/undo_src" />
         
     <TextView
         android:id="@+id/undobutton"
@@ -33,7 +33,7 @@
         android:gravity="center_vertical"
         android:text="@string/undo"
         android:textSize="17dp"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/text_white" />
 
     
 
