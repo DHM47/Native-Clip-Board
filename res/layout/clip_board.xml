@@ -12,7 +12,7 @@
    					android:id="@+id/grid_view"
     				android:layout_width="match_parent"
     				android:layout_height="280dp"
-        			android:background="#FFE6E6E6"
+        			android:background="@color/clipboard_bg"
 					android:columnWidth="120dp"
     				android:gravity="center"
     				android:horizontalSpacing="10dp"
