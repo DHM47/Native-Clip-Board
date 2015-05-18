@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhm47.nativeclipboard"
-    android:versionCode="32"
-    android:versionName="3.2" >
+    android:versionCode="33"
+    android:versionName="3.3" >
 
     <uses-sdk
         android:minSdkVersion="15"
