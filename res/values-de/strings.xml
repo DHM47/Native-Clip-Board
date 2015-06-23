@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clip Board</string> 
+    <string name="xposed_desc">Organisiert dein Copy/Paste-Verhalten!</string> 
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Farbpalette</string>
+    <string name="press_color_to_apply">Um den Farbton zu ändern, einfach tippen</string>    
+    
+    <!-- Preferences -->
+    <string name="bgcolor">Erscheinungsbild</string>
+    <string name="clpcolor">Hintergundfarbe</string>
+    <string name="clpcolor_summary">Um die Farbe der Klammern zu ändern, einfach tippen</string>
+    <string name="pinnedcolor">Farbe angehefteteter Klammern</string>
+    <string name="txtcolor">Textfarbe</string>
+    <string name="history_summary">Zwischenspeicher</string>
+    <string name="history_title">Wähle aus, wie viele Elemente gespeichert werden sollen</string>
+    <string name="txtsize">Textgröße</string>
+    <string name="uisize">Klemmbrettgröße</string>
+    <string name="pastefunction">Invertiere allgemeines Tipp-Verhalten</string>
+    <string name="pastefunction_summary_off">Kurzes Tippen : Fügt ein\nLanges Tippen : Öffnet Klemmbrett\n*Neustart erforderlich</string>
+    <string name="pastefunction_summary_on">Kurzes Tippen : Öffnet Klemmbrett\nLanges Tippen : Fügt ein\n*Neutstart erforderlich</string>
+    <string name="test">Testen</string>
+    <string name="blacklist">Blacklist</string>
+    <string name="blacklist_help">Wähle, welche Anwendungen von Clip Board ausgeschlossen werden sollen, wie zum Beispiel Passwort-Managers.</string>
+    <string name="add">Hinzufügen</string>
+    <string name="unknown">Unbekannt</string>
+    <string name="help">Hilfe</string>
+    <string name="xda">XDA Forumsthread</string>
+    <string name="category_theme">Aussehen</string>
+    <string name="category_sizes">Proportionen</string>
+    <string name="category_advanced">Erweitert</string>
+    <string name="cbbutton">CB-Button hinzufügen</string>
+    <string name="cbbutton_summary">Fügt den CB-Button zum Auswahlmenü hinzu\n*Requires Reboot</string>
+    <string name="singlepaste">Einzelnes Einfügen</string>
+    <string name="singlepaste_summary">Schließt das Klemmbrett direkt nach dem Einfügen\n*Requires Reboot</string>
+    <string name="monitorservice">Integration</string>
+    <string name="monitorservice_summary">Ermöglicht die Miteinbeziehung von MIUI and Samsung Roms dank Hintergrundprogrammen\n*disables Blacklisting</string>
+    <string name="notification_title">Mitteilungen erhalten</string>
+    <string name="notification_summary">Möglicherweise erforderlich, um dieses Service laufen zu lassen(Low-End-Geräte)</string>
+    <string name="sort">Klammern organisieren</string>
+    <string name="newfirst">Neueste zuerst</string>
+	<string name="pinnedfirst">Angeheftete zuerst</string>
+	<string name="pinnedlast">Angeheftete zuletzt</string>
+	<string name="usedefault">Ursprüngliche Einstellungen verwenden</string>
+	<string name="about">Über</string>
+     <!-- Clip Board -->
+    <string name="clear_all">Alle verwerfen</string>
+    <string name="clear_all_conf">Wirklich alle Klammern verwerfen?</string>
+    <string name="title_hint">Benenne die Klammer</string>
+    <string name="clip_text_hint">Klammertext</string>
+    <string name="pin">Anheften</string>
+    <string name="unpin">Entheften</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="save">Speichern</string>
+    <string name="delete">Verwerfen</string>
+    <string name="shrink">Verkleinern</string>
+    
+     <!-- Toast Messages -->
+    <string name="undo">Rückgängig</string>
+    <string name="deleted">Verworfen: </string>
+    
+    <string name="arrow">→</string>
+    
+</resources>
