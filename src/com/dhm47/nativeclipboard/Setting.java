@@ -17,22 +17,25 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.melnykov.fab.FloatingActionButton;
-
+import android.widget.Toast;
 
 
 
-public class Setting extends ActionBarActivity implements SettingsListFragment.Callbacks {
+
+
+public class Setting extends AppCompatActivity implements SettingsListFragment.Callbacks {
     static Context ctx;
     Toolbar mToolbar;
     TextView title;
@@ -43,6 +46,7 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 	boolean isBlacklist;
 	FloatingActionButton testFAB;
 	FloatingActionButton addFAB;
+	private int margin;
 	
 	public static Dialog dialog = null;
     private static final int MENU_HELP = 1;
@@ -93,7 +97,10 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 				mCallbacks.onAddSelected();
 			}
 		});
-        addFAB.hide(false);
+        ViewGroup.MarginLayoutParams params =(MarginLayoutParams) addFAB.getLayoutParams();
+        margin=params.bottomMargin;
+        addFAB.setTranslationY(margin+getResources().getDimensionPixelSize(R.dimen.fab_size_normal));
+        Toast.makeText(ctx, ""+addFAB.getY(), Toast.LENGTH_SHORT).show();
         
         if (findViewById(R.id.prefrence_catagory_container) != null) {
 			mTwoPane = true;
@@ -281,14 +288,14 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,blacklist).commit();
 				isBlacklist=true;
 				invalidateOptionsMenu();
-				addFAB.show();
-				testFAB.hide();
+				show(addFAB);//addFAB.setTranslationY(-addFAB.getHeight());
+				hide(testFAB);//testFAB.setTranslationY(testFAB.getHeight());
 			}else{
 				getFragmentManager().beginTransaction().replace(R.id.prefrence_catagory_container,settings).commit();
 				isBlacklist=false;
 				invalidateOptionsMenu();
-				addFAB.hide();
-				testFAB.show();
+				hide(addFAB);//addFAB.setTranslationY(addFAB.getHeight());
+				show(testFAB);//testFAB.setTranslationY(-testFAB.getHeight());
 			}
 			
 			if (key.equals("theme")) {
@@ -318,11 +325,11 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
                 mToolbar.setTitle(R.string.category_sizes);
             }else if (key.equals("advanced")){
                 mToolbar.setTitle(R.string.category_advanced);
-                testFAB.hide();
+                hide(testFAB);//testFAB.setTranslationY(testFAB.getHeight());
             }else if(key.equals("blacklist")){
             	mToolbar.setTitle(R.string.blacklist);
-                testFAB.hide();
-                addFAB.show();
+                hide(testFAB);//testFAB.setTranslationY(testFAB.getHeight());
+                show(addFAB);//addFAB.setTranslationY(-addFAB.getHeight());
             }
 			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
 			mToolbar.setNavigationOnClickListener(new OnClickListener() {
@@ -343,8 +350,8 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 		mToolbar.setNavigationIcon(null);
 		mToolbar.setTitle(getTitle());
 		invalidateOptionsMenu();
-		testFAB.show();
-		addFAB.hide();
+		show(testFAB);//testFAB.setTranslationY(-testFAB.getHeight());
+		hide(addFAB);//addFAB.setTranslationY(addFAB.getHeight());
 	}
 	
 	@Override
@@ -384,8 +391,8 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 	   					}
 	   			   });
 	    	   }
-	    	   testFAB.hide();
-    		   addFAB.hide();
+	    	   hide(testFAB);//testFAB.setTranslationY(testFAB.getHeight());
+    		   hide(addFAB);//addFAB.setTranslationY(addFAB.getHeight());
     		   
 	    	   return true;}
 	       case MENU_HELP:
@@ -401,5 +408,11 @@ public class Setting extends ActionBarActivity implements SettingsListFragment.C
 	}
 
 
+	private void show(FloatingActionButton fab){
+		fab.animate().translationYBy(-(fab.getHeight()+margin)).start();
+	}
+	private void hide(FloatingActionButton fab){
+		fab.animate().translationYBy((fab.getHeight()+margin)).start();
+	}
 	
 }

@@ -22,18 +22,19 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,9 +57,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.MaterialDialog.Builder;
-import com.afollestad.materialdialogs.Theme;
 import com.dhm47.nativeclipboard.comparators.PinnedFirst;
 import com.dhm47.nativeclipboard.comparators.PinnedLast;
 
@@ -66,9 +64,8 @@ import com.dhm47.nativeclipboard.comparators.PinnedLast;
 @SuppressLint({ "ClickableViewAccessibility", "InflateParams", "NewApi" })
 public class ClipBoard extends Activity{
 	
-	private WindowManager windowManager;
 	private ClipboardManager mClipboardManager;
-	private LayoutInflater inflater;
+	//private LayoutInflater inflater;
 	public static GridView gridView;
 	private RelativeLayout mainLayout;
 	private LinearLayout editLayout;
@@ -95,7 +92,8 @@ public class ClipBoard extends Activity{
 	private int size;
 	private int lPosition;
 	static ClipData prevClip;
-	private View Undo;
+	private Snackbar Undo;
+	
 	private boolean clearall=false;
 	private static List<String> mClipsOld = new ArrayList<String>();
 	private static List<String> pinnedOld = new ArrayList<String>();
@@ -118,8 +116,7 @@ public class ClipBoard extends Activity{
     	
 		ctx=this;
 		mClipboardManager =(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+		//inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		setting = ctx.getSharedPreferences("com.dhm47.nativeclipboard_preferences", Context.MODE_MULTI_PROCESS);
 		clipAdapter = new ClipAdapter(ctx);
 		
@@ -293,14 +290,12 @@ public class ClipBoard extends Activity{
 		clear.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Builder dialog=new MaterialDialog.Builder(ctx);
-				dialog.content(R.string.clear_all_conf);
-				dialog.positiveText(android.R.string.yes);
-				dialog.negativeText(android.R.string.cancel);
-				dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
-				dialog.callback(new MaterialDialog.ButtonCallback() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+				builder.setMessage(R.string.clear_all_conf);
+				builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener() {
+					
 					@Override
-		            public void onPositive(MaterialDialog dialog) {
+					public void onClick(DialogInterface dialog, int which) {
 						clearall=true;
 						
 						List<Clip> temp = new ArrayList<Clip>();
@@ -310,14 +305,24 @@ public class ClipBoard extends Activity{
 						
 						animateClearAll(temp);
 					}
+				});
+				builder.setNegativeButton(android.R.string.cancel,new DialogInterface.OnClickListener() {
 					
 					@Override
-			        public void onNegative(MaterialDialog dialog) {
+					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
 					}
 				});
-				
-				MaterialDialog mDialog = dialog.build();
+				//builder.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
+//				builder.callback(new MaterialDialog.ButtonCallback() {
+//					@Override
+//		            public void onPositive(MaterialDialog dialog) {}
+//					
+//					@Override
+//			        public void onNegative(MaterialDialog dialog) {}
+//				});
+//				
+				AppCompatDialog mDialog = builder.create();
 				WindowManager.LayoutParams wlp = mDialog.getWindow().getAttributes();
 				//wlp.gravity = (isUp?Gravity.TOP:Gravity.BOTTOM);
 				wlp.dimAmount=0.7f;
@@ -524,37 +529,14 @@ public class ClipBoard extends Activity{
 
 		clipAdapter.registerDataSetObserver(new DataSetObserver() {
 			public void onChanged() {
-				try {windowManager.removeView(Undo);} catch (Exception e) {}
+				//try {Undo.dismiss();} catch (Exception e) {}
 				if(adding)return;
 				if(ClipAdapter.mClips.size()<size && !clearall){//ClipAdapter.mClips.size()<size &&  && (ClipAdapter.mClips.size()!=0 || size==1)
-					Undo = inflater.inflate(R.layout.undo,null);
-					final CountDownTimer timeout=new CountDownTimer(3000, 3000) {
-			        	public void onTick(long millisUntilFinished) {}
-			            public void onFinish() {
-			            	try {windowManager.removeView(Undo);} catch (Exception e) {}
-			            	size=ClipAdapter.mClips.size();
-			            }
-			        };
-			         
-				WindowManager.LayoutParams undoparams = new WindowManager.LayoutParams(
-						WindowManager.LayoutParams.WRAP_CONTENT,
-						WindowManager.LayoutParams.WRAP_CONTENT,
-						WindowManager.LayoutParams.TYPE_PHONE,
-						WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-						PixelFormat.TRANSLUCENT);
-						undoparams.gravity = Gravity.BOTTOM | Gravity.CENTER;
-						undoparams.y=Util.px(60, ctx);
-						undoparams.windowAnimations=android.R.style.Animation_Toast;
-				
-				TextView button =(TextView) Undo.findViewById(R.id.undobutton);
-				button.setOnClickListener(new OnClickListener() {
+				Undo=Snackbar.make(gridView, getResources().getString(R.string.deleted)+backupS , Snackbar.LENGTH_LONG);
+				Undo.setAction(R.string.undo, new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
-						// TODO add addition animation for last item DONE
-						timeout.cancel();
-	        			windowManager.removeView(Undo);
-	        			
         				if(((gridView.getLastVisiblePosition())-gridView.getFirstVisiblePosition())>=(backupP-gridView.getFirstVisiblePosition())){//Not last item or before last
         					
 	        			for(int x=(backupP-gridView.getFirstVisiblePosition());x<=gridView.getLastVisiblePosition()-gridView.getFirstVisiblePosition();x++){
@@ -588,10 +570,7 @@ public class ClipBoard extends Activity{
         				}
 					}
 				});
-				TextView text =(TextView) Undo.findViewById(R.id.undotxt);
-				text.setText(getResources().getString(R.string.deleted)+backupS+" ");
-				windowManager.addView(Undo, undoparams);
-				timeout.start();
+				Undo.show();
 				clearall=false;
 		      }
 	
@@ -627,20 +606,21 @@ public class ClipBoard extends Activity{
 				editLayout.startAnimation(anim);
 				
 			}else{
-				Builder dialog=new MaterialDialog.Builder(ctx);
+				AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+				//Builder dialog=new MaterialDialog.Builder(ctx);
 				String dialogtitle=getResources().getString(R.string.save);
-				dialog.content(dialogtitle+" ?");
-				dialog.positiveText(android.R.string.yes);
-				dialog.negativeText(android.R.string.no);
-				dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
-				dialog.callback(new MaterialDialog.ButtonCallback() {
-					@Override
-		            public void onPositive(MaterialDialog dialog) {
-						Save();
-					}
+				builder.setMessage(dialogtitle+" ?");
+				builder.setPositiveButton(android.R.string.yes , new DialogInterface.OnClickListener() {
 					
 					@Override
-			        public void onNegative(MaterialDialog dialog) {
+					public void onClick(DialogInterface dialog, int which) {
+						Save();
+					}
+				});
+				builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
 						editLayout.setVisibility(View.INVISIBLE);
 						actionBar.setVisibility(View.VISIBLE);
 						bottomBar.setVisibility(View.INVISIBLE);
@@ -652,7 +632,28 @@ public class ClipBoard extends Activity{
 						adding=false;
 					}
 				});
-				MaterialDialog mDialog = dialog.build();
+				
+//				dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
+//				dialog.callback(new MaterialDialog.ButtonCallback() {
+//					@Override
+//		            public void onPositive(MaterialDialog dialog) {
+//						
+//					}
+//					
+//					@Override
+//			        public void onNegative(MaterialDialog dialog) {
+//						editLayout.setVisibility(View.INVISIBLE);
+//						actionBar.setVisibility(View.VISIBLE);
+//						bottomBar.setVisibility(View.INVISIBLE);
+//						ClipAdapter.mClips.remove(0);
+//						clipAdapter.notifyDataSetChanged();
+//						getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+//						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//						imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+//						adding=false;
+//					}
+//				});
+				AppCompatDialog mDialog = builder.create();
 				WindowManager.LayoutParams wlp = mDialog.getWindow().getAttributes();
 				//wlp.gravity = (isUp?Gravity.TOP:Gravity.BOTTOM);
 				wlp.dimAmount=0.7f;
@@ -664,20 +665,20 @@ public class ClipBoard extends Activity{
 			toGrid();
 		}else if(actionBar.getVisibility()==View.INVISIBLE 
 				&& (!text.getText().toString().equals(ClipAdapter.mClips.get(lPosition).getText()) || !title.getText().toString().equals(ClipAdapter.mClips.get(lPosition).getTitle()))){
-			Builder dialog=new MaterialDialog.Builder(ctx);
+			AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 			String dialogtitle=getResources().getString(R.string.save);
-			dialog.content(dialogtitle+" ?");
-			dialog.positiveText(android.R.string.yes);
-			dialog.negativeText(android.R.string.no);
-			dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
-			dialog.callback(new MaterialDialog.ButtonCallback() {
-				@Override
-	            public void onPositive(MaterialDialog dialog) {
-					Save();
-				}
+			builder.setMessage(dialogtitle+" ?");
+			builder.setPositiveButton(android.R.string.yes , new DialogInterface.OnClickListener() {
 				
 				@Override
-		        public void onNegative(MaterialDialog dialog) {
+				public void onClick(DialogInterface dialog, int which) {
+					Save();
+				}
+			});
+			builder.setNegativeButton(android.R.string.no,new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
 					editLayout.setVisibility(View.INVISIBLE);
 					textView.setVisibility(View.VISIBLE);
 					clipText.setVisibility(View.VISIBLE);
@@ -686,7 +687,24 @@ public class ClipBoard extends Activity{
 					imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
 				}
 			});
-			MaterialDialog mDialog = dialog.build();
+//			dialog.theme(isColorDark(backgroundColor)? Theme.DARK :Theme.LIGHT);
+//			dialog.callback(new MaterialDialog.ButtonCallback() {
+//				@Override
+//	            public void onPositive(MaterialDialog dialog) {
+//					Save();
+//				}
+//				
+//				@Override
+//		        public void onNegative(MaterialDialog dialog) {
+//					editLayout.setVisibility(View.INVISIBLE);
+//					textView.setVisibility(View.VISIBLE);
+//					clipText.setVisibility(View.VISIBLE);
+//					getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+//					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//					imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+//				}
+//			});
+			AppCompatDialog mDialog = builder.create();
 			WindowManager.LayoutParams wlp = mDialog.getWindow().getAttributes();
 			//wlp.gravity = (isUp?Gravity.TOP:Gravity.BOTTOM);
 			wlp.dimAmount=0.7f;
@@ -717,7 +735,6 @@ public class ClipBoard extends Activity{
 	  public void onDestroy() {
 		
 		if(mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(this).toString().equals("//NATIVECLIPBOARDCLOSE//"))mClipboardManager.setPrimaryClip(prevClip);
-		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		try {
 			FileOutputStream fosc = ctx.openFileOutput("Clips2.9", Context.MODE_PRIVATE);
 			ObjectOutputStream osc = new ObjectOutputStream(fosc);
@@ -740,7 +757,6 @@ public class ClipBoard extends Activity{
 	private void Cancel() {
 		if(adding)if(ClipAdapter.mClips.get(0).getText().equals(""))ClipAdapter.mClips.remove(0);
 		mClipboardManager.setPrimaryClip(ClipData.newPlainText("Text", "//NATIVECLIPBOARDCLOSE//"));
-		try {windowManager.removeView(Undo);} catch (Exception e) {}
 		ClipBoard.this.finish();
 		overridePendingTransition(0,isUp? R.anim.slide_up :R.anim.slide_down);
 	}

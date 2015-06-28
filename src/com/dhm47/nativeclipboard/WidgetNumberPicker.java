@@ -5,16 +5,17 @@ package com.dhm47.nativeclipboard;
 
 import java.lang.reflect.Field;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.MaterialDialog.Builder;
-import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -48,27 +49,46 @@ public class WidgetNumberPicker extends DialogPreference {
 	
 	
 	
+	@SuppressLint("InflateParams")
 	@Override
 	protected void showDialog(Bundle state) {
 
 		mPref = getPreferenceManager().getSharedPreferences();
 		
-		Builder mBuilder = new MaterialDialog.Builder(getContext())
-		.title(getTitle())
-		.positiveText(getPositiveButtonText())
-		.negativeText(getNegativeButtonText())
-		.callback(new ButtonCallback() {
-
+		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		builder.setTitle(getTitle())
+		.setPositiveButton(getPositiveButtonText(), new OnClickListener() {
+			
 			@Override
-			public void onPositive(MaterialDialog dialog) {
+			public void onClick(DialogInterface dialog, int which) {
+
 				if(mMaxValue==21){
 				mPref.edit().putInt(getKey(), Integer.parseInt(values[picker.getValue()-1]) ).commit();
 				}else mPref.edit().putInt(getKey(), picker.getValue()).commit();
-			}
-		
-			//super.onDialogClosed(positiveResult);
 			
+				
+			}
+		})
+		.setNegativeButton(getNegativeButtonText(), new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
+//		.callback(new ButtonCallback() {
+//
+//			@Override
+//			public void onPositive(MaterialDialog dialog) {
+//				if(mMaxValue==21){
+//				mPref.edit().putInt(getKey(), Integer.parseInt(values[picker.getValue()-1]) ).commit();
+//				}else mPref.edit().putInt(getKey(), picker.getValue()).commit();
+//			}
+//		
+//			//super.onDialogClosed(positiveResult);
+//			
+//		});
 
 		LayoutInflater inflater = LayoutInflater.from(getContext());
         mView=inflater.inflate(R.layout.dialog_number_picker, null);
@@ -91,9 +111,9 @@ public class WidgetNumberPicker extends DialogPreference {
 		}
 		
         onBindDialogView(mView);
-        mBuilder.customView(mView, false);
+        builder.setView(mView);
 
-        mBuilder.show();
+        builder.show();
 	}
 	
 	@Override

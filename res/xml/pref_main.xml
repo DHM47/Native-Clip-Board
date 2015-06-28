@@ -18,7 +18,7 @@
         android:title="@string/blacklist"
         android:icon="@drawable/ic_blacklist"/>
 
-   <com.afollestad.materialdialogs.prefs.MaterialListPreference
+   <com.dhm47.nativeclipboard.MaterialListPreference
         android:key="sort"
         android:title="@string/sort"
         android:entries="@array/sortby"

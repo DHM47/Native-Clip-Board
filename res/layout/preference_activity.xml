@@ -1,7 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/toolbarContainer"
     android:layout_width="match_parent"
@@ -28,7 +27,7 @@
         android:elevation="6dp"/>
      
      
-     <com.melnykov.fab.FloatingActionButton
+     <android.support.design.widget.FloatingActionButton
          	android:id="@+id/fabtest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,11 +36,8 @@
 			android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:src="@drawable/ic_clipboard"
-            fab:fab_colorNormal="@color/deep_purple"
-            fab:fab_colorPressed="@color/dark_deep_purple"
-            fab:fab_colorRipple="@color/dark_deep_purple" 
             android:elevation="10dp"/>
-     <com.melnykov.fab.FloatingActionButton
+     <android.support.design.widget.FloatingActionButton
          	android:id="@+id/fabadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,9 +46,6 @@
 			android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_dark"
-            fab:fab_colorNormal="@color/deep_purple"
-            fab:fab_colorPressed="@color/dark_deep_purple"
-            fab:fab_colorRipple="@color/dark_deep_purple" 
             android:elevation="10dp"/>
      
      
