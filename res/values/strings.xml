@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- App -->
-    <string name="app_name">Native Clip Board</string> 
-    <string name="xposed_desc">Adds system wide clip manager</string> 
+    <string name="app_name">Native Clipboard</string>
+    <string name="xposed_desc">Adds system wide clip manager</string>
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on Color to apply</string>    
     
     <!-- Preferences -->
+    <string name="category_theme">Theme</string>
     <string name="bgcolor">Background Color</string>
     <string name="clpcolor">Clip Color</string>
     <string name="clpcolor_summary">The text background</string>
     <string name="pinnedcolor">Pinned Clip Color</string>
     <string name="txtcolor">Text Color</string>
-    <string name="history_summary">Choose the number of items to keep in the history</string>
+    <string name="category_sizes">Sizes</string>
+    <string name="history_summary">Choose the number of items to keep in the history(Pinned don\'t count)</string>
     <string name="history_title">History Size</string>
     <string name="txtsize">Text Size</string>
     <string name="uisize">ClipBoard Size</string>
-    <string name="pastefunction">Switch paste functionality</string>
-    <string name="pastefunction_summary_off">Single Click : Pastes\nLong Click : Opens ClipBoard\n*Requires Reboot</string>
-    <string name="pastefunction_summary_on">Single Click : Opens ClipBoard\nLong Click : Pastes\n*Requires Reboot</string>
-    <string name="test">Test</string>
     <string name="blacklist">Blacklist</string>
     <string name="blacklist_help">Choose which apps should not be copied from (ex. Password managers).</string>
     <string name="add">Add</string>
     <string name="unknown">Unknown</string>
     <string name="help">Help</string>
     <string name="xda">XDA Thread</string>
-    <string name="category_theme">Theme</string>
-    <string name="category_sizes">Sizes</string>
+    <string name="test">Test</string>
     <string name="category_advanced">Advanced</string>
+    <string name="pastefunction">Switch paste functionality</string>
+    <string name="pastefunction_summary_off">Single Click : Pastes\nLong Click : Opens ClipBoard\n*Requires Reboot</string>
+    <string name="pastefunction_summary_on">Single Click : Opens ClipBoard\nLong Click : Pastes\n*Requires Reboot</string>
     <string name="cbbutton">Add CB button</string>
     <string name="cbbutton_summary">Add CB button to selection menu\n*Requires Reboot</string>
     <string name="singlepaste">Single paste</string>
-    <string name="singlepaste_summary">Close the clipboard directly after pasting\n*Requires Reboot</string>
+    <string name="singlepaste_summary">Close the clipboard directly after pasting</string>
+    <string name="req_reboot">*Requires Reboot</string>
     <string name="monitorservice">Compatibility mode</string>
     <string name="monitorservice_summary">Use a background service to monitor copied text for MIUI and Samsung Roms\n*disables Blacklisting</string>
     <string name="notification_title">Show Notification</string>
@@ -45,7 +46,24 @@
 	<string name="pinnedlast">Pinned last</string>
 	<string name="usedefault">Use Default</string>
 	<string name="about">About</string>
-     <!-- Clip Board -->
+	<string name="both_enabled">You have both Xposed and Accessibility enabled</string>
+    <string name="disable_one">Please disable one of them</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Accessibility</string>
+    <string name="compatibility_user">You are using Compatibility mode</string>
+    <string name="compatibility_user_desc">Switch to using the Accessibility, it uses less RAM and does NOT need the Notification</string>
+    <string name="enable_accessibility">Enable Accessibility</string>
+    <string name="both_available">You can use this app by either Xposed or Accessibility</string>
+    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Settings>Accessibility>Native Clip Board)</string>
+    <string name="path_access">(Settings>Accessibility>Native Clip Board)</string>
+    <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
+    <string name="xposed_available">You need to enable the module through the Xposed Installer</string>
+    <string name="goto_xposed">Go to Xposed Installer</string>
+    <string name="accessibility_available">This app requires Accessibility to be turned on</string>
+    <string name="goto_accessibility">Go to Settings</string>
+    <string name="doesnt_work">This app requires Xposed, or Jeally Bean 4.3 and above</string>
+    <string name="compat_conflict">Doesn\'t work with Compatibility mode</string>
+    <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>
     <string name="title_hint">Set a Title for Clip</string>
@@ -60,6 +78,14 @@
      <!-- Toast Messages -->
     <string name="undo">Undo</string>
     <string name="deleted">Deleted: </string>
+    <string name="enable_xposed_toast">Check Native Clip Board then reboot</string>
+    <string name="disable_xposed_toast">Un-Check Native Clip Board then reboot</string>
+    <string name="enable_access_toast">Click on Native Clip Board then turn On</string>
+    <string name="disable_access_toast">Click on Native Clip Board then turn Off</string>
+    <string name="req_xposed">Requires Xposed</string>
+
+
+    <string name="access_decs">This is used to detect the double tap and monitor the clipboard\n\n-\'Observe your actions\': to be notified of the double tap.\n-\'Retrieve window content\': to retrieve the double tapped text field.\n-\'Observe text you type\': Only Home,Recent, and back are observed.</string>
     
     <string name="arrow">→</string>
     
