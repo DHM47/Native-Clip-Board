@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App -->
-    <string name="app_name">Native Clip Board</string> 
+    <string name="app_name">Native Clipboard</string> 
     <string name="xposed_desc">Ajoute un gestionnaire de presse-papiers système</string>
     
     <!-- Color Picker -->
@@ -9,32 +9,33 @@
     <string name="press_color_to_apply">Appuyer sur une couleur</string>    
     
     <!-- Preferences -->
+    <string name="category_theme">Thème</string>    
     <string name="bgcolor">Couleur de fond</string>
     <string name="clpcolor">Couleur du cadre</string>
     <string name="clpcolor_summary">Couleur du cadre du presse-papiers</string>
     <string name="pinnedcolor">Couleur du cadre épinglé</string>
     <string name="txtcolor">Couleur du texte</string>
-    <string name="history_summary">Choisir le nombre d\'éléments à conserver dans l\'historique</string>
+    <string name="category_sizes">Tailles</string>    
+    <string name="history_summary">Choisir le nombre d\'éléments à conserver dans l\'historique (Épinglé exclu)</string>
     <string name="history_title">Taille de l\'historique</string>
     <string name="txtsize">Taille du texte</string>
     <string name="uisize">Taille du cadre</string>
-    <string name="pastefunction">Fonction d\'insertion perso</string>
-    <string name="pastefunction_summary_off">Appui simple : colle\nAppui long : ouvre le presse-papiers\n*Redémarrage requis</string>
-    <string name="pastefunction_summary_on">Appui simple : ouvre le presse-papiers\nAppui long : colle\n*Redémarrage requis</string>    
-    <string name="test">Essai</string>
     <string name="blacklist">Liste noire</string>
-    <string name="blacklist_help">Choisir les applis qui ne seront pas prise en compte concernant la copie (ex : Gestionnaire de mots de passe).</string>
+    <string name="blacklist_help">Choisir les applications qui seront exclues de la copie (ex : Gestionnaire de mots de passe).</string>
     <string name="add">Ajouter</string>
     <string name="unknown">Inconnu</string>
     <string name="help">Aide</string>
     <string name="xda">Sujet XDA</string>
-    <string name="category_theme">Thème</string>
-    <string name="category_sizes">Tailles</string>
-    <string name="category_advanced">Avancé</string>
+    <string name="test">Essai</string>
+    <string name="category_advanced">Avancé</string>    
+    <string name="pastefunction">Changer fonction d\'insertion</string>
+    <string name="pastefunction_summary_off">Appui simple : colle\nAppui long : ouvre le presse-papiers\n*Redémarrage requis</string>
+    <string name="pastefunction_summary_on">Appui simple : ouvre le presse-papiers\nAppui long : colle\n*Redémarrage requis</string>    
     <string name="cbbutton">Ajouter un bouton CB</string>
     <string name="cbbutton_summary">Ajouter un bouton CB au menu de sélection\n*Redémarrage requis</string>
     <string name="singlepaste">Coller unique</string>
-    <string name="singlepaste_summary">Fermer le presse-papiers immédiatement après le collage\n*Redémarrage requis</string>
+    <string name="singlepaste_summary">Fermer le presse-papiers immédiatement après le collage</string>
+    <string name="req_reboot">*Redémarrage requis</string>    
     <string name="monitorservice">Mode de compatibilité</string>
     <string name="monitorservice_summary">Utiliser un service en tâche de fond pour le suivi du texte copié pour les Roms MIUI et Samsung\n*Désactive la liste noire</string>
     <string name="notification_title">Afficher une notification</string>
@@ -44,11 +45,28 @@
     <string name="pinnedfirst">Épinglé en premier</string>
     <string name="pinnedlast">Épinglé en dernier</string>
     <string name="usedefault">Par défaut</string>
-    <string name="about">À propos</string>    
+    <string name="about">À propos</string>
+    <string name="both_enabled">Vous avez activé à la fois Xposed et Accessibilité</string>
+    <string name="disable_one">Veuillez désactiver l\'un d\'eux</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Accessibilité</string>
+    <string name="compatibility_user">Vous utilisez le mode de compatibilité</string>
+    <string name="compatibility_user_desc">Changer pour utiliser Accessibilité, utilise moins de RAM et n\'a pas besoin de la notification</string>
+    <string name="enable_accessibility">Activer Accessibilité</string>
+    <string name="both_available">Vous pouvez utiliser cette application soit par Xposed ou Accessibilité</string>
+    <string name="path_both">(Xposed Installer > Modules > Native Clipboard)\n(Paramètres > Accessibilité > Native Clipboard)</string>
+    <string name="path_access">(Paramètres > Accessibilité > Native Clipboard)</string>
+    <string name="path_xposed">(Xposed Installer > Modules > Native Clipboard)</string>
+    <string name="xposed_available">Vous devez activer le module avec Xposed Installer</string>
+    <string name="goto_xposed">Aller à Xposed Installer</string>
+    <string name="accessibility_available">Cette application nécessite d\'activer Accessibilité</string>
+    <string name="goto_accessibility">Aller aux Paramètres</string>
+    <string name="doesnt_work">Cette application nécessite Xposed ou Android 4.3+</string>
+    <string name="compat_conflict">Ne fonctionne pas avec le mode de compatibilité</string>    
      <!-- Clip Board -->
     <string name="clear_all">Tout supprimer</string>
     <string name="clear_all_conf">Supprimer tous les presse-papiers ?</string>
-    <string name="title_hint">Définir un titre</string>
+    <string name="title_hint">Saisir titre</string>
     <string name="clip_text_hint">Saisir texte</string>    
     <string name="pin">Épingler</string>
     <string name="unpin">Non épingler</string>
@@ -60,6 +78,14 @@
      <!-- Toast Messages -->
     <string name="undo">Annuler</string>
     <string name="deleted">Supprimer : </string>
+    <string name="enable_xposed_toast">Cocher Native Clipboard et redémarrer</string>
+    <string name="disable_xposed_toast">Décocher Native Clipboard et redémarrer</string>
+    <string name="enable_access_toast">Appuyer sur Native Clipboard et activer</string>
+    <string name="disable_access_toast">Appuyer sur Native Clipboard et désactiver</string>
+    <string name="req_xposed">Xposed requis</string>
+    
+    
+    <string name="access_decs">Ceci est utilisé pour détecter l\'appui double et contrôler le presse-papiers\n\n-\'Observer vos actions\' : pour être notifié de l\'appui double.\n-\'Récupérer le contenu d\'une fenêtre\' : pour récupérer le champ de texte appuyé deux fois.\n-\'Observer le texte que vous saisissez\' : uniquement Accueil, Récent et Retour sont observés.</string>    
 
     <string name="arrow">→</string>
     
