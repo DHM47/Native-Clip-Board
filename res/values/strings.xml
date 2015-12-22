@@ -75,6 +75,7 @@
     <string name="theme_collections">Theme Collections :</string>
     <string name="theme_collections_summary">Click to apply\nLong click to delete</string>
     <string name="active_theme">Applied Collections :</string>
+    <string name="windowsize_summary">Use the line to match the height of the clipboard to the height of the keyboard</string>
 
     <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
