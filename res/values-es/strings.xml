@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Native Clipboard</string>
+    <string name="xposed_desc">Agrega al sistema un gestor amplio de texto copiado</string>
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Selector de Color</string>
+    <string name="press_color_to_apply">Presiona el Color para aplicarlo</string>
+
+    <!-- Preferences -->
+    <string name="category_theme">Tema</string>
+    <string name="bgcolor">Color de Fondo</string>
+    <string name="clpcolor">Color del Portapapeles</string>
+    <string name="clpcolor_summary">Fondo del Texto</string>
+    <string name="pinnedcolor">Color de nota anclada</string>
+    <string name="txtcolor">Color del Texto</string>
+    <string name="category_sizes">Tamaños</string>
+    <string name="history_summary">Escoger el numero de elementos para mantener en el historial (Ancladas no cuentan)</string>
+    <string name="history_title">Tamaño del Historial</string>
+    <string name="txtsize">Tamaño del Texto</string>
+    <string name="uisize">Tamaño del Portapapeles</string>
+    <string name="blacklist">Lista Negra</string>
+    <string name="blacklist_help">Escoge cuales aplicaciones no deberían ser tomadas en cuenta para copiar texto (ej. Gestores de Contraseñas).</string>
+    <string name="add">Agregar</string>
+    <string name="unknown">Desconocido</string>
+    <string name="help">Ayuda</string>
+    <string name="xda">Foro XDA</string>
+    <string name="test">Probar</string>
+    <string name="category_advanced">Avanzado</string>
+    <string name="pastefunction">Cambiar funcionalidad de pegado</string>
+    <string name="pastefunction_summary_off">Un Solo Toque: Pegar\nManetener Toque: Abre Portapapeles\n*Requiere Reinicio</string>
+    <string name="pastefunction_summary_on">Un Solo Toque: Abre Portapapeles\nMantener Toque: Pegar\n*Requiere Reinicio</string>
+    <string name="cbbutton">Añadir botón CB</string>
+    <string name="cbbutton_summary">Añadir botón CB al menú de selección\n*Requiere Reinicio</string>
+    <string name="singlepaste">Pegado Sencillo</string>
+    <string name="singlepaste_summary">Cerrar el Portapapeles directamente después de pegar</string>
+    <string name="req_reboot">*Requiere Reinicio</string>
+    <string name="monitorservice">Modo de Compatibilidad</string>
+    <string name="monitorservice_summary">Usa un servicio de fondo para monitorear texto copiado en MIUI y Samsung ROMs\n*Desactiva Lista Negra</string>
+    <string name="notification_title">Mostrar Notificación</string>
+    <string name="notification_summary">Esto puede ser necesario para mantener el servicio funcionando (especialmente en dispositivos con poca RAM)</string>
+    <string name="sort">Ordenar Notas</string>
+    <string name="newfirst">Más nuevo primero</string>
+    <string name="pinnedfirst">Primer anclado</string>
+    <string name="pinnedlast">Último anclado</string>
+    <string name="usedefault">Por Defecto</string>
+    <string name="about">Acerca de</string>
+    <string name="both_enabled">Tienes tanto Xposed como Accesibilidad activadas</string>
+    <string name="disable_one">Por favor desactiva uno de ellos</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Accesibilidad</string>
+    <string name="compatibility_user">Estás usando el Modo de Compatibilidad</string>
+    <string name="compatibility_user_desc">Cambiar para usar Accesibilidad, esto usa menos RAM y no necesita Notificación</string>
+    <string name="enable_accessibility">Activar Accesibilidad</string>
+    <string name="both_available">Puedes usar esta aplicación mediante Xposed o Accesibilidad</string>
+    <string name="path_both">(Instalador Xposed>Módulos>Native Clipboard)\n(Configuraciones>Accesibilidad>Native Clipboard)</string>
+    <string name="path_access">(Configuraciones>Accesibilidad>Native Clipboard)</string>
+    <string name="path_xposed">(Instalador Xposed>Módulos>Native Clipboard)</string>
+    <string name="xposed_available">Necesitas activar el módulo a través del Instalador Xposed</string>
+    <string name="goto_xposed">Ir al Instalador Xposed</string>
+    <string name="accessibility_available">Esta aplicación requiere Accesibilidad para ser activado</string>
+    <string name="goto_accessibility">Ir a Configuraciones</string>
+    <string name="doesnt_work">Esta aplicación requiere Xposed o Jelly Bean 4.3 y superiores</string>
+    <string name="compat_conflict">No funciona con el Modo de Compatibilidad</string>
+    <string name="columncount">Número de Columnas</string>
+    <string name="columncount_summary">Usar 0 para ajustar automáticamente</string>
+    <string name="altrcombos">Combinaciones Alternativas</string>
+    <string name="altrcombos_summary">Formas alternativas de abrir el Portapales</string>
+    <string name="double_tap">Doble Toque</string>
+    <string name="tap_longtap">Toque + Mantener Toque</string>
+    <string name="triple_tap">Triple Toque</string>
+
+    <!-- Clip Board -->
+    <string name="clear_all">Eliminar Todo</string>
+    <string name="clear_all_conf">¿Eliminar todos los textos del Portapapeles?</string>
+    <string name="title_hint">Fijar un título para el Portapapeles</string>
+    <string name="clip_text_hint">Texto del Portapapeles</string>
+    <string name="pin">Anclar</string>
+    <string name="unpin">Desanclar</string>
+    <string name="edit">Editar</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Borrar</string>
+    <string name="shrink">Esconder</string>
+
+    <!-- Toast Messages -->
+    <string name="undo">Deshacer</string>
+    <string name="deleted">Eliminado:</string>
+    <string name="enable_xposed_toast">Marcar Native Clipboard y después reiniciar</string>
+    <string name="disable_xposed_toast">Desmarcar Native Clipboard y después reiniciar</string>
+    <string name="enable_access_toast">Clic en Native Clipboard para encenderlo</string>
+    <string name="disable_access_toast">Clic en Native Clipboard para apagarlo</string>
+    <string name="req_xposed">Requiere Xposed</string>
+
+
+    <string name="access_decs">Esto es usado para detectar el doble toque y monitorear el Portapapeles\n\n-\'Observa tus acciones\': para ser notificado de un doble toque.\n-\'Recuperar contenido de la ventana\': para recuperar el campo de texto con un doble toque.\n-\'Observa el texto que escribes\': Solo Inicio, Reciente y Atrás son observados.</string>
+
+    <string name="arrow">→</string>
+    <string name="save_collections">Guardar Colección Actual</string>
+    <string name="theme_collections">Colección de Temas:</string>
+    <string name="theme_collections_summary">Toca para aplicar\nMantén presionado para borrar</string>
+    <string name="active_theme">Colecciones Aplicadas:</string>
+
+</resources>

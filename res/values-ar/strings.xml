@@ -1,63 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- App -->
-  <string name="app_name">Native Clip Board</string>
+  <string name="app_name">Native Clipboard</string>
   <string name="xposed_desc">Adds system wide clip manager</string>
+
   <!-- Color Picker -->
-  <string name="dialog_color_picker">اختيار الألوان </string>
+  <string name="dialog_color_picker">اختيار الألوان</string>
   <string name="press_color_to_apply">الرجاء اختيار اللون لتطبيقه</string>
+
   <!-- Preferences -->
+  <string name="category_theme">الموضوع</string>
   <string name="bgcolor">لون الخلفية </string>
   <string name="clpcolor">لون القصاصه</string>
   <string name="clpcolor_summary">خلفية النص</string>
   <string name="pinnedcolor">لون القصاصه المثبته</string>
   <string name="txtcolor">لون النص</string>
+  <string name="category_sizes">الأحجام </string>
   <string name="history_summary">الرجاء اختيار عدد القصاصات المراد حفظها في السجل </string>
   <string name="history_title">حجم السجل</string>
   <string name="txtsize">حجم النص</string>
   <string name="uisize">حجم القصاصه</string>
-  <string name="pastefunction">خاصية ابدال اللصق</string>
-  <string name="pastefunction_summary_off">نقرة واحده : يلصق النص\nنقرة مطوله : يتم فتح البرنامج\n*يجب إعادة تشغيل الجهاز </string>
-  <string name="pastefunction_summary_on">نقرة واحده : يتم فتح البرنامج \nنقرة مطوله : يلصق النص\n*يجب إعادة تشغيل الجهاز </string>
-  <string name="test">تجربة سريعه لما تم اختياره</string>
   <string name="blacklist">اللائحة السوداء </string>
   <string name="blacklist_help">الرجاء اختيار البرامج التي لا يتم النسخ منها ( مثال: برامج حفظ كلمات المرور )</string>
   <string name="add">أضف </string>
   <string name="unknown">غير معلوم </string>
   <string name="help">مساعده</string>
   <string name="xda">رابط البرنامج في XDA</string>
-  <string name="category_theme">الموضوع</string>
-  <string name="category_sizes">الأحجام </string>
+  <string name="test">تجربة سريعه لما تم اختياره</string>
   <string name="category_advanced">متقدم </string>
+  <string name="pastefunction">خاصية ابدال اللصق</string>
+  <string name="pastefunction_summary_off">نقرة واحده : يلصق النص\nنقرة مطوله : يتم فتح البرنامج\n*يجب إعادة تشغيل الجهاز </string>
+  <string name="pastefunction_summary_on">نقرة واحده : يتم فتح البرنامج \nنقرة مطوله : يلصق النص\n*يجب إعادة تشغيل الجهاز </string>
   <string name="cbbutton">إضافة اختصار للبرنامج</string>
   <string name="cbbutton_summary">إضافة اختصار للبرنامج في القائمة ( قائمة النسخ واللصق ) \n*يجب إعادة تشغيل الجهاز </string>
   <string name="singlepaste">اللصق مره واحده </string>
-  <string name="singlepaste_summary">الخروج من البرنامج بعد اللصق مره واحده \n*يجب إعادة تشغيل الجهاز </string>
+  <string name="singlepaste_summary">الخروج من البرنامج بعد اللصق مره واحده</string>
+  <string name="req_reboot">*يجب إعادة تشغيل الجهاز</string>
   <string name="monitorservice">وضع التوافق</string>
-    <string name="monitorservice_summary">يستعمل خدمة في الخلفية لمراقبة النص المنسوخ لروم+ات سامسونج و MIUI \n*يلغي خاصية اللائحة السوداء</string>
-    <string name="notification_title">إظهار الإشعار</string>
-    <string name="notification_summary">قد تحتاج هذا الخيار لإبقاء البرنامج في وضع التشغيل (خاصة للأجهزة ذات الرام المنخفض)</string>
-    <string name="sort">تنظيم القصاصات</string>
-    <string name="newfirst">الأحدث أولا</string>
-	<string name="pinnedfirst">المثبت أولا</string>
-	<string name="pinnedlast">المثبت أخيرا</string>
-	<string name="usedefault">القيمة الإفتراضية</string>
-	<string name="about">عن البرنامج</string>
+  <string name="monitorservice_summary">يستعمل خدمة في الخلفية لمراقبة النص المنسوخ لروم+ات سامسونج و MIUI \n*يلغي خاصية اللائحة السوداء</string>
+  <string name="notification_title">إظهار الإشعار</string>
+  <string name="notification_summary">قد تحتاج هذا الخيار لإبقاء البرنامج في وضع التشغيل (خاصة للأجهزة ذات الرام المنخفض)</string>
+  <string name="sort">تنظيم القصاصات</string>
+  <string name="newfirst">الأحدث أولا</string>
+  <string name="pinnedfirst">المثبت أولا</string>
+  <string name="pinnedlast">المثبت أخيرا</string>
+  <string name="usedefault">القيمة الإفتراضية</string>
+  <string name="about">عن البرنامج</string>
+  <string name="both_enabled">الخياران كلاهما يعملان (الاكسبوزد وإمكانية الوصول) </string>
+  <string name="disable_one">الرجاء إلغاء أحدهما</string>
+  <string name="xposed">الإكسبوزد</string>
+  <string name="accessibility">إمكانية الوصول</string>
+  <string name="compatibility_user">أنت تستعمل نمط التوافق</string>
+  <string name="compatibility_user_desc">استعمل خيار إمكانية الوصول, لانها تستعمل الرام بشكل أقل ولا تحتاج لإظهار الإشعار</string>
+  <string name="enable_accessibility">تفعيل إمكانية الوصول</string>
+  <string name="both_available">تستطيع استعمال البرنامج بأحد الخيارين, الإكسبوزد أو إمكانية الوصول</string>
+  <string name="path_both">(Xposed Installer>الوحدات النمطية>Native Clip Board)\n(الضبط>إمكانية الوصول>Native Clip Board)</string>
+  <string name="path_access">(الضبط>إمكانية الوصول>Native Clip Board)</string>
+  <string name="path_xposed">(Xposed Installer>الوحدات النمطية>Native Clip Board)</string>
+  <string name="xposed_available">يجب عليك تفعيل البرنامج عن طريق الإكسبوزد</string>
+  <string name="goto_xposed">اذهب الى الإكسبوزد</string>
+  <string name="accessibility_available">لاستعمال البرنامج, يجب عليك تفعيله في إمكانية الوصول</string>
+  <string name="goto_accessibility">اذهب الى الضبط</string>
+  <string name="doesnt_work">هذا البرنامج يتطلب وجود الإكسبوزد أو جيلي بين 4.3 فما فوق</string>
+  <string name="compat_conflict">لا يعمل مع وضع التوافق</string>
+  <string name="columncount">عدد الأعمدة</string>
+  <string name="columncount_summary">أستعمل الرقم صفر للتنظيم التلقائي</string>
+  <string name="altrcombos">إختصارات الاظهار</string>
+  <string name="altrcombos_summary">إختصارات بديلة لفتح الحافظه</string>
+  <string name="double_tap">نقرتين متتاليتين</string>
+  <string name="tap_longtap">نقره ثم نقره طويله</string>
+  <string name="triple_tap">ثلاث نقرات متتاليه</string>
+  <string name="save_collections">احفظ الموضوع الحالي</string>
+  <string name="theme_collections">الموضوعات :</string>
+  <string name="theme_collections_summary">انقر للإستخدام\nانقر طويلاً للحذف</string>
+  <string name="active_theme">الموضوع الحالي :</string>
+
   <!-- Clip Board -->
   <string name="clear_all">مسح الكل</string>
   <string name="clear_all_conf">مسح كل القصاصات ؟ </string>
   <string name="title_hint">عنوان القصاصة</string>
-    <string name="clip_text_hint">نص القصاصة</string>
-    <string name="pin">تثبيت</string>
-    <string name="unpin">إالغاء التثبيت</string>
-    <string name="edit">تعديل</string>
-    <string name="save">حفظ</string>
-    <string name="delete">مسح</string>
-    <string name="shrink">تصغير</string>
+  <string name="clip_text_hint">نص القصاصة</string>
+  <string name="pin">تثبيت</string>
+  <string name="unpin">إالغاء التثبيت</string>
+  <string name="edit">تعديل</string>
+  <string name="save">حفظ</string>
+  <string name="delete">مسح</string>
+  <string name="shrink">تصغير</string>
+  <string name="share">مشاركة</string>
+
   <!-- Toast Messages -->
   <string name="undo">تراجع</string>
   <string name="deleted">مسح</string>
-  
-  <string name="arrow">←</string>
-  
+  <string name="enable_xposed_toast">أختر البرنامج ثم أعد التشغيل</string>
+  <string name="disable_xposed_toast">أزل الخيار عن البرنامج ثم أعد التشغيل</string>
+  <string name="enable_access_toast">أضغط البرنامج وفعله</string>
+  <string name="disable_access_toast">أضغط البرنامج و ألغ تفعيله</string>
+  <string name="req_xposed">يتطلب وجود الإكسبوزد</string>
+
+
+  <string name="access_decs">مكانيه الوصول تستخدم لرصد النقرتين و مراقبة ما ينسخ\n\n- \'ملاحظة الإجراءات\' : لرصد النقرتين.\n- \'استرداد محتوى النافذة\' : للحصول على حقل لصق النص.\n- \'ملاحظة النص الذي تكتبة\' : فقط زر الشاشة الرئيسية و البرماج الحديثة و الرجوع هي التي تلاحظ.</string>
+
+  <string name="arrow">→</string>
+  <string name="clipboard">الحافظة</string>
+
 </resources>

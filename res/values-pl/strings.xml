@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- App -->
-    <string name="app_name">Native Clip Board</string> 
+    <string name="app_name">Native Clipboard</string>
 
     
     <!-- Color Picker -->
@@ -35,7 +35,9 @@
     <string name="cbbutton">Dodaj przycisk SCHOWEK</string>
     <string name="cbbutton_summary">Dodaj przycisk SCHOWEK do menu wyboru\n*Wymaga restartu</string>
     <string name="singlepaste">Pojedyncze wklejenie</string>
-    <string name="singlepaste_summary">Zamknij schowek bezpośrednio po wklejeniu\n*Wymaga restartu</string>
+    <string name="singlepaste_summary">Zamknij schowek bezpośrednio po wklejeniu</string>
+    <string name="req_reboot">*Wymaga restartu</string>
+
      <!-- Clip Board -->
     <string name="clear_all">Wyczyść</string>
     <string name="clear_all_conf">Wyczyścić wszystko?</string>

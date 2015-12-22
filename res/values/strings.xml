@@ -61,8 +61,21 @@
     <string name="goto_xposed">Go to Xposed Installer</string>
     <string name="accessibility_available">This app requires Accessibility to be turned on</string>
     <string name="goto_accessibility">Go to Settings</string>
-    <string name="doesnt_work">This app requires Xposed, or Jeally Bean 4.3 and above</string>
+    <string name="doesnt_work">This app requires Xposed, or Jelly Bean 4.3 and above</string>
     <string name="compat_conflict">Doesn\'t work with Compatibility mode</string>
+    <string name="columncount">Number of Columns</string>
+    <string name="columncount_summary">Use 0 for auto fit</string>
+    <string name="altrcombos">Alternative combos</string>
+    <string name="altrcombos_summary">alternative ways to open the clipboard</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="tap_longtap">Tap + Long Tap</string>
+    <string name="triple_tap">Triple Tap</string>
+    <string name="chromepref">Chrome (beta)</string>
+    <string name="save_collections">Save current collection</string>
+    <string name="theme_collections">Theme Collections :</string>
+    <string name="theme_collections_summary">Click to apply\nLong click to delete</string>
+    <string name="active_theme">Applied Collections :</string>
+
     <!-- Clip Board -->
     <string name="clear_all">Clear All</string>
     <string name="clear_all_conf">Clear All clips ?</string>
@@ -74,7 +87,8 @@
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="shrink">Shrink</string>
-    
+    <string name="share">Share</string>
+
      <!-- Toast Messages -->
     <string name="undo">Undo</string>
     <string name="deleted">Deleted: </string>
@@ -86,7 +100,10 @@
 
 
     <string name="access_decs">This is used to detect the double tap and monitor the clipboard\n\n-\'Observe your actions\': to be notified of the double tap.\n-\'Retrieve window content\': to retrieve the double tapped text field.\n-\'Observe text you type\': Only Home,Recent, and back are observed.</string>
-    
+    <string name="chrome_warning">Due to limitations in Chrome when pasting a clip ALL previous text in the field will be REPLACED</string>
+
     <string name="arrow">→</string>
-    
+
+    <string name="clipboard">Clipboard</string>
+
 </resources>

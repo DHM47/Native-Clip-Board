@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- App -->
-    <string name="app_name">Native Clip Board</string> 
+    <string name="app_name">Native Clipboard</string>
 
     
     <!-- Color Picker -->
@@ -34,7 +34,8 @@
     <string name="cbbutton">CBボタンを追加</string>
     <string name="cbbutton_summary">テキスト選択時のメニューにCBボタンを追加します。\n*要再起動</string>
     <string name="singlepaste">一回だけ貼り付け</string>
-    <string name="singlepaste_summary">貼り付けた後すぐクリップボードを閉じます。\n*要再起動</string>
+    <string name="singlepaste_summary">貼り付けた後すぐクリップボードを閉じます。</string>
+    <string name="req_reboot">*要再起動</string>
      <!-- Clip Board -->
     <string name="clear_all">全て消去</string>
     <string name="clear_all_conf">全ての履歴を消去しますか?</string>

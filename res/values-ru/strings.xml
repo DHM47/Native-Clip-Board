@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Native Clip Board</string>
+    <string name="app_name">Native Clipboard</string>
     <string name="xposed_desc">Управление текстом в буфере обмена</string>
     <string name="dialog_color_picker">Выбор цвета</string>
     <string name="press_color_to_apply">Нажмите на цвет чтобы применить</string>
@@ -31,14 +31,12 @@
     <string name="category_sizes">Размер</string>
     <string name="category_advanced">Дополнительно</string>
     <string name="cbbutton">Добавить кнопку CB</string>
-    <string name="cbbutton_summary">"Добавить кнопку CB в меню выбора
-*Требуется перезагрузка"</string>
+    <string name="cbbutton_summary">"Добавить кнопку CB в меню выбора\n*Требуется перезагрузка"</string>
     <string name="singlepaste">Одиночная вставка</string>
-    <string name="singlepaste_summary">"Закройте буфер обмена сразу после вставки
-*Требуется перезагрузка"</string>
+    <string name="singlepaste_summary">"Закройте буфер обмена сразу после вставки</string>
+    <string name="req_reboot">*Требуется перезагрузка"</string>
     <string name="monitorservice">Режим совместимости</string>
-    <string name="monitorservice_summary">"Использовать фоновый сервис для мониторинга скопированного текста в прошивках MIUI и Samsung
-*Отключает черный список"</string>
+    <string name="monitorservice_summary">"Использовать фоновый сервис для мониторинга скопированного текста в прошивках MIUI и Samsung\n*Отключает черный список"</string>
     <string name="notification_title">Показывать Уведомления</string>
     <string name="notification_summary">Это может быть необходимо для поддержания работы програмы (особенно на устройствах с низким обёмом памяти)</string>
     <string name="sort">Сортировать заметки</string>
