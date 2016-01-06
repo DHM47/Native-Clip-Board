@@ -9,30 +9,30 @@
     <string name="press_color_to_apply">点击任意颜色来应用</string>    
     
     <!-- Preferences -->
+    <string name="category_theme">主题</string>
     <string name="bgcolor">背景色</string>
     <string name="clpcolor">便签色</string>
     <string name="clpcolor_summary">文字背景色</string>
     <string name="pinnedcolor">已钉住便签色</string>
     <string name="txtcolor">文本颜色</string>
+    <string name="category_sizes">大</string>
     <string name="history_summary">选择保留在历史中的项目数</string>
     <string name="history_title">历史数量</string>
     <string name="txtsize">文本大小</string>
     <string name="uisize">剪贴板尺寸</string>
-    <string name="pastefunction">切换粘贴功能</string>
-  <string name="pastefunction_summary_off">短按：粘贴\n长按：打开剪贴板\n*需要重启</string>
-<string name="pastefunction_summary_on">短按：打开剪贴板\n长按：粘贴\n*需要重启</string>
-    <string name="test">测试</string>
     <string name="blacklist">黑名单</string>
     <string name="blacklist_help">选择不能从中复制的程序（例如密码管理器）</string>
     <string name="add">添加</string>
     <string name="unknown">未知</string>
     <string name="help">帮助</string>
-    <string name="xda">XDA 帖子</string>
-    <string name="category_theme">主题</string>
-    <string name="category_sizes">大小</string>
+    <string name="xda">XDA 帖子</string>   
+    <string name="test">测试</string>
     <string name="category_advanced">高级</string>
+		<string name="pastefunction">切换粘贴功能</string>
+  	<string name="pastefunction_summary_off">短按：粘贴\n长按：打开剪贴板\n*需要重启</string>
+		<string name="pastefunction_summary_on">短按：打开剪贴板\n长按：粘贴\n*需要重启</string>
     <string name="cbbutton">添加CB按钮</string>
-    <string name="cbbutton_summary">将CB按钮添加到选择菜单中\n*需要重启</string>
+    <string name="cbbutton_summary">将剪贴板按钮添加到选择菜单中\n*需要重启</string>
     <string name="singlepaste">单次粘贴</string>
     <string name="singlepaste_summary">粘贴完成后马上关闭剪贴板</string>
     <string name="req_reboot">*需要重启</string>
@@ -42,10 +42,28 @@
     <string name="notification_summary">可能需要启用该选项来保持服务运行（尤其在小内存设备上）</string>
     <string name="sort">排序便签</string>
     <string name="newfirst">最新的最先</string>
-	<string name="pinnedfirst">钉住的最先</string>
-	<string name="pinnedlast">钉住的最后</string>
-	<string name="usedefault">默认顺序</string>
-     <!-- Clip Board -->
+		<string name="pinnedfirst">钉住的最先</string>
+		<string name="pinnedlast">钉住的最后</string>
+		<string name="usedefault">默认顺序</string>
+		<string name="about">关于</string>
+		<string name="both_enabled">你同时启用了Xposed和无障碍服务</string>
+		<string name="disable_one">请禁止其中一个</string>
+		<string name="xposed">Xposed</string>
+		<string name="accessibility">无障碍服务</string>
+		<string name="compatibility_user">你正在使用兼容模式</string>
+		<string name="compatibility_user_desc">点击切换使用无障碍服务，它使用内存更小，且无需通知栏通知</string>
+		<string name="enable_accessibility">启用无障碍服务</string>
+		<string name="both_available">你可以通过Xposed或无障碍服务使用本应用</string>
+		<string name="path_both">（Xposed安装器>模块>原生剪贴板）\n(系统设置>无障碍服务>原生剪贴板）</string>
+		<string name="path_access">（系统设置>无障碍服务>原生剪贴板）</string>
+		<string name="path_xposed">（Xposed安装器>模块>原生剪贴板）</string>
+		<string name="xposed_available">你需要在Xposed安装器中启用模块</string>
+		<string name="goto_xposed">前往Xposed安装器</string>
+		<string name="accessibility_available">这个应用需要打开无障碍服务</string>
+		<string name="goto_accessibility">前往系统设置</string>
+		<string name="doesnt_work">这个应用需要Xposed或果冻豆4.3及以上版本</string>
+		<string name="compat_conflict">无法与无障碍模式一起工作</string>
+		<!-- Clip Board -->
     <string name="clear_all">全清</string>
     <string name="clear_all_conf">清除所有项目？</string>
     <string name="title_hint">为便签设置一个标题</string>
@@ -60,5 +78,15 @@
      <!-- Toast Messages -->
     <string name="undo">撤销</string>
     <string name="deleted">已删除: </string>
-    
+    <string name="enable_xposed_toast">选中原生剪贴板然后重启</string>
+    <string name="disable_xposed_toast">取消选中原生剪贴板然后重启</string>
+    <string name="enable_access_toast">点击原生剪贴板，然后点击启用</string>
+    <string name="disable_access_toast">点击原生剪贴板，然后点击禁用</string>
+    <string name="req_xposed">需要Xposed</string>
+ 
+ 
+    <string name="access_decs">该服务用来检测双击动作并监控剪贴板\n\n-\“监测您的操作”：在双击时发出通知。\n-“检索窗口内容”：获取双击文本域的内容。\n-\“监测您输入的文字”：只检测主屏、最近任务和返回键。</string>
+
+		<string name="arrow">→</string>
+		
 </resources>
