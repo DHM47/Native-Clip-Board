@@ -63,6 +63,20 @@
 		<string name="goto_accessibility">前往系统设置</string>
 		<string name="doesnt_work">这个应用需要Xposed或果冻豆4.3及以上版本</string>
 		<string name="compat_conflict">无法与无障碍模式一起工作</string>
+    <string name="columncount">列数</string>
+    <string name="columncount_summary">填写0自动适应</string>
+    <string name="altrcombos">其他组合</string>
+    <string name="altrcombos_summary">其他打开剪贴板的方法</string>
+    <string name="double_tap">双击</string>
+    <string name="tap_longtap">轻触+长按</string>
+    <string name="triple_tap">三击</string>
+    <string name="chromepref">Chrome（测试）</string>
+    <string name="save_collections">保存当前收藏</string>
+    <string name="theme_collections">主题收藏：</string>
+    <string name="theme_collections_summary">点击应用\n长按删除</string>
+    <string name="active_theme">已应用收藏：</string>
+    <string name="windowsize_summary">用线使剪贴板的高度与键盘高度对齐</string>
+
 		<!-- Clip Board -->
     <string name="clear_all">全清</string>
     <string name="clear_all_conf">清除所有项目？</string>
@@ -74,6 +88,7 @@
     <string name="save">保存</string>
     <string name="delete">删除</string>
     <string name="shrink">缩小</string>
+    <string name="share">分享</string>
     
      <!-- Toast Messages -->
     <string name="undo">撤销</string>
@@ -86,7 +101,10 @@
  
  
     <string name="access_decs">该服务用来检测双击动作并监控剪贴板\n\n-\“监测您的操作”：在双击时发出通知。\n-“检索窗口内容”：获取双击文本域的内容。\n-\“监测您输入的文字”：只检测主屏、最近任务和返回键。</string>
+    <string name="chrome_warning">由于Chrome中的限制，当粘贴一个便签时，所有先前输入到文本框里的内容都会被覆盖</string>
 
 		<string name="arrow">→</string>
+
+    <string name="clipboard">剪贴板</string>
 		
 </resources>
