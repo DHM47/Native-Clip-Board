@@ -6,8 +6,7 @@
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Sélectionner une couleur</string>
-    <string name="press_color_to_apply">Appuyer sur une couleur</string>    
-    
+     
     <!-- Preferences -->
     <string name="category_theme">Thème</string>    
     <string name="bgcolor">Couleur de fond</string>
@@ -26,7 +25,6 @@
     <string name="unknown">Inconnu</string>
     <string name="help">Aide</string>
     <string name="xda">Sujet XDA</string>
-    <string name="test">Essai</string>
     <string name="category_advanced">Avancé</string>    
     <string name="pastefunction">Changer le type d\'insertion</string>
     <string name="pastefunction_summary_off">Appui simple : colle\nAppui long : ouvre le presse-papiers\n*Redémarrage requis</string>
@@ -64,9 +62,9 @@
     <string name="doesnt_work">Cette application requiert Xposed ou Android 4.3+</string>
     <string name="compat_conflict">Ne fonctionne pas avec le mode Compatibilité</string>
     <string name="columncount">Nombre de colonnes</string>
-    <string name="columncount_summary">Utiliser 0 pour ajuster automatiquement</string>
+    <string name="columncount_summary">Utiliser le 0 pour ajuster automatiquement</string>
     <string name="altrcombos">Combinaisons alternatives</string>
-    <string name="altrcombos_summary">Autres façons d\'ouvrir le presse-papiers</string>
+    <string name="altrcombos_summary">Ouvrir le presse-papiers d\'autres façons</string>
     <string name="double_tap">Appui double</string>
     <string name="tap_longtap">Appui + Appui long</string>
     <string name="triple_tap">Appui triple</string>
@@ -103,8 +101,18 @@
     <string name="access_decs">Accessibilité est utilisé pour détecter l\'appui double et surveiller le presse-papiers\n\n-\"Observer vos actions\" : pour être notifié de l\'appui double.\n-\"Récupérer le contenu d\'une fenêtre\" : pour récupérer le champ de texte appuyé deux fois.\n-\"Observer le texte que vous saisissez\" : uniquement Accueil, Récent et Retour sont observés.</string>
     <string name="chrome_warning">En raison de limitations dans Chrome lors du collage TOUT texte précédent dans le champ sera REMPLACÉ</string>
     
-    <string name="arrow">→</string>
     
     <string name="clipboard">Clipboard</string>    
+    <string name="name_hint">Nom collection thème</string>
+
+
+    <string name="intro_welcome">Bienvenue sur Native clipboard</string>
+    <string name="intro_desc">Native clipboard fournit un accès continu à tout texte que vous avez copié sans quitter votre application actuelle</string>
+    <string name="intro_try_it">Essayez-le</string>
+    <string name="intro_here">" ici"</string>
+    <string name="backup">Sauvegarder</string>
+    <string name="restore">Restaurer</string>
+    <string name="backup_location">Emplacement de la sauvegarde</string>
+    <string name="category_backup"><![CDATA[Sauvegarder et restaurer]]></string>
     
 </resources>
