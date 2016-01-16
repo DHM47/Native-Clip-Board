@@ -6,8 +6,7 @@
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
-    <string name="press_color_to_apply">Press on Color to apply</string>    
-    
+
     <!-- Preferences -->
     <string name="category_theme">Theme</string>
     <string name="bgcolor">Background Color</string>
@@ -26,7 +25,6 @@
     <string name="unknown">Unknown</string>
     <string name="help">Help</string>
     <string name="xda">XDA Thread</string>
-    <string name="test">Test</string>
     <string name="category_advanced">Advanced</string>
     <string name="pastefunction">Switch paste functionality</string>
     <string name="pastefunction_summary_off">Single Click : Pastes\nLong Click : Opens ClipBoard\n*Requires Reboot</string>
@@ -78,8 +76,8 @@
     <string name="windowsize_summary">Use the line to match the height of the clipboard to the height of the keyboard</string>
 
     <!-- Clip Board -->
-    <string name="clear_all">Clear All</string>
-    <string name="clear_all_conf">Clear All clips ?</string>
+    <string name="clear_all">Clear all</string>
+    <string name="clear_all_conf">Clear all clips ?</string>
     <string name="title_hint">Set a Title for Clip</string>
     <string name="clip_text_hint">Clip Text</string>
     <string name="pin">Pin</string>
@@ -103,8 +101,18 @@
     <string name="access_decs">This is used to detect the double tap and monitor the clipboard\n\n-\'Observe your actions\': to be notified of the double tap.\n-\'Retrieve window content\': to retrieve the double tapped text field.\n-\'Observe text you type\': Only Home,Recent, and back are observed.</string>
     <string name="chrome_warning">Due to limitations in Chrome when pasting a clip ALL previous text in the field will be REPLACED</string>
 
-    <string name="arrow">→</string>
 
     <string name="clipboard">Clipboard</string>
+    <string name="name_hint">Theme collection name</string>
+
+
+    <string name="intro_welcome">Welcome to Native clipboard</string>
+    <string name="intro_desc">Native clipboard provides seamless access to any text you\'ve copied without leaving your current app</string>
+    <string name="intro_try_it">Try it out</string>
+    <string name="intro_here">" Here"</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <string name="backup_location">Backup location</string>
+    <string name="category_backup"><![CDATA[Backup & Restore]]></string>
 
 </resources>

@@ -6,8 +6,7 @@
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Farbpalette</string>
-    <string name="press_color_to_apply">Um den Farbton zu ändern, einfach tippen</string>    
-    
+
     <!-- Preferences -->
     <string name="bgcolor">Erscheinungsbild</string>
     <string name="clpcolor">Hintergundfarbe</string>
@@ -21,7 +20,6 @@
     <string name="pastefunction">Invertiere allgemeines Tipp-Verhalten</string>
     <string name="pastefunction_summary_off">Kurzes Tippen : Fügt ein\nLanges Tippen : Öffnet Klemmbrett\n*Neustart erforderlich</string>
     <string name="pastefunction_summary_on">Kurzes Tippen : Öffnet Klemmbrett\nLanges Tippen : Fügt ein\n*Neutstart erforderlich</string>
-    <string name="test">Testen</string>
     <string name="blacklist">Blacklist</string>
     <string name="blacklist_help">Wähle, welche Anwendungen von Clip Board ausgeschlossen werden sollen, wie zum Beispiel Passwort-Managers.</string>
     <string name="add">Hinzufügen</string>
@@ -32,14 +30,14 @@
     <string name="category_sizes">Proportionen</string>
     <string name="category_advanced">Erweitert</string>
     <string name="cbbutton">CB-Button hinzufügen</string>
-    <string name="cbbutton_summary">Fügt den CB-Button zum Auswahlmenü hinzu\n*Requires Reboot</string>
+    <string name="cbbutton_summary">Fügt den CB-Button zum Auswahlmenü hinzu\n*Neustart erforderlich</string>
     <string name="singlepaste">Einzelnes Einfügen</string>
     <string name="singlepaste_summary">Schließt das Klemmbrett direkt nach dem Einfügen</string>
-    <string name="req_reboot">*Requires Reboot</string>
+    <string name="req_reboot">*Neustart erforderlich</string>
     <string name="monitorservice">Integration</string>
     <string name="monitorservice_summary">Ermöglicht die Miteinbeziehung von MIUI and Samsung Roms dank Hintergrundprogrammen\n*disables Blacklisting</string>
     <string name="notification_title">Mitteilungen erhalten</string>
-    <string name="notification_summary">Möglicherweise erforderlich, um dieses Service laufen zu lassen(Low-End-Geräte)</string>
+    <string name="notification_summary">Möglicherweise erforderlich, um diesen Service laufen zu lassen(Low-End-Geräte)</string>
     <string name="sort">Klammern organisieren</string>
     <string name="newfirst">Neueste zuerst</string>
 	<string name="pinnedfirst">Angeheftete zuerst</string>
@@ -61,7 +59,52 @@
      <!-- Toast Messages -->
     <string name="undo">Rückgängig</string>
     <string name="deleted">Verworfen: </string>
+
+
+    <!-- Olaf Kirschke -->
+    <string name="columncount">Anzahl Spalten</string>
+    <string name="columncount_summary">Verwende 0 für automatische Anpassung</string>
+    <string name="altrcombos">Alternative Aufrufmöglichkeiten</string>
+    <string name="altrcombos_summary">Alternative Wege um die Zwischenablage zu öffnen</string>
+    <string name="double_tap">Doppel Tap</string>
+    <string name="tap_longtap">Tap + Langes Tap</string>
+    <string name="triple_tap">Dreifach Tap</string>
+    <string name="active_theme">Ausgewähltes Design :</string>
+    <string name="save_collections">Aktuelles Design speichern</string>
+    <string name="name_hint">Design Name</string>
+    <string name="theme_collections">Verfügbare Designs:</string>
+    <string name="theme_collections_summary">Tap für Hinzufügen\nLanges Tap für Löschen</string>
+    <string name="windowsize_summary">Verwende die Linie um die Höhe zwischen Zwischenablage und Tastatur festzulegen</string>
     
-    <string name="arrow">→</string>
-    
+
+    <!-- Missing -->
+    <string name="both_enabled">Sie haben beides Xposed und Accessibility aktiviert</string>
+    <string name="disable_one">Bitte deaktivieren Sie eines von beiden</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Accessibility</string>
+    <string name="compatibility_user">Sie verwenden den Kompatibilitätsmodus</string>
+    <string name="compatibility_user_desc">Umschalten um Accessibility zu nutzen, es benötigt weniger RAM und benötigt kein Meldungsfenster</string>
+    <string name="enable_accessibility">Accessibility einschalten</string>
+    <string name="both_available">Sie können diese App entweder unter Xposed oder unter Accessibility nutzen</string>
+    <string name="path_both">(Xposed Installer>Module>Native Clip Board)\n(Einstellungen>Accessibility>Native Clip Board)</string>
+    <string name="path_access">(Einstellungen>Accessibility>Native Clip Board)</string>
+    <string name="path_xposed">(Xposed Installer>Module>Native Clip Board)</string>
+    <string name="xposed_available">Sie benötigen die Modulaktivierung durch den Xposed Installer</string>
+    <string name="goto_xposed">Gehen Sie zum Xposed Installer</string>
+    <string name="accessibility_available">Diese App benötigt Accessibility um eingeschaltet werden zu können</string>
+    <string name="goto_accessibility">Zu den Einstellungen gehen</string>
+    <string name="doesnt_work">Diese App benötigt Xposed oder Jelly Bean 4.3 und höher</string>
+    <string name="compat_conflict">Funktioniert nicht im Kompatibilitätsmodus</string>
+    <string name="chromepref">Chrome (beta)</string>
+    <string name="share">Teilen</string>
+    <string name="enable_xposed_toast">Aktiviere Native Clip Board, dann neustarten</string>
+    <string name="disable_xposed_toast">Deaktiviere Native Clip Board, dann neustarten</string>
+    <string name="enable_access_toast">Klick auf Native Clip Board dann einschalten</string>
+    <string name="disable_access_toast">Klick auf Native Clip Board then ausschalten</string>
+    <string name="req_xposed">Benötigt Xposed</string>
+    <string name="access_decs">Wird benötigt um ein Doppel Tap zu erkennen und überwacht die Zwischenablage\n\n-\'Überwacht Ihre Aktionen\': um bei einen Doppel Tap zu benachrichtigen.\n-\'Fensterinhalt wiederherstellen\': um das Doppel Tap Textfeld wiederherzustellen.\n-\'Überwacht Text den Sie eingegeben haben\': Nur Home, Zuletzt und Zurück werden überwacht.</string>
+    <string name="chrome_warning">Aufgrund von Chrome Einschränkungen wird beim Einfügen eines Clips der gesamte vorherige Text im Feld ersetzt</string>
+    <string name="clipboard">Zwischenablage</string>
+
+
 </resources>
