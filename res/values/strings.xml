@@ -99,7 +99,7 @@
 
 
     <string name="access_decs">This is used to detect the double tap and monitor the clipboard\n\n-\'Observe your actions\': to be notified of the double tap.\n-\'Retrieve window content\': to retrieve the double tapped text field.\n-\'Observe text you type\': Only Home,Recent, and back are observed.</string>
-    <string name="chrome_warning">Due to limitations in Chrome when pasting a clip ALL previous text in the field will be REPLACED</string>
+    <string name="chrome_warning">Due to limitations in Chrome when pasting a clip <![CDATA[<b>all</b>]]> previous text in the field will be <![CDATA[<b>replaced</b>]]> </string>
 
 
     <string name="clipboard">Clipboard</string>
@@ -113,6 +113,6 @@
     <string name="backup">Backup</string>
     <string name="restore">Restore</string>
     <string name="backup_location">Backup location</string>
-    <string name="category_backup"><![CDATA[Backup & Restore]]></string>
+    <string name="category_backup">Backup &amp; Restore</string>
 
 </resources>
