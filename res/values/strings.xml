@@ -59,7 +59,6 @@
     <string name="goto_xposed">Go to Xposed Installer</string>
     <string name="accessibility_available">This app requires Accessibility to be turned on</string>
     <string name="goto_accessibility">Go to Settings</string>
-    <string name="doesnt_work">This app requires Xposed, or Jelly Bean 4.3 and above</string>
     <string name="compat_conflict">Doesn\'t work with Compatibility mode</string>
     <string name="columncount">Number of Columns</string>
     <string name="columncount_summary">Use 0 for auto fit</string>
@@ -74,6 +73,7 @@
     <string name="theme_collections_summary">Click to apply\nLong click to delete</string>
     <string name="active_theme">Applied Collections :</string>
     <string name="windowsize_summary">Use the line to match the height of the clipboard to the height of the keyboard</string>
+    <string name="doesnt_work">Unfortunately this app requires Xposed, or Jelly Bean 4.3 and above</string>
 
     <!-- Clip Board -->
     <string name="clear_all">Clear all</string>
@@ -114,5 +114,13 @@
     <string name="restore">Restore</string>
     <string name="backup_location">Backup location</string>
     <string name="category_backup">Backup &amp; Restore</string>
+
+    <string name="intro_xposed_test">Select this or long click on \'PASTE\'</string>
+    <string name="intro_xposed_test_m">Select this</string>
+    <string name="intro_combo_hint">\nThis can be later changed under Advanced</string>
+    <string name="intro_xposed_enable">Enable the module from the Xposed Installer, reboot. Then comeback to continue the tutorial</string>
+    <string name="intro_compare">Comparison</string>
+    <string name="intro_both_avl">Each has it\'s advantages and disadvantages click on the button below to visit XDA forum to see the comparison</string>
+
 
 </resources>
