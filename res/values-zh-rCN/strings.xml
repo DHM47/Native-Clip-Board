@@ -115,4 +115,14 @@
     <string name="backup_location">备份位置</string>
     <string name="category_backup">备份 &amp; 恢复</string>
 
+	<string name="intro_xposed_test">选择此项，或长按“粘贴”<string>
+    <string name="intro_xposed_test_m">选择此项</string>
+    <string name="intro_combo_hint">\n可以稍后在高级选项中更改此设置</string>
+    <string name="intro_xposed_enable">从Xposed安装器中启用本模块，重启。然后回来继续本教程。</string>
+    <string name="intro_compare">比较</string>
+    <string name="intro_both_avl">每种设置有其各自的优点和缺点。点击下面的按钮访问XDA论坛查看比较</string>
+    <string name="smart_position">智能剪贴板位置</string>
+    <string name="smart_position_summary">将剪贴板放置在屏幕的另一侧，这样就不会遮挡文本域了</string>
+
+
 </resources>
