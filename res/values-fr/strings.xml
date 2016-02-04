@@ -59,7 +59,6 @@
     <string name="goto_xposed">Aller à Xposed Installer</string>
     <string name="accessibility_available">Cette application nécessite d\'activer Accessibilité</string>
     <string name="goto_accessibility">Aller aux Paramètres</string>
-    <string name="doesnt_work">Cette application requiert Xposed ou Android 4.3+</string>
     <string name="compat_conflict">Ne fonctionne pas avec le mode Compatibilité</string>
     <string name="columncount">Nombre de colonnes</string>
     <string name="columncount_summary">Utiliser le 0 pour ajuster automatiquement</string>
@@ -74,6 +73,7 @@
     <string name="theme_collections_summary">Appuyer pour appliquer\nAppui long pour supprimer</string>
     <string name="active_theme">Collections appliquées : </string>
     <string name="windowsize_summary">Utiliser la ligne pour faire correspondre la hauteur du presse-papiers à celle du clavier</string>
+    <string name="doesnt_work">Hélas cette application requiert Xposed ou Android 4.3+</string>
     
      <!-- Clip Board -->
     <string name="clear_all">Tout supprimer</string>
@@ -99,7 +99,7 @@
     
     
     <string name="access_decs">Accessibilité est utilisé pour détecter l\'appui double et surveiller le presse-papiers\n\n-\"Observer vos actions\" : pour être notifié de l\'appui double.\n-\"Récupérer le contenu d\'une fenêtre\" : pour récupérer le champ de texte appuyé deux fois.\n-\"Observer le texte que vous saisissez\" : uniquement Accueil, Récent et Retour sont observés.</string>
-    <string name="chrome_warning">En raison de limitations dans Chrome lors du collage TOUT texte précédent dans le champ sera REMPLACÉ</string>
+    <string name="chrome_warning">En raison de limitations dans Chrome lors du collage <![CDATA[<b>tout</b>]]> texte précédent dans le champ sera <![CDATA[<b>remplacé</b>]]></string>
     
     
     <string name="clipboard">Clipboard</string>    
@@ -113,6 +113,14 @@
     <string name="backup">Sauvegarder</string>
     <string name="restore">Restaurer</string>
     <string name="backup_location">Emplacement de la sauvegarde</string>
-    <string name="category_backup"><![CDATA[Sauvegarder et restaurer]]></string>
+    <string name="category_backup">Sauvegarder et restaurer</string>
+
+    <string name="intro_xposed_test">Sélectionnez ou faites un appui long sur \"COLLER\"</string>
+    <string name="intro_xposed_test_m">Sélectionnez</string>
+    <string name="intro_combo_hint">\nPeut être changé plus tard dans Avancé</string>
+    <string name="intro_xposed_enable">Activez le module dans Xposed Installer et redémarrez. Ensuite retournez au tutoriel</string>
+    <string name="intro_compare">Comparaison</string>
+    <string name="intro_both_avl">Chacun a ses avantages et ses inconvénients, appuyez sur le bouton ci-dessous pour accéder au forum XDA pour voir la comparaison</string>
+
     
 </resources>
