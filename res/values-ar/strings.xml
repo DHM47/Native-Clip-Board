@@ -6,7 +6,6 @@
 
   <!-- Color Picker -->
   <string name="dialog_color_picker">اختيار الألوان</string>
-  <string name="press_color_to_apply">الرجاء اختيار اللون لتطبيقه</string>
 
   <!-- Preferences -->
   <string name="category_theme">الموضوع</string>
@@ -16,7 +15,7 @@
   <string name="pinnedcolor">لون القصاصه المثبته</string>
   <string name="txtcolor">لون النص</string>
   <string name="category_sizes">الأحجام </string>
-  <string name="history_summary">الرجاء اختيار عدد القصاصات المراد حفظها في السجل </string>
+  <string name="history_summary">الرجاء اختيار عدد القصاصات المراد حفظها في السجل  (القصاصات المثبته لا تحسب)</string>
   <string name="history_title">حجم السجل</string>
   <string name="txtsize">حجم النص</string>
   <string name="uisize">حجم القصاصه</string>
@@ -26,7 +25,6 @@
   <string name="unknown">غير معلوم </string>
   <string name="help">مساعده</string>
   <string name="xda">رابط البرنامج في XDA</string>
-  <string name="test">تجربة سريعه لما تم اختياره</string>
   <string name="category_advanced">متقدم </string>
   <string name="pastefunction">خاصية ابدال اللصق</string>
   <string name="pastefunction_summary_off">نقرة واحده : يلصق النص\nنقرة مطوله : يتم فتح البرنامج\n*يجب إعادة تشغيل الجهاز </string>
@@ -100,7 +98,28 @@
 
   <string name="access_decs">مكانيه الوصول تستخدم لرصد النقرتين و مراقبة ما ينسخ\n\n- \'ملاحظة الإجراءات\' : لرصد النقرتين.\n- \'استرداد محتوى النافذة\' : للحصول على حقل لصق النص.\n- \'ملاحظة النص الذي تكتبة\' : فقط زر الشاشة الرئيسية و البرماج الحديثة و الرجوع هي التي تلاحظ.</string>
 
-  <string name="arrow">→</string>
   <string name="clipboard">الحافظة</string>
+  <string name="chrome_warning">Due to limitations in Chrome when pasting a clip ALL previous text in the field will be REPLACED</string>
+
+  <string name="intro_welcome">مرحباً بك في Native clipboard</string>
+  <string name="intro_desc">هذا التطبيق يتيح لك الوصول الى جميع النصوص التي قمت بنسخها ويجعلك قادر على لصقها بسهولة في اي وقت ومن داخل اي تطبيق اخر.</string>
+  <string name="intro_try_it">جربه الآن</string>
+  <string name="intro_here">" هنا"</string>
+  <string name="backup">نسخ إحتياطي</string>
+  <string name="restore">إسترجاع</string>
+  <string name="backup_location">موقع النسخة الإحتياطيه</string>
+  <string name="category_backup">النسخ الإحتياطي و الإسترجاع</string>
+  <string name="chromepref">Chrome (تجريبي)</string>
+  <string name="name_hint">اسم الموضوع</string>
+  <string name="windowsize_summary">استخدم الخط لجعل ارتفاع الحافظة مساوياً لإرتفاع لوحة المفاتيح</string>
+
+  <string name="intro_xposed_test">حدد هذا النص او اضغط مطولاً على \'لصق\'</string>
+  <string name="intro_xposed_test_m">حدد هذا النص</string>
+  <string name="intro_combo_hint">\nيمكن تغييره لاحقاً من خلال الضبط المتقدم</string>
+  <string name="intro_xposed_enable">فعل البرنامج من تطبيق الإكسبوزد, اعد تشغيل الجهاز. ثم عد لإكمال الشرح</string>
+  <string name="intro_compare">المقارنه</string>
+  <string name="intro_both_avl">كلاً منهما له مميزاته, اختر المقارنه لزيارة منتدى XDA لمشاهدة الفروقات </string>
+  <string name="tutorial">الإرشادات</string>
+  <string name="support">الدعم</string>
 
 </resources>

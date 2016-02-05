@@ -124,5 +124,8 @@
     <string name="smart_position">Smart clipboard position</string>
     <string name="smart_position_summary">Position the clipboard on the opposite side of the screen, so that the text field is not covered</string>
 
+    <string name="tutorial">Tutorial</string>
+    <string name="support">Support</string>
+
 
 </resources>
