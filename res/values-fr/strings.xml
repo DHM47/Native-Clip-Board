@@ -121,6 +121,10 @@
     <string name="intro_xposed_enable">Activez le module dans Xposed Installer et redémarrez. Ensuite retournez au tutoriel</string>
     <string name="intro_compare">Comparaison</string>
     <string name="intro_both_avl">Chacun a ses avantages et ses inconvénients, appuyez sur le bouton ci-dessous pour accéder au forum XDA pour voir la comparaison</string>
+    <string name="smart_position">Position intelligente</string>
+    <string name="smart_position_summary">Positionner le presse-papiers du côté opposé de l\'écran, de sorte que le champ de texte ne soit pas masqué</string>
 
+    <string name="tutorial">Tutoriel</string>
+    <string name="support">Support</string>
     
 </resources>
