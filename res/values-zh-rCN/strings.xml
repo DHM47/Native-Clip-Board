@@ -14,7 +14,7 @@
 	<string name="clpcolor_summary">文字背景色</string>
 	<string name="pinnedcolor">已钉住便签色</string>
 	<string name="txtcolor">文本颜色</string>
-	<string name="category_sizes">大</string>
+	<string name="category_sizes">大小</string>
 	<string name="history_summary">选择保留在历史中的项目数</string>
 	<string name="history_title">历史数量</string>
 	<string name="txtsize">文本大小</string>
