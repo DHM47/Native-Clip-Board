@@ -14,7 +14,7 @@
 	<string name="clpcolor_summary">文字背景色</string>
 	<string name="pinnedcolor">已钉住便签色</string>
 	<string name="txtcolor">文本颜色</string>
-	<string name="category_sizes">大</string>
+	<string name="category_sizes">大小</string>
 	<string name="history_summary">选择保留在历史中的项目数</string>
 	<string name="history_title">历史数量</string>
 	<string name="txtsize">文本大小</string>
@@ -29,7 +29,7 @@
 	<string name="pastefunction">切换粘贴功能</string>
 	<string name="pastefunction_summary_off">短按：粘贴\n长按：打开剪贴板\n*需要重启</string>
 	<string name="pastefunction_summary_on">短按：打开剪贴板\n长按：粘贴\n*需要重启</string>
-	<string name="cbbutton">添加CB按钮</string>
+	<string name="cbbutton">添加剪贴板按钮</string>
 	<string name="cbbutton_summary">将剪贴板按钮添加到选择菜单中\n*需要重启</string>
 	<string name="singlepaste">单次粘贴</string>
 	<string name="singlepaste_summary">粘贴完成后马上关闭剪贴板</string>
@@ -113,7 +113,7 @@
     <string name="backup">备份</string>
     <string name="restore">恢复</string>
     <string name="backup_location">备份位置</string>
-    <string name="category_backup">备份 &amp; 恢复</string>
+    <string name="category_backup">备份和恢复</string>
 
 	<string name="intro_xposed_test">选择此项，或长按“粘贴”<string>
     <string name="intro_xposed_test_m">选择此项</string>
