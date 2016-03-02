@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- App -->
     <string name="app_name">Native Clipboard</string>
@@ -49,39 +49,41 @@
     <string name="xposed">Xposed</string>
     <string name="accessibility">Tillgänglighet</string>
     <string name="compatibility_user">Du använder kompatibilitetsläge</string>
-    <string name="compatibility_user_desc">Switch to using the Accessibility, it uses less RAM and does NOT need the Notification</string>
+    <string name="compatibility_user_desc">Byt till att använda Tillgänglighet, det använder mindre RAM och kräver INTE Notifikationen</string>
     <string name="enable_accessibility">Aktivera Tillgänglighet</string>
-    <string name="both_available">You can use this app by either Xposed or Accessibility</string>
-    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Settings>Accessibility>Native Clip Board)</string>
-    <string name="path_access">(Settings>Accessibility>Native Clip Board)</string>
+    <string name="both_available">Du kan använda denna app antingen med Xposed eller Tillgänglighet</string>
+<!-- Unsure about the xposed path -->
+    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Inställningar>Tillgänglighet>Native Clipboard)</string>
+    <string name="path_access">(Inställningar>Tillgänglighet>Native Clipboard)</string>
+<!-- Unsure about the xposed path -->
     <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
-    <string name="xposed_available">You need to enable the module through the Xposed Installer</string>
-    <string name="goto_xposed">Go to Xposed Installer</string>
-    <string name="accessibility_available">This app requires Accessibility to be turned on</string>
-    <string name="goto_accessibility">Go to Settings</string>
-    <string name="compat_conflict">Doesn\'t work with Compatibility mode</string>
-    <string name="columncount">Number of Columns</string>
-    <string name="columncount_summary">Use 0 for auto fit</string>
-    <string name="altrcombos">Alternative combos</string>
-    <string name="altrcombos_summary">alternative ways to open the clipboard</string>
-    <string name="double_tap">Double Tap</string>
-    <string name="tap_longtap">Tap + Long Tap</string>
-    <string name="triple_tap">Triple Tap</string>
+    <string name="xposed_available">Du måste aktivera modulen genom Xposed Installer</string>
+    <string name="goto_xposed">Gå till Xposed Installer</string>
+    <string name="accessibility_available">Denna app kräver att Tillgänglighet är påslagen</string>
+    <string name="goto_accessibility">Öppna Inställningar</string>
+    <string name="compat_conflict">Fungerar inte med Kompabilitetsläget</string>
+    <string name="columncount">Antalet kolumner</string>
+    <string name="columncount_summary">Använd 0 för autoanpassning</string>
+    <string name="altrcombos">Alternativa kombinationer</string>
+    <string name="altrcombos_summary">alternativa sätt att öppna urklippshanteraren</string>
+    <string name="double_tap">Dubbelklicka</string>
+    <string name="tap_longtap">Klicka + Långklick</string>
+    <string name="triple_tap">Trippelklicka</string>
     <string name="chromepref">Chrome (beta)</string>
-    <string name="save_collections">Save current collection</string>
-    <string name="theme_collections">Theme Collections :</string>
-    <string name="theme_collections_summary">Click to apply\nLong click to delete</string>
-    <string name="active_theme">Applied Collections :</string>
-    <string name="windowsize_summary">Use the line to match the height of the clipboard to the height of the keyboard</string>
-    <string name="doesnt_work">Unfortunately this app requires Xposed, or Jelly Bean 4.3 and above</string>
+    <string name="save_collections">Spara aktuell kollektion</string>
+    <string name="theme_collections">Tema alternativ :</string>
+    <string name="theme_collections_summary">Klicka för att tillämpa\nLångklicka för att radera</string>
+    <string name="active_theme">Tillämpat tema :</string>
+    <string name="windowsize_summary">Använd denna linje för att ställa in höjden på ClipBoard i förhållande till tangetbordet</string>
+    <string name="doesnt_work">Tyvärr kräver denna app Xposed, eller Jelly Bean 4.3 och över</string>
 
     <!-- Clip Board -->
     <string name="clear_all">Rensa allt</string>
-    <string name="clear_all_conf">Clear all clips ?</string>
-    <string name="title_hint">Set a Title for Clip</string>
-    <string name="clip_text_hint">Clip Text</string>
-    <string name="pin">Pin</string>
-    <string name="unpin">Unpin</string>
+    <string name="clear_all_conf">Rensa alla urklipp ?</string>
+    <string name="title_hint">Sätt en titel för urklipp</string>
+    <string name="clip_text_hint">Urklippstext</string>
+    <string name="pin">Nåla</string>
+    <string name="unpin">Ta bort nålning</string>
     <string name="edit">Ändra</string>
     <string name="save">Spara</string>
     <string name="delete">Radera</string>
