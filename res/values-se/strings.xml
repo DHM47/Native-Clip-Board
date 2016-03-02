@@ -2,7 +2,7 @@
 <resources>
 	<!-- App -->
     <string name="app_name">Native Clipboard</string>
-    <string name="xposed_desc">En urklippshanterare</string>
+    <string name="xposed_desc">En urklippshanterare för Android</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Färgpalett</string>
@@ -28,7 +28,7 @@
     <string name="category_advanced">Advancerat</string>
     <string name="pastefunction">Ändra kliista in funktionalitet</string>
     <string name="pastefunction_summary_off">Enkelklick : Klista in\nLångklick : Öppnar ClipBoard\n*Kräver omstart</string>
-    <string name="pastefunction_summary_on">Enkellick : Öppnar ClipBoard\nLångklick : Klistrar in\n*Kräver omstart</string>
+    <string name="pastefunction_summary_on">Enkelklick : Öppnar ClipBoard\nLångklick : Klistrar in\n*Kräver omstart</string>
     <string name="cbbutton">Lägger till CB-knapp</string>
     <string name="cbbutton_summary">Lägger till CB-knapp till menyvalet\n*Kräver omstart</string>
     <string name="singlepaste">Klistra in en gång</string>
@@ -40,17 +40,17 @@
     <string name="notification_summary">Detta kan behövas för att hålla tjänsten igång (speciellt på system med lågt RAM-minne)</string>
     <string name="sort">Sortera Clips</string>
     <string name="newfirst">Senaste först</string>
-    <string name="pinnedfirst">Pinned först</string>
-    <string name="pinnedlast">Pinned senast</string>
+    <string name="pinnedfirst">Nålad först</string>
+    <string name="pinnedlast">Nålad senast</string>
     <string name="usedefault">Använd standard</string>
     <string name="about">Om</string>
-    <string name="both_enabled">You have both Xposed and Accessibility enabled</string>
-    <string name="disable_one">Please disable one of them</string>
+    <string name="both_enabled">Du har både Xposed och Tillgänglighet aktiverat</string>
+    <string name="disable_one">Vänligen avaktivera någon av dom</string>
     <string name="xposed">Xposed</string>
-    <string name="accessibility">Accessibility</string>
-    <string name="compatibility_user">You are using Compatibility mode</string>
+    <string name="accessibility">Tillgänglighet</string>
+    <string name="compatibility_user">Du använder kompatibilitetsläge</string>
     <string name="compatibility_user_desc">Switch to using the Accessibility, it uses less RAM and does NOT need the Notification</string>
-    <string name="enable_accessibility">Enable Accessibility</string>
+    <string name="enable_accessibility">Aktivera Tillgänglighet</string>
     <string name="both_available">You can use this app by either Xposed or Accessibility</string>
     <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Settings>Accessibility>Native Clip Board)</string>
     <string name="path_access">(Settings>Accessibility>Native Clip Board)</string>
