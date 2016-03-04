@@ -45,7 +45,7 @@
     <string name="usedefault">Använd standard</string>
     <string name="about">Om</string>
     <string name="both_enabled">Du har både Xposed och Tillgänglighet aktiverat</string>
-    <string name="disable_one">Vänligen avaktivera någon av dom</string>
+    <string name="disable_one">Vänligen avaktivera någon av dessa</string>
     <string name="xposed">Xposed</string>
     <string name="accessibility">Tillgänglighet</string>
     <string name="compatibility_user">Du använder kompatibilitetsläge</string>
