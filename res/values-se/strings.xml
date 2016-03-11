@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- App -->
+    <string name="app_name">Native Clipboard</string>
+    <string name="xposed_desc">En urklippshanterare för Android</string>
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Färgpalett</string>
+
+    <!-- Preferences -->
+    <string name="category_theme">Tema</string>
+    <string name="bgcolor">Bakgrundsfärg</string>
+    <string name="clpcolor">Urklippsfärg</string>
+    <string name="clpcolor_summary">Text bakgrunden</string>
+    <string name="pinnedcolor">Nålade urklippsfärger</string>
+    <string name="txtcolor">Textfärg</string>
+    <string name="category_sizes">Storlekar</string>
+    <string name="history_summary">Välj antalet av objekt att spara i historiken (Nålade räknas ej)</string>
+    <string name="history_title">Historikstorlek</string>
+    <string name="txtsize">Textstorlek</string>
+    <string name="uisize">Clipboard Storlek</string>
+    <string name="blacklist">Svartlista</string>
+    <string name="blacklist_help">Välj vilka appar som inte ska kunna kopieras från (t.ex. Lösenordshanterare).</string>
+    <string name="add">Lägg till</string>
+    <string name="unknown">Okänd</string>
+    <string name="help">Hjälp</string>
+    <string name="xda">XDA Thread</string>
+    <string name="category_advanced">Advancerat</string>
+    <string name="pastefunction">Ändra kliista in funktionalitet</string>
+    <string name="pastefunction_summary_off">Enkeltryck : Klista in\nLångtryck : Öppnar Clipboard\n*Kräver omstart</string>
+    <string name="pastefunction_summary_on">Enkeltryck : Öppnar Clipboard\nLångtryck : Klistrar in\n*Kräver omstart</string>
+    <string name="cbbutton">Lägger till CB-knapp</string>
+    <string name="cbbutton_summary">Lägger till CB-knapp till menyvalet\n*Kräver omstart</string>
+    <string name="singlepaste">Klistra in en gång</string>
+    <string name="singlepaste_summary">Stäng Clipboard direkt efter inklistring</string>
+    <string name="req_reboot">*Kräver omstart</string>
+    <string name="monitorservice">Kompatibilitetsläge</string>
+    <string name="monitorservice_summary">Använd en bakgrundsservice som övervakar kopierad text för MIUI och Samsung Roms\n*inaktiverar Svartlistning</string>
+    <string name="notification_title">Visa Notifikation</string>
+    <string name="notification_summary">Detta kan behövas för att hålla tjänsten igång (speciellt på system med lågt RAM-minne)</string>
+    <string name="sort">Sortera Clips</string>
+    <string name="newfirst">Senaste först</string>
+    <string name="pinnedfirst">Nålad först</string>
+    <string name="pinnedlast">Nålad senast</string>
+    <string name="usedefault">Använd standard</string>
+    <string name="about">Om</string>
+    <string name="both_enabled">Du har både Xposed och Tillgänglighet aktiverat</string>
+    <string name="disable_one">Vänligen avaktivera någon av dessa</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Tillgänglighet</string>
+    <string name="compatibility_user">Du använder kompatibilitetsläge</string>
+    <string name="compatibility_user_desc">Byt till att använda Tillgänglighet, det använder mindre RAM och kräver INTE Notifikationen</string>
+    <string name="enable_accessibility">Aktivera Tillgänglighet</string>
+    <string name="both_available">Du kan använda denna app antingen med Xposed eller Tillgänglighet</string>
+<!-- Unsure about the xposed path -->
+    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Inställningar>Tillgänglighet>Native Clipboard)</string>
+    <string name="path_access">(Inställningar>Tillgänglighet>Native Clipboard)</string>
+<!-- Unsure about the xposed path -->
+    <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
+    <string name="xposed_available">Du måste aktivera modulen genom Xposed Installer</string>
+    <string name="goto_xposed">Gå till Xposed Installer</string>
+    <string name="accessibility_available">Denna app kräver att Tillgänglighet är påslagen</string>
+    <string name="goto_accessibility">Öppna Inställningar</string>
+    <string name="compat_conflict">Fungerar inte med Kompabilitetsläget</string>
+    <string name="columncount">Antalet kolumner</string>
+    <string name="columncount_summary">Använd 0 för autoanpassning</string>
+    <string name="altrcombos">Alternativa kombinationer</string>
+    <string name="altrcombos_summary">alternativa sätt att öppna urklippshanteraren</string>
+    <string name="double_tap">Dubbeltryck</string>
+    <string name="tap_longtap">Tryck + Långtryckning</string>
+    <string name="triple_tap">Trippeltryck</string>
+    <string name="chromepref">Chrome (beta)</string>
+    <string name="save_collections">Spara aktuell kollektion</string>
+    <string name="theme_collections">Tema alternativ :</string>
+    <string name="theme_collections_summary">tryck för att tillämpa\nLångtryck för att radera</string>
+    <string name="active_theme">Tillämpat tema :</string>
+    <string name="windowsize_summary">Använd denna linje för att ställa in höjden på Clipboard i förhållande till tangetbordet</string>
+    <string name="doesnt_work">Tyvärr kräver denna app Xposed, eller Jelly Bean 4.3 och över</string>
+
+    <!-- Clip Board -->
+    <string name="clear_all">Rensa allt</string>
+    <string name="clear_all_conf">Rensa alla urklipp ?</string>
+    <string name="title_hint">Sätt en titel för urklipp</string>
+    <string name="clip_text_hint">Urklippstext</string>
+    <string name="pin">Nåla</string>
+    <string name="unpin">Ta bort nålning</string>
+    <string name="edit">Ändra</string>
+    <string name="save">Spara</string>
+    <string name="delete">Radera</string>
+    <string name="shrink">Minska</string>
+    <string name="share">Dela</string>
+
+     <!-- Toast Messages -->
+    <string name="undo">Ångra</string>
+    <string name="deleted">Raderad: </string>
+    <string name="enable_xposed_toast">Markera Native Clipboard starta sedan om</string>
+    <string name="disable_xposed_toast">Avmarkera Native Clipboard starta sedan om</string>
+    <string name="enable_access_toast">Klicka på Native Clipboard och dra till På</string>
+    <string name="disable_access_toast">Klicka påNative Clipboard och dra till Av</string>
+    <string name="req_xposed">Kräver Xposed</string>
+
+
+    <string name="access_decs">Detta används för att detektera dubbeltryckningar och monitorera urklipp\n\n-\'Observe your actions\': Att bli notifierad vid ett dubbeltryck.\n-\'Retrieve window content\': hämta fönsterinnehållet och hämta textfältet som dubbeltryckts.\n-\'Observe text you type\': Endast hem,Senast, och tillbaka observeras.</string>
+    <string name="chrome_warning">På grund av begränsningar i Chrome när du klistrar in ett urklipp<![CDATA[<b>all</b>]]> föregående text i fältet kommer att bli <![CDATA[<b>replaced</b>]]> </string>
+
+
+    <string name="clipboard">Clipboard</string>
+    <string name="name_hint">Namn på Tema</string>
+
+
+    <string name="intro_welcome">Välkommen till Native Clipboard</string>
+    <string name="intro_desc">Native Clipboard tillhandahåller sömlös åtkomst till någon text som du har kopierat utan att lämna din nuvarande app</string>
+    <string name="intro_try_it">Testa</string>
+    <string name="intro_here">" Här"</string>
+    <string name="backup">Säkerhetskopiering</string>
+    <string name="restore">Återställ</string>
+    <string name="backup_location">Säkerhetskopieringsplats</string>
+    <string name="category_backup">Säkerhetskopiering &amp; Återställning</string>
+
+    <string name="intro_xposed_test">Välj detta eller långtryck på \'PASTE\'</string>
+    <string name="intro_xposed_test_m">Välj detta</string>
+    <string name="intro_combo_hint">\nDetta kan ändras senare under Avancerat</string>
+    <string name="intro_xposed_enable">Aktivera denna modul i Xposed Installationen, starta om. Kom senare tillbaka och fortsätta denna introduktion</string>
+    <string name="intro_compare">Jämförelse</string>
+    <string name="intro_both_avl">Var och en har sina för- och nackdelar, tryck på knappen för att besöka XDA-forumet där du kan se jämförelsen</string>
+    <string name="smart_position">Smart clipboard position</string>
+    <string name="smart_position_summary">Positionera urklippshanteraren på den motsatta sidan av skärmen, så att textfältet inte täcks</string>
+
+    <string name="tutorial">Introduktion</string>
+    <string name="support">Support</string>
+
+
+</resources>
