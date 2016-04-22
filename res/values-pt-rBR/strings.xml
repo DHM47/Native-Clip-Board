@@ -1,0 +1,100 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Clipboard</string>
+    <string name="xposed_desc">Área de transferência para seu sistema</string>
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Seletor de Cor</string>
+
+    <!-- Preferences -->
+    <string name="category_theme">Tema</string>
+    <string name="bgcolor">Cor de Fundo</string>
+    <string name="clpcolor">Cor do Clip</string>
+    <string name="clpcolor_summary">Fundo do Texto</string>
+    <string name="pinnedcolor">Cor do Clip Fixo</string>
+    <string name="txtcolor">Cor do Texto</string>
+    <string name="category_sizes">Dimensões</string>
+    <string name="history_summary">Selecione o número de itens pada manter no histórico (fixos não contam)</string>
+    <string name="history_title">Tamanho do histórico</string>
+    <string name="txtsize">Tamanho do Texto</string>
+    <string name="uisize">Tamanho do Clipboard</string>
+    <string name="blacklist">Lista Negra</string>
+    <string name="blacklist_help">Escolha os apps de onde não deve ser copiado (ex. Gerenciadores de senhas).</string>
+    <string name="add">Adicionar</string>
+    <string name="unknown">Desconhecido</string>
+    <string name="help">Ajuda</string>
+    <string name="xda">Tópico no XDA</string>
+    <string name="category_advanced">Avançado</string>
+    <string name="pastefunction">Funcionalidade do botão colar</string>
+    <string name="pastefunction_summary_off">Toque: cola\nClique longo: abre clipboard\n*Necessita Reiniciar</string>
+    <string name="pastefunction_summary_on">Toque: abre clipboard\nClique longo: cola\n*Necessita Reiniciar</string>
+    <string name="cbbutton">Botão clipboard</string>
+    <string name="cbbutton_summary">Adiciona um botão direto para o clipboard\n*Necessita Reiniciar</string>
+    <string name="singlepaste">Colar uma vez</string>
+    <string name="singlepaste_summary">Fecha o clipboard depois de colar</string>
+    <string name="req_reboot">*Necessita Reiniciar</string>
+    <string name="monitorservice">Modo de compatibilidade</string>
+    <string name="monitorservice_summary">Usa um serviço em segundo plano para monitorar o que é copiado nos sistemas MIUI e SAMSUNG\n*desativa a Lista Negra</string>
+    <string name="notification_title">Mostrar Notificação</string>
+    <string name="notification_summary">Pode ser necessário para manter o aplicativo em execução, principalmente em dispositivos com baixa memória RAM</string> <string name="sort">Ordenar Clipes</string>
+    <string name="newfirst">Mais recentes primeiro</string>
+    <string name="pinnedfirst">Fixos primeiro</string>
+    <string name="pinnedlast">Fixos por último</string>
+    <string name="usedefault">Usar padrão</string>
+    <string name="about">Sobre</string>
+    <string name="both_enabled">Você ativou ambos os modos de Acessibilidade e Xposed</string>
+    <string name="disable_one">Por favor, desative um deles</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Acessibilidade</string>
+    <string name="compatibility_user">Você está usando o modo de compatibilidade</string>
+    <string name="compatibility_user_desc">Usar o modo de Acessibilidade usa menos memória e não exige a notificação</string>
+    <string name="enable_accessibility">Ativar Acessibilidade</string>
+    <string name="both_available">Você pode usar este aplicativo tanto no modo Acessibilidade quanto no modo Xposed</string>
+    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Configurações>Acessibilidade>Native Clip Board)</string>
+    <string name="path_access">(Configurações>Acessibilidade>Native Clip Board)</string>
+    <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
+    <string name="xposed_available">Você precisa ativar o módulo pelo Xposed Installer</string>
+    <string name="goto_xposed">Vá ao Xposed Installer</string>
+    <string name="accessibility_available">Este aplicativo necessita do modo Acessibilidade ativo</string>
+    <string name="goto_accessibility">Vá às configurações</string>
+    <string name="doesnt_work">Este aplicativo precisa do Xposed, ou Jelly Bean 4.3 ou superior</string>
+    <string name="compat_conflict">Não funciona no modo de compatibilidade</string>
+    <string name="columncount">Número de Colunas</string>
+    <string name="columncount_summary">0 para ajuste automático</string>
+    <string name="altrcombos">Combinações alternativas</string>
+    <string name="altrcombos_summary">outros modos de abrir o clipboard</string>
+    <string name="double_tap">Toque Duplo</string>
+    <string name="tap_longtap">Tocar e Segurar</string>
+    <string name="triple_tap">Toque Triplo</string>
+    <string name="chromepref">Chrome (beta)</string>
+    <string name="save_collections">Salvar tema atual</string>
+    <string name="theme_collections">Coleções de Temas:</string>
+    <string name="theme_collections_summary">Toque para aplicar\nSegure para apagar</string>
+    <string name="active_theme">Tema aplicado:</string>
+    <string name="windowsize_summary">Use a linha para fazer a altura do clipboard bater com a do teclado</string>
+
+    <!-- Clip Board -->
+    <string name="clear_all">Apagar Tudo</string>
+    <string name="clear_all_conf">Apagar Tudo?</string>
+    <string name="title_hint">Dê um Título ao Clip</string>
+    <string name="clip_text_hint">Conteúdo do Clip</string>
+    <string name="pin">Fixar</string>
+    <string name="unpin">Desafixar</string>
+    <string name="edit">Editar</string>
+    <string name="save">Salvar</string>
+    <string name="delete">Deletar</string>
+    <string name="shrink">Encolher</string>
+    <string name="share">Compartilhar</string>
+
+    <!-- Toast Messages -->
+    <string name="undo">Desfazer</string>
+    <string name="deleted">Deletado: </string>
+    <string name="enable_xposed_toast">Selecione Clipboard e reinicie</string>
+    <string name="disable_xposed_toast">Desselecione Clipboard e reinicie</string>
+    <string name="enable_access_toast">Clique em Clipboard e em ativar</string>
+    <string name="disable_access_toast">Clique em Clipboard e em desativar</string>
+    <string name="req_xposed">Necessita Xposed</string>
+    <string name="access_decs">Usado para monitorar toque duplo e comportamento do clipboard\n\n-\'Observar suas ações\': para ser notificado sobre o toque duplo.\n-\'Obter conteúdo da janelat\': para saber que o campo de texto recebeu toque duplo.\n-\'Observar o os botões que você toca\': Apenas Início, Voltar e Recentes são observados.</string>
+    <string name="chrome_warning">Devido à limitações no Chrome, colar fará TODO o texto no campo ser APAGADO</string>
+    <string name="clipboard">Clipboard</string>
+</resources>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- App -->
+    <!-- Email -->
+
+    <!-- App -->
     <string name="app_name">Native Clipboard</string>
-    <string name="xposed_desc">Organisiert dein Copy/Paste-Verhalten!</string> 
-    
+    <string name="xposed_desc">Organisiert dein Kopieren/Einfügen-Verhalten!</string>
+
     <!-- Color Picker -->
     <string name="dialog_color_picker">Farbpalette</string>
 
@@ -21,42 +23,42 @@
     <string name="pastefunction_summary_off">Kurzes Tippen : Fügt ein\nLanges Tippen : Öffnet Klemmbrett\n*Neustart erforderlich</string>
     <string name="pastefunction_summary_on">Kurzes Tippen : Öffnet Klemmbrett\nLanges Tippen : Fügt ein\n*Neutstart erforderlich</string>
     <string name="blacklist">Blacklist</string>
-    <string name="blacklist_help">Wähle, welche Anwendungen von Clip Board ausgeschlossen werden sollen, wie zum Beispiel Passwort-Managers.</string>
+    <string name="blacklist_help">Wähle aus welche Anwendungen von Native Clipboard ausgeschlossen werden sollen, wie zum Beispiel Passwort-Managers.</string>
     <string name="add">Hinzufügen</string>
     <string name="unknown">Unbekannt</string>
     <string name="help">Hilfe</string>
     <string name="xda">XDA Forumsthread</string>
     <string name="category_theme">Aussehen</string>
     <string name="category_sizes">Proportionen</string>
-    <string name="category_advanced">Erweitert</string>
+    <string name="category_advanced">Erweiterte Einstellungen</string>
     <string name="cbbutton">CB-Button hinzufügen</string>
     <string name="cbbutton_summary">Fügt den CB-Button zum Auswahlmenü hinzu\n*Neustart erforderlich</string>
     <string name="singlepaste">Einzelnes Einfügen</string>
     <string name="singlepaste_summary">Schließt das Klemmbrett direkt nach dem Einfügen</string>
     <string name="req_reboot">*Neustart erforderlich</string>
     <string name="monitorservice">Integration</string>
-    <string name="monitorservice_summary">Ermöglicht die Miteinbeziehung von MIUI and Samsung Roms dank Hintergrundprogrammen\n*disables Blacklisting</string>
+    <string name="monitorservice_summary">Ermöglicht die Miteinbeziehung von MIUI and Samsung Roms dank Hintergrundprogrammen\n*deaktiviert Blacklistings</string>
     <string name="notification_title">Mitteilungen erhalten</string>
     <string name="notification_summary">Möglicherweise erforderlich, um diesen Service laufen zu lassen(Low-End-Geräte)</string>
     <string name="sort">Klammern organisieren</string>
-    <string name="newfirst">Neueste zuerst</string>
-	<string name="pinnedfirst">Angeheftete zuerst</string>
-	<string name="pinnedlast">Angeheftete zuletzt</string>
-	<string name="usedefault">Ursprüngliche Einstellungen verwenden</string>
-	<string name="about">Über</string>
-     <!-- Clip Board -->
+    <string name="newfirst">Neueste Klammern zuerst</string>
+    <string name="pinnedfirst">Angeheftete Klammern zuerst</string>
+    <string name="pinnedlast">Angeheftete Klammern zuletzt</string>
+    <string name="usedefault">Ursprüngliche Einstellungen verwenden</string>
+    <string name="about">Über</string>
+    <!-- Clip Board -->
     <string name="clear_all">Alle verwerfen</string>
     <string name="clear_all_conf">Wirklich alle Klammern verwerfen?</string>
     <string name="title_hint">Benenne die Klammer</string>
-    <string name="clip_text_hint">Klammertext</string>
+    <string name="clip_text_hint">Klammerbeschrifung</string>
     <string name="pin">Anheften</string>
     <string name="unpin">Entheften</string>
     <string name="edit">Bearbeiten</string>
     <string name="save">Speichern</string>
     <string name="delete">Verwerfen</string>
     <string name="shrink">Verkleinern</string>
-    
-     <!-- Toast Messages -->
+
+    <!-- Toast Messages -->
     <string name="undo">Rückgängig</string>
     <string name="deleted">Verworfen: </string>
 
@@ -64,18 +66,18 @@
     <!-- Olaf Kirschke -->
     <string name="columncount">Anzahl Spalten</string>
     <string name="columncount_summary">Verwende 0 für automatische Anpassung</string>
-    <string name="altrcombos">Alternative Aufrufmöglichkeiten</string>
+    <string name="altrcombos">Aufrufmöglichkeiten</string>
     <string name="altrcombos_summary">Alternative Wege um die Zwischenablage zu öffnen</string>
-    <string name="double_tap">Doppel Tap</string>
+    <string name="double_tap">Doppel-Tap</string>
     <string name="tap_longtap">Tap + Langes Tap</string>
-    <string name="triple_tap">Dreifach Tap</string>
+    <string name="triple_tap">Dreifach-Tap</string>
     <string name="active_theme">Ausgewähltes Design :</string>
     <string name="save_collections">Aktuelles Design speichern</string>
     <string name="name_hint">Design Name</string>
     <string name="theme_collections">Verfügbare Designs:</string>
     <string name="theme_collections_summary">Tap für Hinzufügen\nLanges Tap für Löschen</string>
     <string name="windowsize_summary">Verwende die Linie um die Höhe zwischen Zwischenablage und Tastatur festzulegen</string>
-    
+
 
     <!-- Missing -->
     <string name="both_enabled">Sie haben beides Xposed und Accessibility aktiviert</string>
@@ -91,20 +93,46 @@
     <string name="path_xposed">(Xposed Installer>Module>Native Clip Board)</string>
     <string name="xposed_available">Sie benötigen die Modulaktivierung durch den Xposed Installer</string>
     <string name="goto_xposed">Gehen Sie zum Xposed Installer</string>
-    <string name="accessibility_available">Diese App benötigt Accessibility um eingeschaltet werden zu können</string>
+    <string name="accessibility_available">Diese App benötigt Zugriffsrechte um aktiviert werden zu können</string>
     <string name="goto_accessibility">Zu den Einstellungen gehen</string>
     <string name="doesnt_work">Diese App benötigt Xposed oder Jelly Bean 4.3 und höher</string>
     <string name="compat_conflict">Funktioniert nicht im Kompatibilitätsmodus</string>
     <string name="chromepref">Chrome (beta)</string>
     <string name="share">Teilen</string>
-    <string name="enable_xposed_toast">Aktiviere Native Clip Board, dann neustarten</string>
-    <string name="disable_xposed_toast">Deaktiviere Native Clip Board, dann neustarten</string>
-    <string name="enable_access_toast">Klick auf Native Clip Board dann einschalten</string>
-    <string name="disable_access_toast">Klick auf Native Clip Board then ausschalten</string>
+    <string name="enable_xposed_toast">Aktiviere Native Clipboard, dann neustarten</string>
+    <string name="disable_xposed_toast">Deaktiviere Native Clipboard, dann neustarten</string>
+    <string name="enable_access_toast">Klick auf Native Clipboard dann einschalten</string>
+    <string name="disable_access_toast">Klick auf Native Clipboard dann ausschalten</string>
     <string name="req_xposed">Benötigt Xposed</string>
-    <string name="access_decs">Wird benötigt um ein Doppel Tap zu erkennen und überwacht die Zwischenablage\n\n-\'Überwacht Ihre Aktionen\': um bei einen Doppel Tap zu benachrichtigen.\n-\'Fensterinhalt wiederherstellen\': um das Doppel Tap Textfeld wiederherzustellen.\n-\'Überwacht Text den Sie eingegeben haben\': Nur Home, Zuletzt und Zurück werden überwacht.</string>
-    <string name="chrome_warning">Aufgrund von Chrome Einschränkungen wird beim Einfügen eines Clips der gesamte vorherige Text im Feld ersetzt</string>
+    <string name="access_decs">Wird benötigt um ein Doppel-Tap zu erkennen und überwacht die Zwischenablage\n\n-\'Überwacht Ihre Aktionen\': um bei einen Doppel-Tap zu benachrichtigen.\n-\'Fensterinhalt wiederherstellen\': um das Doppel-Tap Textfeld wiederherzustellen.\n-\'Überwacht Text den Sie eingegeben haben\': Nur Home, Zuletzt und Zurück werden überwacht.</string>
+    <string name="chrome_warning">Aufgrund von Chrome Einschränkungen wird beim Einfügen eines Clips der <![CDATA[<b>gesamte</b>]]> vorherige Text im Feld <![CDATA[<b>ersetzt</b>]]></string>
     <string name="clipboard">Zwischenablage</string>
+
+    <string name="intro_welcome">Willkommen zu Native Clipboard</string>
+    <string name="intro_desc">Native Clipboard bietet direkten Zugang zu allen zuvor kopierten Texten/Grafiken ohne die aktuelle App verlassen zu müssen</string>
+    <string name="intro_try_it">Probieren Sie es aus</string>
+    <string name="intro_here">" hier tippen"</string>
+    <string name="backup">Sichern</string>
+    <string name="restore">Wiederherstellen</string>
+    <string name="backup_location">Speicherort</string>
+    <string name="category_backup">Sichern &amp; Wiederherstellen</string>
+
+    <string name="smart_position">Position Smarte Zwischenablage</string>
+    <string name="smart_position_summary">Positioniere die Zwischenablage auf der gegenüberliegenden Seite des Bildschirms, so dass das Textfeld nicht verdeckt ist</string>
+
+
+    <string name="intro_xposed_test">Dies auswählen oder langer Klick auf \'EINFÜGEN\'</string>
+    <string name="intro_xposed_test_m">Dies auswählen</string>
+    <string name="intro_combo_hint">\nDiese Einstellung kann auch später unter Erweiterte Einstellungen geändert werden</string>
+    <string name="intro_xposed_enable">Aktivere dieses Modul im Xposed Installer, anschließend neu starten. Dann hierher zurückkommen um dieses Tutorial fortzusetzen</string>
+    <string name="intro_compare">Vergleich</string>
+    <string name="intro_both_avl">Jedes hat seine Vor- and Nachteile, klicke unten auf den Button um das XDA Forum zu besuchen und den Vergleich anzusehen</string>
+
+    <string name="skip_button">Abbrechen</string>
+    <string name="done_button">Fertig</string>
+
+    <string name="tutorial">Tutorial</string>
+    <string name="support">Unterstützung</string>
 
 
 </resources>

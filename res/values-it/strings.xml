@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- App -->
-    <string name="app_name">Native Clip Board</string> 
+    <string name="app_name">Native Clipboard</string>
 
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Scelta Colore</string>
-    <string name="press_color_to_apply">Premi sul Colore per applicare</string>    
-    
+
     <!-- Preferences -->
     <string name="bgcolor">Colore Sfondo</string>
     <string name="clpcolor">Colore Appunti</string>
@@ -17,8 +16,7 @@
     <string name="history_summary">Scegli il numero degli elementi da mantenere nella cronologia</string>
     <string name="history_title">Dimensione Cronologia</string>
     <string name="txtsize">Dimensione Testo</string>
-    <string name="test">Testa</string>
-    
+
      <!-- Clip Board -->
     <string name="clear_all">Elimina Tutto</string>
     <string name="clear_all_conf">Eliminare tutti gli appunti?</string>

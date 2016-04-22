@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Email -->
+
+    <!-- App -->
+    <string name="app_name">Native Clipboard</string>
+    <string name="xposed_desc">Adds system wide clip manager</string>
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">παλέτα χρωμάτων </string>
+
+    <!-- Preferences -->
+    <string name="category_theme">Θέμα</string>
+    <string name="bgcolor">Χρώμα ταπετσαρίας</string>
+    <string name="clpcolor">Χρώμα σημειώματος</string>
+    <string name="clpcolor_summary">Το χρώμα πισω από τις λέξεις</string>
+    <string name="pinnedcolor">Χρώμα καρφιτσωμένων σημειωμάτων</string>
+    <string name="txtcolor">Χρώμα γραμμάτων</string>
+    <string name="category_sizes">Μεγέθη</string>
+    <string name="history_summary">Διάλεξε τον αριθμό αντικειμένων για να αποθηκεύετε στην μνήμη(Τα καρφιτσωμένα δεν μετράνε)</string>
+    <string name="history_title">Μέγεθος ιστορικού</string>
+    <string name="txtsize">Μέγεθος γραμμάτων</string>
+    <string name="uisize">Μέγεθος σημειωματάριου</string>
+    <string name="blacklist">Μαύρη λίστα</string>
+    <string name="blacklist_help">Διάλεξε τις εφαρμογές που δεν επιτρέπουν αντιγραφή (πχ. Password managers).</string>
+    <string name="add">Προσθήκη</string>
+    <string name="unknown">Άγνωστο</string>
+    <string name="help">Βοήθεια</string>
+    <string name="xda">XDA Thread</string>
+    <string name="category_advanced">Προχωρημένα</string>
+    <string name="pastefunction">Αλλαγή χρησιμότητας της επικόλλησης </string>
+    <string name="pastefunction_summary_off">Μονό κλικ : Επικόλληση\nΜεγάλο κλικ: Άνοιγμα σημειωματάριου\n*Χρειάζεται επανεκκίνηση</string>
+    <string name="pastefunction_summary_on">Μονό κλικ : Άνοιγμα σημειωματάριου\nΜεγάλο κλικ : Επικόλληση\n*Χρειάζεται επανεκκίνηση</string>
+    <string name="cbbutton">Προσθήκη κουμπιού CB</string>
+    <string name="cbbutton_summary">Προσθήκη κουμπιού CB στο μενού επιλογών\n*Requires Reboot</string>
+    <string name="singlepaste">Μονή επικόλληση</string>
+    <string name="singlepaste_summary">Κλείσιμο του σημειωματάριου αμέσως μετά την επικόλληση</string>
+    <string name="req_reboot">*Χρειάζεται επανεκκίνηση</string>
+    <string name="monitorservice">Λειτουργία συμβατότητας</string>
+    <string name="monitorservice_summary">Χρησιμοποίησε μια υπηρεσία παρασκηνίου για να παρακολουθήσεις το αντιγραμμένο κείμενο για συσκευες με MIUI και Samsung Roms\nΑπενεργοποιεί την μαύρη λίστα</string>
+    <string name="notification_title">Εμφάνιση ειδοποίησης</string>
+    <string name="notification_summary">Αυτό μπορεί να χρειάζεται για να κρατήσει την υπηρεσία ανοιχτή  (ειδικά σε συσκευές με χαμηλή RAM)</string>
+    <string name="sort">Σειρά σημειωμάτων</string>
+    <string name="newfirst">Πιο πρόσφατα πρώτα</string>
+    <string name="pinnedfirst">Καρφιτσωμένα πρώτα</string>
+    <string name="pinnedlast">Καρφιτσωμένα τελευταία</string>
+    <string name="usedefault">Χρησιμοποίηση προεπιλογών</string>
+    <string name="about">Σχετικά</string>
+    <string name="both_enabled">Έχεις και το Xposed και την Προσβασιμότητα ενεργοποιημένα</string>
+    <string name="disable_one">Παρακαλώ απενεργοποίησε ένα από τα δύο </string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">Προσβασιμότητα</string>
+    <string name="compatibility_user">Χρησιμοποιείς λειτουργία συμβατότητας</string>
+    <string name="compatibility_user_desc">Άλλαξε στην Χρησιμοποίηση προσβασιμότητας.Χρησιμοποιεί λιγότερο την RAM και ΔΕΝ χρειάζεται ειδοποιήσεις.</string>
+    <string name="enable_accessibility">Ενεργοποίηση προσβασιμότητας</string>
+    <string name="both_available">Μπορείς να χρησιμοποιήσεις είτε το Xposed είτε την Προσβασιμότητα</string>
+    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Ρυθμίσεις>Προσβασιμότητα>Native Clip Board)</string>
+    <string name="path_access">(Ρυθμίσεις>Προσβασιμότητα>Native Clip Board)</string>
+    <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
+    <string name="xposed_available">You need to enable the module through the Xposed Installer</string>
+    <string name="goto_xposed">Go to Xposed Installer</string>
+    <string name="accessibility_available">Αυτή η εφαρμογή  χρειάζεται την προσβασιμότητα ενεργοποιημένη</string>
+    <string name="goto_accessibility">Ρυθμίσεις</string>
+    <string name="doesnt_work">Η εφαρμογή χρειάζεται το Xposed ή android Jelly Bean 4.3 και άνω</string>
+    <string name="compat_conflict">Δεν δουλεύει με λειτουργία συμβατότητας</string>
+    <string name="columncount">Αριθμός στηλών</string>
+    <string name="columncount_summary">Χρησιμοποίησε το 0 για αυτόματη εισχώρηση</string>
+    <string name="altrcombos">Εναλλακτικοί συνδυασμοί</string>
+    <string name="altrcombos_summary">Εναλλακτικοί τρόποι ανοίγματος του σημειωματάριου</string>
+    <string name="double_tap">Διπλό κλικ</string>
+    <string name="tap_longtap">κλικ + Μεγάλο κλικ</string>
+    <string name="triple_tap">Τριπλό κλικ</string>
+    <string name="chromepref">Chrome (beta)</string>
+    <string name="save_collections">Αποθήκευση τωρινής συλλογής</string>
+    <string name="theme_collections">Συλλογές θεμάτων:</string>
+    <string name="theme_collections_summary">Κάνε κλικ για εφαρμογή\nΜεγάλο κλικ για διαγραφή </string>
+    <string name="active_theme">Χρησιμοποιημένες συλλογές :</string>
+    <string name="windowsize_summary">Χρησιμοποίησε την γραμμή για να ταιριάξεις το ύψος του σημειωματάριου με το ύψος του πληκτρολόγιου</string>
+
+    <!-- Clip Board -->
+    <string name="clear_all">Σβήσιμο όλων</string>
+    <string name="clear_all_conf">Σβήσιμο όλων των σημειωμάτων ;</string>
+    <string name="title_hint">Όρισε ένα τίτλο για το σημείωμα</string>
+    <string name="clip_text_hint">Λόγια σημειώματος</string>
+    <string name="pin">Καρφίτσωμα</string>
+    <string name="unpin">Ξεκαρφίτσωμα</string>
+    <string name="edit">Τροποποίηση</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="delete">Σβήσιμο</string>
+    <string name="shrink">Ελαχιστοποίηση</string>
+    <string name="share">Κοινοποίηση</string>
+
+    <!-- Toast Messages -->
+    <string name="undo">Αναίρεση</string>
+    <string name="deleted">Σβησμένα:</string>
+    <string name="enable_xposed_toast">Τσέκαρε το Native Clip Board και μετά κάνε επανεκκίνηση</string>
+    <string name="disable_xposed_toast">Ξε-Τσέκαρε το Native Clip Board και μετά κάνε επανεκκίνηση</string>
+    <string name="enable_access_toast">Κάνε κλικ στο Native Clip Board και μετά ενεργοποίησε το</string>
+    <string name="disable_access_toast">Κάνε κλικ στο  Native Clip Board και μετά απενεργοποίησε το</string>
+    <string name="req_xposed">Χρειάζεται το Xposed</string>
+
+
+    <string name="access_decs">Αυτό χρησιμοποιείται για να αντιλαμβάνεται το διπλό κλικ και να παρακολουθεί το σημειωματάριο\n\n-\'Παρακολουθεί τις πράξεις σου\':για να ενημερώνεται για το διπλό κλικ.\n-\'Ανάκτηση περιεχομένου του παραθύρου\': Για την ανάκτηση του πεδίου κειμένου στο οποίο έγινε διπλό κλικ.\n-\Παρατήρηση του κειμένου που γράφετε\': Μόνο τα κουμπιά : Home,πρόσφατα, και πίσω παρατηρούνται.</string>
+    <string name="chrome_warning">Εξ αιτίας περιορισμών του Chrome κατά την επικόλληση ενός σημειώματος ΟΛΟ το προηγούμενο κείμενο σε αυτό το πεδίο θα αντικαθιστάτε</string>
+
+
+    <string name="clipboard">Clipboard</string>
+    <string name="name_hint">Όνομα συλλογής</string>
+
+    <string name="intro_welcome">Καλωσήρθατε στο Native Clipboard</string>
+    <string name="intro_desc">Το Native Clipboard παρέχει συνεχή πρόσβαση σε όποιο κείμενο έχετε αντιγράψει χωρίς να φεύγετε από την εφαρμογή που χρησιμοποιείται</string>
+    <string name="intro_try_it">Δοκιμάστε το</string>
+    <string name="intro_here">"Εδώ"</string>
+
+    <string name="backup">Δημιουργία αντιγράφου ασφαλείας</string>
+    <string name="restore">Επαναφορά</string>
+    <string name="backup_location">Τοποθεσία αντιγράφου ασφαλείας</string>
+    <string name="category_backup">Δημιουργία αντιγράφου ασφαλείας και επαναφορά</string>
+
+    <string name="intro_xposed_test">Επέλεξε αυτό ή πάτησε παρατεταμένα σε αυτο \'Επικόλληση\'</string>
+    <string name="intro_xposed_test_m">Επέλεξε αυτό</string>
+    <string name="intro_combo_hint">\nΑυτό μπορεί να αλλάξει αργότερα στα προχωρημένα </string>
+    <string name="intro_xposed_enable">Ενεργοποιησε το δομοστοιχειο/module από το Xposed Installer,και κάνε επανεκκίνηση. Μετά έλα πίσω για να συνεχίσεις το tutorial</string>
+    <string name="intro_compare">Σύγκριση</string>
+    <string name="intro_both_avl">Το κάθε ένα έχει τα πλεονεκτήματα του και τα μειονεκτήματα του πάτα το κουμπί από κάτω για να επισκεφθείς XDA forum για να δεις την σύγκριση</string>
+    <string name="smart_position">Τοποθέτηση του Smart clipboard</string>
+    <string name="smart_position_summary">Τοποθέτησε το σημειωματάριο στην αντίθετη πλευρά της οθόνης, έτσι ώστε το πεδίο κειμένου να μην σκεπάζεται</string>
+
+    <string name="skip_button">Παράλειψη</string>
+    <string name="done_button">Τέλος</string>
+
+    <string name="tutorial">Οδηγίες</string>
+    <string name="support">Υποστήριξη</string>
+</resources>

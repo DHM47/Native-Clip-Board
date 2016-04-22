@@ -113,9 +113,9 @@
     <string name="backup">备份</string>
     <string name="restore">恢复</string>
     <string name="backup_location">备份位置</string>
-    <string name="category_backup">备份和恢复</string>
+	<string name="category_backup">备份和恢复</string>
 
-	<string name="intro_xposed_test">选择此项，或长按“粘贴”<string>
+	<string name="intro_xposed_test">选择此项，或长按“粘贴”</string>
     <string name="intro_xposed_test_m">选择此项</string>
     <string name="intro_combo_hint">\n可以稍后在高级选项中更改此设置</string>
     <string name="intro_xposed_enable">从Xposed安装器中启用本模块，重启。然后回来继续本教程。</string>

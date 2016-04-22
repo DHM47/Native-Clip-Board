@@ -6,8 +6,7 @@
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Próbnik kolorów</string>
-    <string name="press_color_to_apply">Wskaż kolor aby zastosować</string>    
-    
+
     <!-- Preferences -->
     <string name="bgcolor">Kolor tła</string>
     <string name="clpcolor">Kolor wycinka</string>
@@ -22,7 +21,6 @@
     <string name="pastefunction_summary_off">Pojedyncze kliknięcie : Wkleja\nPrzytrzymanie : Otwiera schowek\n*Wymaga restartu</string>
     <string name="pastefunction_summary_on">Pojedyncze kliknięcie : Otwiera schowek\nPrzytrzymanie : Wkleja\n*Wymaga restartu</string>
     
-    <string name="test">Test</string>
     <string name="blacklist">Czarna lista</string>
     <string name="blacklist_help">Wybierz aplikacje, które nie mogą korzystać ze schowka (np. menadżer haseł).</string>
     <string name="add">Dodaj</string>

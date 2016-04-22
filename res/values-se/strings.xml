@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--By Isak Alexander
+     Isak@kajko.se -->
 	<!-- App -->
     <string name="app_name">Native Clipboard</string>
     <string name="xposed_desc">En urklippshanterare för Android</string>

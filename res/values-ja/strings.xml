@@ -6,8 +6,7 @@
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">カラーピッカー</string>
-    <string name="press_color_to_apply">色をタップすると適用します。</string>
-    
+
     <!-- Preferences -->
     <string name="bgcolor">背景色</string>
     <string name="clpcolor">クリップ色</string>
@@ -21,7 +20,6 @@
     <string name="pastefunction">貼り付け動作の変更</string>
     <string name="pastefunction_summary_off">タップ : 貼り付け\n長押し: クリップボードを開く\n*要再起動</string>
     <string name="pastefunction_summary_on">タップ: クリップボードを開く\n長押し : 貼り付け\n*要再起動</string>
-    <string name="test">テスト</string>
     <string name="blacklist">ブラックリスト</string>
     <string name="blacklist_help">コピー履歴を残さないアプリを選んでください。(例: パスワード管理アプリ)</string>
     <string name="add">追加</string>

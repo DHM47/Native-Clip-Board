@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Email -->
+
     <!-- App -->
     <string name="app_name">Native Clipboard</string>
     <string name="xposed_desc">Agrega al sistema un gestor amplio de texto copiado</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Selector de Color</string>
-    <string name="press_color_to_apply">Presiona el Color para aplicarlo</string>
 
     <!-- Preferences -->
     <string name="category_theme">Tema</string>
@@ -26,7 +27,6 @@
     <string name="unknown">Desconocido</string>
     <string name="help">Ayuda</string>
     <string name="xda">Foro XDA</string>
-    <string name="test">Probar</string>
     <string name="category_advanced">Avanzado</string>
     <string name="pastefunction">Cambiar funcionalidad de pegado</string>
     <string name="pastefunction_summary_off">Un Solo Toque: Pegar\nManetener Toque: Abre Portapapeles\n*Requiere Reinicio</string>
@@ -95,10 +95,27 @@
 
     <string name="access_decs">Esto es usado para detectar el doble toque y monitorear el Portapapeles\n\n-\'Observa tus acciones\': para ser notificado de un doble toque.\n-\'Recuperar contenido de la ventana\': para recuperar el campo de texto con un doble toque.\n-\'Observa el texto que escribes\': Solo Inicio, Reciente y Atrás son observados.</string>
 
-    <string name="arrow">→</string>
     <string name="save_collections">Guardar Colección Actual</string>
     <string name="theme_collections">Colección de Temas:</string>
     <string name="theme_collections_summary">Toca para aplicar\nMantén presionado para borrar</string>
     <string name="active_theme">Colecciones Aplicadas:</string>
+
+    <string name="share">Compartir</string>
+
+    <string name="windowsize_summary">Utiliza la línea para que coincida la altura del portapapeles con la altura del teclado</string>
+
+    <string name="clipboard">Portapapeles</string>
+    <string name="name_hint">Nombre de la colección de temas</string>
+
+
+    <string name="intro_welcome">Bienvenido a Native clipboard</string>
+    <string name="intro_desc">Native clipboard proporciona acceso transparente a cualquier texto que usted haya copiado sin salir de su aplicación actual</string>
+    <string name="intro_try_it">Pruébalo</string>
+    <string name="intro_here">"Aquí"</string>
+
+    <string name="category_backup">Respaldo &amp; Restaurar</string>
+    <string name="backup">Respaldo</string>
+    <string name="restore">Restaurar</string>
+    <string name="backup_location">Ubicación del respaldo</string>
 
 </resources>

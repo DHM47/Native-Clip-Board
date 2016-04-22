@@ -121,5 +121,7 @@
   <string name="intro_both_avl">كلاً منهما له مميزاته, اختر المقارنه لزيارة منتدى XDA لمشاهدة الفروقات </string>
   <string name="tutorial">الإرشادات</string>
   <string name="support">الدعم</string>
+  <string name="done_button">تم</string>
+  <string name="skip_button">تخطي</string>
 
 </resources>

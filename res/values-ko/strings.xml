@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Native Clipboard</string>
+    <string name="xposed_desc">클립 매니저를 시스템 앱으로 전환</string>
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">색상 선택</string>
+
+    <!-- Preferences -->
+    <string name="category_theme">테마</string>
+    <string name="bgcolor">배경 색상</string>
+    <string name="clpcolor">클립 색상</string>
+    <string name="clpcolor_summary">텍스트 배경 색상</string>
+    <string name="pinnedcolor">고정된 클립 색상</string>
+    <string name="txtcolor">텍스트 색상</string>
+    <string name="category_sizes">크기</string>
+    <string name="history_summary">기록된 클립의 개수 지정(고정된 클립은 제외)</string>
+    <string name="history_title">기록 수</string>
+    <string name="txtsize">텍스트 크기</string>
+    <string name="uisize">클립보드 크기</string>
+    <string name="blacklist">블랙리스트</string>
+    <string name="blacklist_help">클립보드 복사를 사용하지 않을 앱을 선택합니다. (ex. Password managers).</string>
+    <string name="add">추가</string>
+    <string name="unknown">Unknown</string>
+    <string name="help">도움</string>
+    <string name="xda">XDA Thread</string>
+    <string name="category_advanced">고급 설정</string>
+    <string name="pastefunction">Switch paste functionality</string>
+    <string name="pastefunction_summary_off">한번 클릭 : 복사\n길게 클릭 : 클립보드 열기\n*재부팅 필요함</string>
+    <string name="pastefunction_summary_on">한번 클릭 : 클립보드 열기\n길게 클릭 : 복사\n*재부팅 필요함</string>
+    <string name="cbbutton">Add CB button</string>
+    <string name="cbbutton_summary">Add CB button to selection menu\n*Requires Reboot</string>
+    <string name="singlepaste">붙여넣기</string>
+    <string name="singlepaste_summary">붙여넣기 후 클립보드를 바로 닫기</string>
+    <string name="req_reboot">*재부팅 필요함</string>
+    <string name="monitorservice">호환성 모드</string>
+    <string name="monitorservice_summary">MIUI 와 삼성 롬에서 복사된 클립보드를 모니터 하기 위해 백그라운드 서비스를 사용합니다.\n*disables Blacklisting</string>
+    <string name="notification_title">알림 보기</string>
+    <string name="notification_summary">이 기능은 서비스에 앱을 상주시킬 수 있습니다.(램 용량이 부족한 기기를 위해)</string>
+    <string name="sort">클립 정렬</string>
+    <string name="newfirst">최신 순</string>
+    <string name="pinnedfirst">고정된 클립 우선</string>
+    <string name="pinnedlast">고정된 클립 뒤로</string>
+    <string name="usedefault">기본 설정으로 사용</string>
+    <string name="about">About</string>
+    <string name="both_enabled">Xposed와 접근성이 모두 활성화 되었습니다.</string>
+    <string name="disable_one">둘 중 하나를 비활성화 해주세요.</string>
+    <string name="xposed">Xposed</string>
+    <string name="accessibility">접근성</string>
+    <string name="compatibility_user">호환성 모드 사용중</string>
+    <string name="compatibility_user_desc">접근성 모드 사용으로 전환, it uses less RAM and does NOT need the Notification</string>
+    <string name="enable_accessibility">접근성 활성화</string>
+    <string name="both_available">Xposed 또는 접근성을 사용하여 이 앱을 사용할 수 있습니다.</string>
+    <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(설정>접근성>Native Clip Board)</string>
+    <string name="path_access">(설정>접근성>Native Clip Board)</string>
+    <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
+    <string name="xposed_available">Xposed Installer를 통하여 모듈을 활성화 시켜주세요.</string>
+    <string name="goto_xposed">Xposed Installer 열기</string>
+    <string name="accessibility_available">접근성 활성화가 필요합니다.</string>
+    <string name="goto_accessibility">접근성 설정으로 가기</string>
+    <string name="doesnt_work">This app requires Xposed, or Jelly Bean 4.3 and above</string>
+    <string name="compat_conflict">호환성 모드가 작동되지 않습니다.</string>
+    <string name="columncount">열 수</string>
+    <string name="columncount_summary">Use 0 for auto fit</string>
+    <string name="altrcombos">Alternative combos</string>
+    <string name="altrcombos_summary">다른 방식으로 클립보드 열기</string>
+    <string name="double_tap">더블 탭</string>
+    <string name="tap_longtap">탭 + 길게 탭</string>
+    <string name="triple_tap">세번 탭</string>
+    <string name="chromepref">Chrome (beta)</string>
+    <string name="save_collections">최근 콜렉션 저장</string>
+    <string name="theme_collections">테마 콜렉션 :</string>
+    <string name="theme_collections_summary">클릭하여 적용할 수 있습니다.\n삭제하려면 길게 클릭하세요.</string>
+    <string name="active_theme">적용된 테마:</string>
+    <string name="windowsize_summary">클립보드의 높이를 키보드 높이와 맞도록 조정할 수 있습니다.</string>
+
+    <!-- Clip Board -->
+    <string name="clear_all">모두 지우기</string>
+    <string name="clear_all_conf">모든 클립을 삭제하시겠습니까?</string>
+    <string name="title_hint">클립 제목</string>
+    <string name="clip_text_hint">내용</string>
+    <string name="pin">고정</string>
+    <string name="unpin">고정 해제</string>
+    <string name="edit">편집</string>
+    <string name="save">저장</string>
+    <string name="delete">삭제</string>
+    <string name="shrink">축소</string>
+    <string name="share">공유</string>
+
+    <!-- Toast Messages -->
+    <string name="undo">이전으로</string>
+    <string name="deleted">삭제됨: </string>
+    <string name="enable_xposed_toast">재부팅 후에 Native Clip Board를 체크함.</string>
+    <string name="disable_xposed_toast">재부팅 후에 Native Clip Board를 체크안함.</string>
+    <string name="enable_access_toast">Native Clip Board를 클릭하여 활성화해주세요.</string>
+    <string name="disable_access_toast">Native Clip Board를 클릭하여 비활성화해주세요.</string>
+    <string name="req_xposed">Xposed 필요함</string>
+
+
+    <string name="access_decs">This is used to detect the double tap and monitor the clipboard\n\n-\'Observe your actions\': to be notified of the double tap.\n-\'Retrieve window content\': to retrieve the double tapped text field.\n-\'Observe text you type\': Only Home,Recent, and back are observed.</string>
+    <string name="chrome_warning">Due to limitations in Chrome when pasting a clip ALL previous text in the field will be REPLACED</string>
+
+
+    <string name="clipboard">클립보드</string>
+    <string name="name_hint">테마 콜렉션 이름</string>
+
+
+    <string name="intro_welcome">Native clipboard에 오신 것을 환영합니다!</string>
+    <string name="intro_desc">Native clipboard는 기존 실행 중인 앱을 닫지 않고 복사한 텍스트에 원활하게 접근할 수 있게 해줍니다.</string>
+    <string name="intro_try_it">사용해보세요.</string>
+    <string name="intro_here">"을 이곳에 해보세요."</string>
+
+    <string name="backup">백업</string>
+    <string name="restore">복원</string>
+    <string name="backup_location">백업 경로</string>
+    <string name="category_backup">백업 &amp; 복원</string>
+
+    <string name="intro_xposed_test">선택 또는 길게 클릭하여 \'복사\'</string>
+    <string name="intro_xposed_test_m">이 항목 선택</string>
+    <string name="intro_combo_hint">\n고급 설정에서 나중에 변경하실 수 있습니다.</string>
+    <string name="intro_xposed_enable">Xposed Installer에서 모듈을 활성화한 후, 재부팅하신 뒤에 튜토리얼을 계속해 주십시오.</string>
+    <string name="intro_compare">비교</string>
+    <string name="intro_both_avl">밑의 버튼을 클릭하여 XDA 포럼을 방문하여 장점과 단점을 비교해 보십시오.</string>
+    <string name="smart_position">스마트 클립보드 위치지정</string>
+    <string name="smart_position_summary">텍스트가 가려지지 않게 클립보드의 위치를 화면 반대쪽에 배치합니다.</string>
+    <string name="skip_button">스킵</string>
+    <string name="done_button">마침</string>
+
+    <string name="tutorial">튜토리얼</string>
+    <string name="support">지원사항</string>
+</resources>
