@@ -156,6 +156,5 @@
     <string name="key_monitor">Övervakar hårdvaruknappar</string>
     <string name="key_monitor_summary">Övervakar knapparna Back och Home för att stänga Clipboard\nXiaomi-användare stänger av denna för enhandsandvändning</string>
     <string name="keyboard_intro_title">Tangentbord</string>
-    <string name="keyboard_intro_desc">Use a keyboard filled with your copied texts for apps where the clipboard does not open.\nFor example: Office apps, Web browsers</string>
-
+    <string name="keyboard_intro_desc">Använd ett tangentbord fyllt med dina kopierade texter i appar där urklippshanteraren inte fungerar.\nTill exempel: Microsoft Office, webbläsare.</string>
 </resources>
