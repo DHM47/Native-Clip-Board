@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--By Isak Alexander
+     isak@kajko.se -->
 	<!-- App -->
     <string name="app_name">Native Clipboard</string>
     <string name="xposed_desc">En urklippshanterare för Android</string>
@@ -129,5 +131,31 @@
     <string name="tutorial">Introduktion</string>
     <string name="support">Support</string>
 
+    <!-- New un translated strings-->
+    <string name="switchingkeyboard1">Du kan byta tangentbord genom något av dessa tre sätt:</string>
+    <string name="switchingkeyboard2">
+        1-Använd alternativet i notifikationspanelen
+        \n2-Använd knappen i det nedre högra hörnet
+        \n3-Om du använder Googles tangentbord använd jordgloben
+    </string>
+    <string name="enable_keyboard">Aktivera tangentbord</string>
+    <string name="enable_keyboard_desc">Gå till inställningarna och aktivera en av de två tangentbord och klicka sedan tillbaka</string>
+    <string name="diff_explanation">-Integrerad:\n Beter sig som ytterligare ett språk till Googles tangentbord\n(Inte rekommenderat om du har fler än ett språk aktiverat\n\n-Oberoende:\n  Beter sig som ett separat tangentbord\nAnvänd denna om du inte använder Googles tangentbord eller om du inte vill använda tangentbordet som medföljer Clipboard varje gång du byter språk i Googles tangentbord</string>
+    <string name="explain_button">Förklara skillnaden</string>
+    <string name="keyboard_help">Hjälp mig välja</string>
+    <string name="keyboard_q2">Har du fler än ett språk aktiverat ?</string>
+    <string name="keyboard_q3">Har du något emot att scrolla igenom tangentbordet som medföljer Clipboard varje gång du byter språk ?</string>
+    <string name="keyboard_q1">Vilket tangentbord använder du ?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
+    <string name="toast_integrated">Använd Integrerad</string>
+    <string name="toast_independent">Använd Oberoende</string>
+    <string name="chromepref_summary">Använd tangentbordsalternativ\nUnder Advancerat</string>
+    <string name="compat_key">Kompatibilitets tangentbord</string>
+    <string name="compat_key_summary">Låt ett tangentbord komma åt kopierad text där dubbeltryck inte fungerar</string>
+    <string name="key_monitor">Övervakar hårdvaruknappar</string>
+    <string name="key_monitor_summary">Övervakar knapparna Back och Home för att stänga Clipboard\nXiaomi-användare stänger av denna för enhandsandvändning</string>
+    <string name="keyboard_intro_title">Tangentbord</string>
+    <string name="keyboard_intro_desc">Use a keyboard filled with your copied texts for apps where the clipboard does not open.\nFor example: Office apps, Web browsers</string>
 
 </resources>
