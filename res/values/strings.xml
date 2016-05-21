@@ -147,7 +147,7 @@
     <string name="compat_key">Compatibility keyboard</string>
     <string name="compat_key_summary">Use a keyboard to access copied text, in apps where double tap doesn\'t work</string>
     <string name="key_monitor">Hardware keys monitoring</string>
-    <string name="key_monitor_summary">Monitor Back and Home to close the clipboard when clicked\nXiaomi users turn this off for one handed mode to work</string>
+    <string name="key_monitor_summary">Monitor Back and Home to close the clipboard when clicked\nMIUI users turn this off for one handed mode to work</string>
     <string name="keyboard_intro_title">Keyboard</string>
     <string name="keyboard_intro_desc">Use a keyboard filled with your copied texts for apps where the clipboard does not open.\nFor example: Office apps, Web browsers</string>
 
