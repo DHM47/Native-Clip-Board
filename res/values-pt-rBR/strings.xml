@@ -116,8 +116,33 @@
     <string name="intro_compare">Comparação</string>
     <string name="intro_both_avl">Cada um tem suas vantagens e desvantagens, clique no botão abaixo para visitar o fórum XDA e ver a comparação</string>
     <string name="smart_position">Posição da Clipboard inteligente</string>
-    <string name="smart_position_summary">Posição no lado oposto, assim o campo de texto não é coberto</string>
+    <string name="smart_position_summary">Posicionar no lado oposto, assim o campo de texto não é coberto</string>
 
     <string name="tutorial">Tutorial</string>
     <string name="support">Suporte</string>
+    <string name="switchingkeyboard1">Você pode trocar de teclado de 3 formas:</string>
+    <string name="switchingkeyboard2">
+        1-Usando o painel de notificações
+        \n2-Usando o botão na barra de navegação, no canto inferior direito da tela
+        \n3-Se estiver usando o Teclado do Google, use o botão de globo</string>
+    <string name="enable_keyboard">Ativar Teclado</string>
+    <string name="enable_keyboard_desc">Vá para as configurações e ative um dos dois teclados</string>
+    <string name="diff_explanation">-Integrated:\n  Se comporta como um idioma adicional do Teclado Google \n(Não recomendado se você usa mais de um idioma)\n\n-Independente:\n  Se comporta como um teclado adicional \nUse se você não usa o Teclado Google ou não quer passar pelo meu teclado cada vez que for mudar de idioma no Teclado Google</string>
+    <string name="explain_button">Explicar Diferença</string>
+    <string name="keyboard_help">Me ajude a escolher</string>
+    <string name="keyboard_q2">Você tem mais de um idioma no teclado?</string>
+    <string name="keyboard_q3">Se importa de passar pela área de transferência cada vez que mudar de idioma no teclado?</string>
+    <string name="keyboard_q1">Qual teclado você usa?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="toast_integrated">Usar Integrado</string>
+    <string name="toast_independent">Usar Independente</string>
+    <string name="chromepref_summary">Usar opção de teclado\nEm Avançado</string>
+    <string name="compat_key">Compatibilidade com teclado</string>
+    <string name="compat_key_summary">Usar um teclado para acessar o texto copiado, em apps onde o toque duplo não funciona</string>
+    <string name="key_monitor">Monitoramento de teclas físicas</string>
+    <string name="key_monitor_summary">Monitorar as teclas Voltar e Home para fechar a área de transferência\nUsuários da MIUI devem desativar isso para a opção de uma mão funcionar</string>
+    <string name="keyboard_intro_title">Teclado</string>
+    <string name="keyboard_intro_desc">Usar um teclado contendo seus textos copiados onde o toque duplo não funciona.\nPor exemplo: apps Office, Navegadores, etc.</string>
+
 </resources>
