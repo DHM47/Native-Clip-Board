@@ -19,7 +19,7 @@
     <string name="txtsize">Tamanho do Texto</string>
     <string name="uisize">Tamanho do Clipboard</string>
     <string name="blacklist">Lista Negra</string>
-    <string name="blacklist_help">Escolha os apps de onde não deve ser copiado (ex. Gerenciadores de senhas).</string>
+    <string name="blacklist_help">Escolha os apps onde o Clipboard não deve aparecer (ex. Gerenciadores de senhas).</string>
     <string name="add">Adicionar</string>
     <string name="unknown">Desconhecido</string>
     <string name="help">Ajuda</string>
@@ -51,18 +51,18 @@
     <string name="enable_accessibility">Ativar Acessibilidade</string>
     <string name="both_available">Você pode usar este aplicativo tanto no modo Acessibilidade quanto no modo Xposed</string>
     <string name="path_both">(Xposed Installer>Modules>Native Clip Board)\n(Configurações>Acessibilidade>Native Clip Board)</string>
-    <string name="path_access">(Configurações>Acessibilidade>Native Clip Board)</string>
-    <string name="path_xposed">(Xposed Installer>Modules>Native Clip Board)</string>
+    <string name="path_access">(Configurações>Acessibilidade>Native Clipboard)</string>
+    <string name="path_xposed">(Xposed Installer>Modules>Native Clipboard)</string>
     <string name="xposed_available">Você precisa ativar o módulo pelo Xposed Installer</string>
-    <string name="goto_xposed">Vá ao Xposed Installer</string>
-    <string name="accessibility_available">Este aplicativo necessita do modo Acessibilidade ativo</string>
-    <string name="goto_accessibility">Vá às configurações</string>
+    <string name="goto_xposed">Ir ao Xposed Installer</string>
+    <string name="accessibility_available">Este aplicativo precisa do modo Acessibilidade ativo</string>
+    <string name="goto_accessibility">Ir às configurações</string>
     <string name="doesnt_work">Este aplicativo precisa do Xposed, ou Jelly Bean 4.3 ou superior</string>
     <string name="compat_conflict">Não funciona no modo de compatibilidade</string>
     <string name="columncount">Número de Colunas</string>
     <string name="columncount_summary">0 para ajuste automático</string>
     <string name="altrcombos">Combinações alternativas</string>
-    <string name="altrcombos_summary">outros modos de abrir o clipboard</string>
+    <string name="altrcombos_summary">Outros modos de abrir o clipboard</string>
     <string name="double_tap">Toque Duplo</string>
     <string name="tap_longtap">Tocar e Segurar</string>
     <string name="triple_tap">Toque Triplo</string>
@@ -90,11 +90,34 @@
     <string name="undo">Desfazer</string>
     <string name="deleted">Deletado: </string>
     <string name="enable_xposed_toast">Selecione Clipboard e reinicie</string>
-    <string name="disable_xposed_toast">Desselecione Clipboard e reinicie</string>
+    <string name="disable_xposed_toast">Desmarque Clipboard e reinicie</string>
     <string name="enable_access_toast">Clique em Clipboard e em ativar</string>
     <string name="disable_access_toast">Clique em Clipboard e em desativar</string>
-    <string name="req_xposed">Necessita Xposed</string>
-    <string name="access_decs">Usado para monitorar toque duplo e comportamento do clipboard\n\n-\'Observar suas ações\': para ser notificado sobre o toque duplo.\n-\'Obter conteúdo da janelat\': para saber que o campo de texto recebeu toque duplo.\n-\'Observar o os botões que você toca\': Apenas Início, Voltar e Recentes são observados.</string>
+    <string name="req_xposed">Exige o Xposed</string>
+    <string name="access_decs">Usado para monitorar o toque duplo e comportamento do Clipboard\n\n-\'Observar suas ações\': para ser notificado sobre o toque duplo.\n-\'Obter conteúdo da janelat\': para saber que o campo de texto recebeu toque duplo.\n-\'Observar o os botões que você toca\': Apenas Início, Voltar e Recentes são observados.</string>
     <string name="chrome_warning">Devido à limitações no Chrome, colar fará TODO o texto no campo ser APAGADO</string>
     <string name="clipboard">Clipboard</string>
+    <!-- Update by marciozomb13 -->
+    <string name="name_hint">Nome da coleção de temas</string>
+
+    <string name="intro_welcome">Bem-vindo ao Native Clipboard</string>
+    <string name="intro_desc">O Native Clipboard fornece acesso sem igual a qualquer texto que você tenha copiado sem sair do app atual</string>
+    <string name="intro_try_it">Experimente</string>
+    <string name="intro_here">" Aqui"</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restaurar</string>
+    <string name="backup_location">Local do backup</string>
+    <string name="category_backup">Backup e Restaurar</string>
+
+    <string name="intro_xposed_test">Selecione isso ou dê um toque em \'COLAR\'</string>
+    <string name="intro_xposed_test_m">Selecionar isso</string>
+    <string name="intro_combo_hint">\nIsso pode ser mudado depois em Avançado</string>
+    <string name="intro_xposed_enable">Ative o módulo no Xposed Installer, reinicie. Então volte para continuar o tutorial</string>
+    <string name="intro_compare">Comparação</string>
+    <string name="intro_both_avl">Cada um tem suas vantagens e desvantagens, clique no botão abaixo para visitar o fórum XDA e ver a comparação</string>
+    <string name="smart_position">Posição da Clipboard inteligente</string>
+    <string name="smart_position_summary">Posição no lado oposto, assim o campo de texto não é coberto</string>
+
+    <string name="tutorial">Tutorial</string>
+    <string name="support">Suporte</string>
 </resources>
