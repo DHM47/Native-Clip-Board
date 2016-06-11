@@ -1,6 +1,6 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Clipboard</string>
+    <string name="app_name">Área de Transferência</string>
     <string name="xposed_desc">Área de transferência para seu sistema</string>
 
     <!-- Color Picker -->
@@ -17,21 +17,21 @@
     <string name="history_summary">Selecione o número de itens pada manter no histórico (fixos não contam)</string>
     <string name="history_title">Tamanho do histórico</string>
     <string name="txtsize">Tamanho do Texto</string>
-    <string name="uisize">Tamanho do Clipboard</string>
+    <string name="uisize">Tamanho da Área de Transferência</string>
     <string name="blacklist">Lista Negra</string>
-    <string name="blacklist_help">Escolha os apps onde o Clipboard não deve aparecer (ex. Gerenciadores de senhas).</string>
+    <string name="blacklist_help">Escolha os apps onde a Área de Transferência não deve aparecer (ex. Gerenciadores de senhas).</string>
     <string name="add">Adicionar</string>
     <string name="unknown">Desconhecido</string>
     <string name="help">Ajuda</string>
     <string name="xda">Tópico no XDA</string>
     <string name="category_advanced">Avançado</string>
     <string name="pastefunction">Funcionalidade do botão colar</string>
-    <string name="pastefunction_summary_off">Toque: cola\nClique longo: abre clipboard\n*Necessita Reiniciar</string>
-    <string name="pastefunction_summary_on">Toque: abre clipboard\nClique longo: cola\n*Necessita Reiniciar</string>
-    <string name="cbbutton">Botão clipboard</string>
-    <string name="cbbutton_summary">Adiciona um botão direto para o clipboard\n*Necessita Reiniciar</string>
+    <string name="pastefunction_summary_off">Toque: cola\nClique longo: abre a área de transferência\n*Necessita Reiniciar</string>
+    <string name="pastefunction_summary_on">Toque: abre a área de transferência\nClique longo: cola\n*Necessita Reiniciar</string>
+    <string name="cbbutton">Botão Área de Transferência</string>
+    <string name="cbbutton_summary">Adiciona um botão direto para a área de transferência\n*Necessita Reiniciar</string>
     <string name="singlepaste">Colar uma vez</string>
-    <string name="singlepaste_summary">Fecha o clipboard depois de colar</string>
+    <string name="singlepaste_summary">Fechar a área de Transferência depois de colar</string>
     <string name="req_reboot">*Necessita Reiniciar</string>
     <string name="monitorservice">Modo de compatibilidade</string>
     <string name="monitorservice_summary">Usa um serviço em segundo plano para monitorar o que é copiado nos sistemas MIUI e SAMSUNG\n*desativa a Lista Negra</string>
@@ -127,7 +127,7 @@
         \n3-Se estiver usando o Teclado do Google, use o botão de globo</string>
     <string name="enable_keyboard">Ativar Teclado</string>
     <string name="enable_keyboard_desc">Vá para as configurações e ative um dos dois teclados</string>
-    <string name="diff_explanation">-Integrated:\n  Se comporta como um idioma adicional do Teclado Google \n(Não recomendado se você usa mais de um idioma)\n\n-Independente:\n  Se comporta como um teclado adicional \nUse se você não usa o Teclado Google ou não quer passar pelo meu teclado cada vez que for mudar de idioma no Teclado Google</string>
+    <string name="diff_explanation">-Integrado:\n  Se comporta como um idioma adicional do Teclado Google \n(Não recomendado se você usa mais de um idioma)\n\n-Independente:\n  Se comporta como um teclado adicional \nUse se você não usa o Teclado Google ou não quer passar pelo meu teclado cada vez que for mudar de idioma no Teclado Google</string>
     <string name="explain_button">Explicar Diferença</string>
     <string name="keyboard_help">Me ajude a escolher</string>
     <string name="keyboard_q2">Você tem mais de um idioma no teclado?</string>
