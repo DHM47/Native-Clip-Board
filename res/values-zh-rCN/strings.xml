@@ -59,7 +59,6 @@
 	<string name="goto_xposed">前往Xposed安装器</string>
 	<string name="accessibility_available">这个应用需要打开无障碍服务</string>
 	<string name="goto_accessibility">前往系统设置</string>
-	<string name="doesnt_work">这个应用需要Xposed或果冻豆4.3及以上版本</string>
 	<string name="compat_conflict">无法与无障碍模式一起工作</string>
 	<string name="columncount">列数</string>
 	<string name="columncount_summary">填写0自动适应</string>
@@ -73,7 +72,8 @@
 	<string name="theme_collections">主题收藏：</string>
 	<string name="theme_collections_summary">点击应用\n长按删除</string>
 	<string name="active_theme">已应用收藏：</string>
-	<string name="windowsize_summary">用线使剪贴板的高度与键盘高度对齐</string>
+	<string name="windowsize_summary">利用辅助线使剪贴板的高度与键盘高度对齐</string>
+	<string name="doesnt_work">很遗憾，这个应用需要Xposed或果冻豆4.3及以上版本</string>
 
 		<!-- Clip Board -->
 	<string name="clear_all">全清</string>
@@ -124,5 +124,31 @@
     <string name="smart_position">智能剪贴板位置</string>
     <string name="smart_position_summary">将剪贴板放置在屏幕的另一侧，这样就不会遮挡文本域了</string>
 
+		<string name="tutorial">教程</string>
+    <string name="support">支持</string>
+    <string name="switchingkeyboard1">你可以通过三种方式中的一种切换键盘：</string>
+    <string name="switchingkeyboard2">
+        1-使用通知面板上的选项
+        \n2-使用在屏幕右下角导航栏上底部按钮
+        \n3-如果你在使用谷歌输入法，可以按地球形切换按钮</string>
+    <string name="enable_keyboard">启用键盘</string>
+    <string name="enable_keyboard_desc">前往设置，启用两个键盘中的一个，然后按返回键</string>
+    <string name="diff_explanation">-整合：\n  像谷歌输入法一样作为额外语言一样运作\n（如果你使用超过一种语言则不推荐）\n\n-独立：\n  作为单独的键盘运作\n如果你不使用谷歌输入法或不想每次在谷歌输入法中切换语言时都切一次我的键盘的话</string>
+    <string name="explain_button">差异解读</string>
+    <string name="keyboard_help">帮我拿主意</string>
+    <string name="keyboard_q2">你的输入法语言超过一种吗？</string>
+    <string name="keyboard_q3">你介意每次切换语言都切到剪贴板吗</string>
+    <string name="keyboard_q1">你用哪种键盘？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="toast_integrated">使用整合键盘</string>
+    <string name="toast_independent">使用独立键盘</string>
+    <string name="chromepref_summary">在高级设置中\n更改键盘选项</string>
+    <string name="compat_key">兼容键盘</string>
+    <string name="compat_key_summary">使用一个键盘访问已复制的文本，以解决双击模式不工作的应用。</string>
+    <string name="key_monitor">硬件按键监测</string>
+    <string name="key_monitor_summary">启用时监测返回和主屏键\nMIUI用户需关闭此选项以使单手模式正常工作</string>
+    <string name="keyboard_intro_title">键盘</string>
+    <string name="keyboard_intro_desc">在剪贴板不能打开的应用中使用一个包括你已复制文本的键盘。\n例如：办公应用、浏览器</string>
 
 </resources>
