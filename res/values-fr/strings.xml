@@ -126,6 +126,29 @@
 
     <string name="tutorial">Tutoriel</string>
     <string name="support">Support</string>
-
+    <string name="switchingkeyboard1">Vous pouvez changer le clavier en utilisant une des trois façons :</string>
+    <string name="switchingkeyboard2">
+        1-Utiliser l\'option dans le volet de notification
+        \n2-Utiliser l\'option dans la barre de navigation
+        \n3-Utiliser le bouton Globe si vous utilisez le clavier Google</string>
+    <string name="enable_keyboard">Activer clavier</string>
+    <string name="enable_keyboard_desc">Aller dans Paramètres et activer l\'un des deux claviers et appuyer sur Retour</string>
+    <string name="diff_explanation">-Intégré :\nSe comporte comme une langue supplémentaire du clavier Google\n(Non recommandé si vous avez plus d\'une langue)\n\n-Indépendant :\nSe comporte comme un clavier à part\nUtiliser cela si vous n\'utilisez pas le clavier Google ou ne voulez pas passer mon clavier à chaque fois que vous changez la langue dans le clavier Google</string>
+    <string name="explain_button">Expliquer la différence</string>
+    <string name="keyboard_help">Aider à choisir</string>
+    <string name="keyboard_q2">Avez-vous plus d\'une langue de clavier ?</string>
+    <string name="keyboard_q3">Pensez-vous passer le presse-papiers à chaque fois que vous avez besoin de changer de langue ?</string>
+    <string name="keyboard_q1">Quel clavier utilisez-vous ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="toast_integrated">Utiliser Intégré</string>
+    <string name="toast_independent">Utiliser Indépendant</string>
+    <string name="chromepref_summary">Utiliser l\'option\nClavier dans Avancé</string>
+    <string name="compat_key">Compatibilité clavier</string>
+    <string name="compat_key_summary">Utiliser un clavier pour accéder au texte copié dans les applications où l\'appui double ne fonctionne pas</string>
+    <string name="key_monitor">Boutons physiques</string>
+    <string name="key_monitor_summary">Surveiller Retour et Accueil pour fermer le presse-papiers lorsque appuyé\nDésactiver cette option sur les Roms MIUI pour que le mode Une main fonctionne</string>
+    <string name="keyboard_intro_title">Clavier</string>
+    <string name="keyboard_intro_desc">Utilisez un clavier contenant vos textes copiés pour les applications où le presse-papiers ne peut pas s\'ouvrir.\nExemple : les applications Office, les navigateurs Internet</string>
     
 </resources>
